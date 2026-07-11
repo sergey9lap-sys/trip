@@ -4458,3 +4458,269 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
  .diary-project-reveal{width:88vw;height:72vh}
  .artifact-close{width:34px!important;height:34px!important;font-size:24px!important}
 }
+
+/* --------------------------------------------------------------------------
+   Mobile composition — one authoritative layer after all desktop iterations.
+   Landscape bitmaps keep their proportions; each scene receives its own crop.
+   -------------------------------------------------------------------------- */
+@media (max-width: 760px) {
+  html { scroll-behavior: auto; overflow-x: hidden; }
+  body { width: 100%; overflow-x: hidden; overscroll-behavior-y: none; }
+
+  main > section,
+  main > section:not(.hero),
+  .second-pass-archive {
+    width: 100%;
+    min-height: 100dvh;
+    height: 100dvh;
+    margin-top: 0 !important;
+    overflow: hidden;
+    contain: layout paint;
+    contain-intrinsic-size: 100dvh;
+  }
+
+  .hero-scene,
+  .training-level__scene,
+  .discovery-level__scene,
+  .rules-level__scene,
+  .astrolabe3d__scene,
+  .diary-interlude__scene,
+  .expedition-objects__scene,
+  .late-scene,
+  .second-pass-archive__scene {
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transform: none !important;
+    animation: none !important;
+    -webkit-mask-image: none !important;
+    mask-image: none !important;
+  }
+
+  /* Stable scene crops: keep the interactive subject in the phone viewport. */
+  .hero-scene { object-position: 69% center !important; }
+  .training-level__scene { object-position: 67% center !important; }
+  .discovery-level__scene { object-position: 35% center !important; }
+  .rules-level__scene { object-position: 54% center !important; }
+  .astrolabe3d__scene { object-position: 59% center !important; }
+  .diary-interlude__scene { object-position: 28% center !important; }
+  .expedition-objects__scene { object-position: 44% center !important; }
+  .explorer-section .late-scene { object-position: 37% center !important; }
+  .compass-section .late-scene { object-position: 55% center !important; }
+  .trial-section .late-scene { object-position: 49% center !important; }
+  .author-section .late-scene { object-position: 38% center !important; }
+  .connected-section .late-scene { object-position: 50% center !important; }
+  .finale-section .late-scene { object-position: 64% center !important; }
+  .second-pass-archive__scene { object-position: 33% center !important; }
+
+  /* Remove expensive perpetual movement and filter churn on touch devices. */
+  .hero-light,
+  .rules-route-point,
+  .system-pulse,
+  .discovery-photo::after,
+  .continuous-journey,
+  main::after { animation: none !important; }
+  .hero-scene,
+  .late-scene,
+  .second-pass-archive__scene { filter: none; }
+
+  /* Compact mobile route: current chapter stays visible without covering art. */
+  .journey-tracker {
+    top: 12px;
+    right: 10px;
+    bottom: auto;
+    width: auto;
+    min-width: 58px;
+    max-height: none;
+    padding: 8px 10px;
+    border-radius: 24px;
+    background: rgba(5, 3, 7, .76);
+    backdrop-filter: blur(8px);
+  }
+  .journey-tracker__eyebrow,
+  .journey-tracker__current,
+  .journey-tracker__route,
+  .journey-tracker__steps { display: none; }
+  .journey-tracker__count { margin: 0; font-size: 9px; letter-spacing: .08em; }
+
+  /* Readable title zones, separated from the main scene subject. */
+  .hero-copy {
+    align-items: start;
+    width: 100%;
+    min-height: auto;
+    padding: 62px 18px 0;
+  }
+  .hero h1 {
+    width: 88%;
+    max-width: 390px;
+    font-size: clamp(36px, 11.2vw, 52px);
+    line-height: .96;
+  }
+  .hero-shadow {
+    background: linear-gradient(180deg,rgba(2,2,7,.88) 0%,rgba(2,2,7,.54) 34%,transparent 62%,rgba(2,2,7,.35) 100%);
+  }
+
+  .training-level__intro,
+  .discovery-level__intro,
+  .rules-level__title-paper,
+  .astrolabe3d__paper-title,
+  .expedition-objects__copy,
+  .late-copy,
+  .trial-copy,
+  .finale-copy,
+  .second-pass-archive__copy {
+    left: 18px !important;
+    right: 68px !important;
+    top: 54px !important;
+    width: auto !important;
+    max-width: none !important;
+    padding: 0 !important;
+    text-align: left !important;
+  }
+  .training-level__intro h2,
+  .discovery-level__intro h2,
+  .rules-level__title-paper h2,
+  .astrolabe3d__paper-title h2,
+  .expedition-objects__copy h2,
+  .late-copy h2,
+  .trial-copy h2,
+  .finale-copy h2,
+  .second-pass-archive__copy h2 {
+    font-size: clamp(31px, 9.5vw, 43px) !important;
+    line-height: .98 !important;
+    text-wrap: balance;
+  }
+  .training-level__intro p,
+  .astrolabe3d__paper-title p,
+  .expedition-objects__copy p,
+  .late-copy p,
+  .finale-copy p,
+  .second-pass-archive__copy p {
+    max-width: 88% !important;
+    margin-top: 12px !important;
+    font-size: 13px !important;
+    line-height: 1.32 !important;
+  }
+  .late-kicker { margin-bottom: 9px; font-size: 8px; }
+
+  /* Core interaction positions, calibrated to the mobile crops above. */
+  .training-item--folder { left: 39%; right: auto; top: 53%; width: 56%; height: 24%; }
+  .training-photo { left: 69%; right: auto; top: 75%; width: 23%; }
+  .tutorial-callout--folder { left: 47%; right: auto; top: 55%; max-width: 120px; }
+  .tutorial-callout--photo { left: 57%; right: auto; top: 79%; max-width: 130px; }
+  .tutorial-callout__text { font-size: 8px; }
+  .training-note { left: 5%; right: 5%; top: 31%; width: 90%; padding: 48px 28px 30px; }
+
+  .discovery-photo { left: 17% !important; top: 58%; width: 30vw; }
+  .archive-mark { left: 27% !important; top: 54% !important; width: 11% !important; min-width: 42px; min-height: 42px; }
+  .archive-prototype-hit { left: 17%; top: 48%; width: 55%; height: 27%; }
+  .archive-milka-hit { left: 30%; top: 54%; width: 30%; height: 18%; }
+
+  .rules-photo { left: 3%; top: 76%; width: 34%; min-height: 80px; }
+  .rules-note-object { right: 2%; top: 67%; width: 31%; min-height: 92px; }
+  .rules-globe { left: 49%; top: 58%; width: 29%; min-width: 54px; min-height: 54px; }
+
+  .astrolabe3d__artifact { left: 8%; top: 42%; width: 84%; height: 51%; }
+  .astrolabe3d__response { left: 10%; right: 10%; top: auto; bottom: 7%; width: auto; text-align: center; }
+
+  .diary-entry,
+  .second-journey .diary-entry {
+    left: 8% !important;
+    top: 60% !important;
+    width: 42% !important;
+  }
+  .diary-entry h2,
+  .second-journey .diary-entry h2 { font-size: 17px !important; }
+  .diary-entry p,
+  .second-journey .diary-entry p { font-size: 8px !important; line-height: 1.22 !important; }
+  .diary-margin-note,
+  .second-journey .diary-margin-note { left: 54%; top: 69%; width: 33%; font-size: 7px; }
+  .diary-project-hit { left: 51%; top: 57%; width: 38%; height: 22%; }
+
+  .camp-case { left: 1%; top: 33%; width: 48%; height: 25%; }
+  .camp-map-symbol { left: 28%; top: 49%; width: 43%; height: 24%; }
+  .camp-stone { left: 56%; top: 75%; width: 32%; min-width: 54px; min-height: 54px; }
+  .sound-relic--guitar { left: 0; top: 44%; width: 48%; height: 46%; }
+
+  .compass-awaken { top: 65%; width: 132px; height: 132px; }
+  .compass-canvas { top: 65%; width: 100vw; height: 100vw; }
+  .family-photo-hit { left: 61%; top: 64%; width: 39%; height: 30%; }
+
+  .trial-target--stone { left: 4%; top: 66%; width: 31%; min-height: 64px; }
+  .trial-target--lever { right: 0; top: 31%; width: 30%; height: 29%; }
+  .trial-target--route { right: 1%; top: 55%; width: 42%; height: 26%; }
+  .trial-action-note { bottom: 6%; width: 82%; text-align: center; }
+  .bridge-cinematic img { object-position: center; }
+
+  .author-project { left: 3% !important; top: 30% !important; width: 48% !important; height: 29% !important; }
+  .author-3d-hit { left: 4%; top: 58%; width: 38%; height: 23%; }
+  .archive-film { left: 5%; top: 67%; width: 40%; height: 25%; }
+
+  .system-core { left: 50%; top: 45%; width: 42%; height: 38%; transform: translateX(-50%); }
+  .final-marker { right: 5% !important; bottom: 5% !important; width: 46% !important; height: 25% !important; }
+
+  .record-player-hit { left: 0; top: 38%; width: 75%; height: 41%; }
+  .y6one-hit { left: 34%; top: 58%; width: 31%; height: 12%; }
+  .mila-hit { left: 0; top: 64%; width: 38%; height: 29%; }
+
+  /* Mobile overlays must fit and scroll internally instead of resizing page. */
+  .training-note,
+  .family-photo-reveal,
+  .barcelona-note,
+  .mila-note,
+  .author-draft,
+  .author-project-reveal,
+  .author-3d-reveal,
+  .diary-project-reveal,
+  .final-letter {
+    position: absolute !important;
+    left: 4% !important;
+    right: 4% !important;
+    top: 50% !important;
+    width: 92% !important;
+    max-width: none !important;
+    max-height: 84dvh !important;
+    overflow: auto !important;
+    transform: translateY(-50%) scale(.97) !important;
+  }
+  .family-photo-reveal,
+  .training-note.is-visible,
+  .mila-note.is-visible,
+  .barcelona-note.is-visible,
+  .author-project-reveal.is-visible,
+  .author-3d-reveal.is-visible,
+  .diary-project-reveal.is-visible,
+  .is-letter-open .final-letter,
+  .is-open .author-draft {
+    transform: translateY(-50%) scale(1) !important;
+  }
+  .author-project-reveal > div { position: relative; left: auto; right: auto; bottom: auto; margin-top: -2px; }
+  .final-letter > div { padding: 11% 8%; }
+  .final-letter p { max-width: 82%; font-size: 13px; }
+  .mila-note { aspect-ratio: auto; min-height: 72dvh; }
+  .mila-note > div { padding: 13% 8% 8%; }
+  .mila-note p { max-width: 96%; font-size: 12px; }
+  .diary-project-reveal { height: 80dvh !important; }
+
+  .artifact-close {
+    position: sticky !important;
+    float: right;
+    right: 8px !important;
+    top: 8px !important;
+    width: 40px !important;
+    height: 40px !important;
+  }
+}
+
+@media (max-width: 380px) {
+  .hero h1 { font-size: 34px; }
+  .training-level__intro h2,
+  .discovery-level__intro h2,
+  .rules-level__title-paper h2,
+  .astrolabe3d__paper-title h2,
+  .expedition-objects__copy h2,
+  .late-copy h2,
+  .trial-copy h2,
+  .finale-copy h2,
+  .second-pass-archive__copy h2 { font-size: 29px !important; }
+}
