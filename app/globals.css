@@ -8,6 +8,57 @@
   --ink: #efe0cd;
 }
 
+/* Mobile art direction v2: portrait scenes and stable geometry. */
+@media (max-width: 760px) {
+  html, body { scroll-behavior: auto !important; }
+  body { overflow-anchor: none; }
+  main > section, main > section:not(.hero), .second-pass-archive {
+    display: block !important;
+    min-height: 100svh !important;
+    height: 100svh !important;
+    content-visibility: visible !important;
+    contain: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    transform: none !important;
+  }
+  main > section > picture, .second-pass-archive > picture {
+    position: absolute; inset: 0; display: block; width: 100%; height: 100%;
+  }
+  .hero-scene, .training-level__scene, .discovery-level__scene,
+  .rules-level__scene, .astrolabe3d__scene, .diary-interlude__scene {
+    object-fit: cover !important;
+    object-position: 50% 50% !important;
+  }
+  .hero-copy { padding: max(70px, env(safe-area-inset-top)) 20px 0 !important; }
+  .hero h1 { width: min(88vw, 390px) !important; font-size: clamp(35px, 10.8vw, 48px) !important; line-height: .98 !important; }
+  .hero-note { left: 62.5% !important; top: 64.3% !important; width: 24% !important; min-width: 0 !important; font-size: clamp(5px, 1.45vw, 7px) !important; line-height: 1.15 !important; transform: rotate(1.5deg) !important; }
+  .hero-note-arrow { margin-top: 2px !important; font-size: 14px !important; }
+  .training-level__intro, .discovery-level__intro, .rules-level__title-paper, .astrolabe3d__paper-title {
+    top: max(64px, env(safe-area-inset-top)) !important; left: 20px !important; right: 58px !important;
+  }
+  .training-item--folder { left: 43% !important; top: 70% !important; width: 40% !important; height: 18% !important; }
+  .training-photo { left: 72% !important; top: 79% !important; width: 22% !important; }
+  .tutorial-callout--folder { left: 47% !important; top: 70% !important; }
+  .tutorial-callout--photo { left: 59% !important; top: 82% !important; }
+  .finding--training-lantern { left: 27% !important; top: 54% !important; width: 22% !important; height: 20% !important; }
+  .discovery-photo { left: 28% !important; top: 60% !important; width: 25vw !important; }
+  .archive-mark { left: 39% !important; top: 61% !important; width: 13% !important; }
+  .finding--discovery-lamp { left: 0 !important; top: 47% !important; width: 19% !important; height: 23% !important; }
+  .rules-photo { left: 4% !important; top: 76% !important; width: 31% !important; }
+  .rules-note-object { right: 1% !important; top: 70% !important; width: 27% !important; }
+  .rules-globe { left: 43% !important; top: 58% !important; width: 25% !important; }
+  .finding--rules-scroll { right: 0 !important; top: 68% !important; width: 26% !important; height: 23% !important; }
+  .astrolabe3d__artifact { left: 8% !important; top: 48% !important; width: 84% !important; height: 43% !important; }
+  .finding--astrolabe-case { left: 0 !important; top: 55% !important; width: 24% !important; height: 25% !important; }
+  .diary-entry, .second-journey .diary-entry { left: 12% !important; top: 71.5% !important; width: 34% !important; transform: rotate(.8deg) !important; }
+  .diary-entry h2, .second-journey .diary-entry h2 { font-size: clamp(13px, 3.8vw, 17px) !important; }
+  .diary-entry p, .second-journey .diary-entry p { font-size: clamp(5px, 1.5vw, 7px) !important; line-height: 1.22 !important; }
+  .diary-margin-note, .second-journey .diary-margin-note { left: 52% !important; top: 79% !important; width: 29% !important; font-size: clamp(5px, 1.35vw, 7px) !important; transform: rotate(-1deg) !important; }
+  .finding--diary-lantern { left: 0 !important; top: 43% !important; width: 27% !important; height: 27% !important; }
+  .journey-tracker { position: fixed !important; }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -3770,6 +3821,51 @@ main > section:not(.hero) { min-height: 108vh; min-height: 108svh; margin-top: -
   .final-letter p{max-width:78%;font-size:14px;}
 }
 
+/* Hard performance budget: effects settle once and fully stop off-screen. */
+main > section *,
+main > section::before,
+main > section::after{animation-iteration-count:1!important}
+.journey-ready main > section:not(.is-current-view),
+.journey-ready main > section:not(.is-current-view) *,
+.journey-ready main > section:not(.is-current-view)::before,
+.journey-ready main > section:not(.is-current-view)::after,
+.page-hidden *,
+.page-hidden *::before,
+.page-hidden *::after{animation-play-state:paused!important}
+.hero-scene,
+.training-level__scene,
+.discovery-level__scene,
+.rules-level__scene,
+.astrolabe3d__scene,
+.diary-interlude__scene,
+.expedition-objects__scene,
+.late-scene,
+.second-pass-archive__scene{filter:none!important}
+.journey-tracker{backdrop-filter:none!important;-webkit-backdrop-filter:none!important}
+.second-pass-active main::after{display:none!important}
+
+/* Persistent archive of discoveries — text-only and inert while closed. */
+.found-archive-trigger{position:fixed;z-index:80;left:18px;bottom:18px;display:flex;align-items:center;gap:10px;padding:10px 13px;color:#ead9ca;border:1px solid rgba(224,47,117,.34);border-radius:999px;background:rgba(5,3,7,.88);box-shadow:0 10px 28px rgba(0,0,0,.42);cursor:pointer}
+.found-archive-trigger span{font:700 9px/1 "Courier New",monospace;letter-spacing:.12em;text-transform:uppercase}
+.found-archive-trigger strong{color:#fccbf0;font:700 10px/1 "Courier New",monospace}
+.found-archive{position:fixed;z-index:120;left:50%;top:50%;width:min(720px,86vw);max-height:82vh;padding:clamp(28px,4vw,54px);overflow:auto;color:#ead9ca;border:1px solid rgba(252,203,240,.18);background:linear-gradient(145deg,rgba(14,8,18,.98),rgba(5,12,56,.98));box-shadow:0 44px 100px rgba(0,0,0,.8);transform:translate(-50%,-50%)}
+.found-archive>small{color:#ff5a57;font:700 9px/1 "Courier New",monospace;letter-spacing:.15em;text-transform:uppercase}
+.found-archive h2{margin:14px 0 10px;font:500 clamp(34px,4vw,58px)/1 Georgia,serif}
+.found-archive>p{max-width:560px;margin:0 0 26px;color:rgba(239,224,205,.7);font:500 15px/1.5 Georgia,serif}
+.found-archive ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0;padding:0;list-style:none}
+.found-archive li button{width:100%;min-height:112px;padding:17px;color:#ead9ca;border:1px solid rgba(252,203,240,.11);background:rgba(255,255,255,.025);text-align:left;cursor:pointer;transition:border-color .2s ease,background .2s ease}
+.found-archive li button:hover{border-color:rgba(224,47,117,.42);background:rgba(103,0,163,.12)}
+.found-archive li span,.found-archive li small{display:block;color:#e02f75;font:700 8px/1.3 "Courier New",monospace;letter-spacing:.1em;text-transform:uppercase}
+.found-archive li strong{display:block;margin:9px 0 13px;font:600 17px/1.15 Georgia,serif}
+.found-archive li small{color:rgba(252,203,240,.62);text-transform:none}
+@media(max-width:760px){
+ .found-archive-trigger{left:10px;bottom:10px;padding:9px 11px}
+ .found-archive-trigger span{display:none}
+ .found-archive{width:94vw;max-height:88svh;padding:48px 18px 22px}
+ .found-archive ol{grid-template-columns:1fr}
+ .found-archive li button{min-height:96px}
+}
+
 /* Second-pass distribution, precise physical hit areas and thermal budget. */
 .journey-ready main > section:not(.is-current-view) *,
 .journey-ready main > section:not(.is-current-view)::before,
@@ -4471,12 +4567,13 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
   main > section:not(.hero),
   .second-pass-archive {
     width: 100%;
-    min-height: 100dvh;
-    height: 100dvh;
+    min-height: 100svh;
+    height: 100svh;
     margin-top: 0 !important;
     overflow: hidden;
-    contain: layout paint;
-    contain-intrinsic-size: 100dvh;
+    contain: none;
+    contain-intrinsic-size: auto;
+    content-visibility: visible;
   }
 
   .hero-scene,
@@ -4493,6 +4590,8 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
     height: 100%;
     transform: none !important;
     animation: none !important;
+    opacity: 1 !important;
+    visibility: visible !important;
     -webkit-mask-image: none !important;
     mask-image: none !important;
   }
@@ -4663,8 +4762,10 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
   .y6one-hit { left: 34%; top: 58%; width: 31%; height: 12%; }
   .mila-hit { left: 0; top: 64%; width: 38%; height: 29%; }
 
-  /* Mobile overlays must fit and scroll internally instead of resizing page. */
+  /* A single viewport-bound viewer prevents opened materials from resizing a scene. */
   .training-note,
+  .hidden-finding-note,
+  .found-archive,
   .family-photo-reveal,
   .barcelona-note,
   .mila-note,
@@ -4673,13 +4774,14 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
   .author-3d-reveal,
   .diary-project-reveal,
   .final-letter {
-    position: absolute !important;
+    position: fixed !important;
+    z-index: 140 !important;
     left: 4% !important;
     right: 4% !important;
     top: 50% !important;
     width: 92% !important;
     max-width: none !important;
-    max-height: 84dvh !important;
+    max-height: 84svh !important;
     overflow: auto !important;
     transform: translateY(-50%) scale(.97) !important;
   }
@@ -4697,18 +4799,31 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
   .author-project-reveal > div { position: relative; left: auto; right: auto; bottom: auto; margin-top: -2px; }
   .final-letter > div { padding: 11% 8%; }
   .final-letter p { max-width: 82%; font-size: 13px; }
-  .mila-note { aspect-ratio: auto; min-height: 72dvh; }
+  .mila-note { aspect-ratio: auto; min-height: 72svh; }
   .mila-note > div { padding: 13% 8% 8%; }
   .mila-note p { max-width: 96%; font-size: 12px; }
-  .diary-project-reveal { height: 80dvh !important; }
+  .diary-project-reveal { height: 80svh !important; }
 
   .artifact-close {
-    position: sticky !important;
-    float: right;
-    right: 8px !important;
-    top: 8px !important;
+    position: absolute !important;
+    float: none;
+    right: 12px !important;
+    top: 12px !important;
     width: 40px !important;
     height: 40px !important;
+  }
+}
+
+@media (max-width: 760px) {
+  /* Safari must never virtualize or fade a scene into view. */
+  main > section:not(.hero) {
+    content-visibility: visible !important;
+    contain-intrinsic-size: auto !important;
+  }
+
+  body:has(.training-note, .hidden-finding-note, .found-archive, .family-photo-reveal, .barcelona-note.is-visible, .mila-note.is-visible, .author-section.is-open .author-draft, .author-project-reveal.is-visible, .author-3d-reveal.is-visible, .diary-project-reveal.is-visible, .is-letter-open .final-letter) {
+    overflow: hidden;
+    touch-action: none;
   }
 }
 
@@ -4723,4 +4838,92 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
   .trial-copy h2,
   .finale-copy h2,
   .second-pass-archive__copy h2 { font-size: 29px !important; }
+}
+
+/* Hidden findings: hit areas are free; the raster paper mounts only when opened. */
+.hidden-finding-hit{appearance:none;position:absolute;z-index:8;min-width:34px;min-height:34px;padding:0;border:0;background:transparent;cursor:pointer}
+.hidden-finding-note{position:absolute;z-index:30;left:50%;top:52%;width:min(48vw,760px);aspect-ratio:1.5;overflow:hidden;transform:translate(-50%,-50%) rotate(-1deg);animation:hiddenFindingIn .42s ease both}
+.hidden-finding-note>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:drop-shadow(0 34px 58px rgba(0,0,0,.75))}
+.hidden-finding-note>div{position:relative;z-index:1;padding:9% 11%;color:#2b1b13}
+.hidden-finding-note small{display:block;margin-bottom:12px;font:700 9px/1 "Courier New",monospace;letter-spacing:.14em;text-transform:uppercase}
+.hidden-finding-note h3{max-width:78%;margin:0 0 16px;font:700 clamp(22px,2.2vw,36px)/1.05 Georgia,serif}
+.hidden-finding-note p{max-width:78%;margin:0;font:600 clamp(13px,1.05vw,17px)/1.45 Georgia,serif}
+@keyframes hiddenFindingIn{from{opacity:0;transform:translate(-50%,-46%) rotate(-1deg) scale(.96)}to{opacity:1;transform:translate(-50%,-50%) rotate(-1deg) scale(1)}}
+
+.finding--hero-globe{left:1%;top:24%;width:14%;height:35%}
+.finding--training-lantern{left:35%;top:24%;width:14%;height:30%}
+.finding--discovery-lamp{left:1%;top:30%;width:13%;height:27%}
+.finding--rules-scroll{right:1%;top:62%;width:14%;height:27%}
+.finding--astrolabe-case{left:4%;top:65%;width:22%;height:25%}
+.finding--diary-lantern{left:0;top:13%;width:13%;height:42%}
+.finding--objects-instrument{right:3%;top:55%;width:18%;height:30%}
+.finding--explorer-binoculars{left:1%;top:47%;width:16%;height:23%}
+.finding--compass-dome{right:4%;top:14%;width:19%;height:34%}
+.finding--trial-vessel{right:1%;top:61%;width:13%;height:27%}
+.finding--author-right-cabinet{right:4%;top:34%;width:19%;height:43%}
+.finding--connected-card{right:6%;top:59%;width:18%;height:20%}
+.finding--final-compass{left:66%;top:69%;width:13%;height:19%}
+.finding--listening-envelope{right:4%;top:68%;width:23%;height:22%}
+
+@media(max-width:760px){
+ .hidden-finding-hit{min-width:48px;min-height:48px}
+ .hidden-finding-note{position:fixed!important;z-index:140!important;left:4%;right:4%;top:50%;width:92%;max-height:82svh;aspect-ratio:auto;min-height:58svh;overflow:auto;transform:translateY(-50%) rotate(-1deg)}
+ .hidden-finding-note>div{padding:15% 9% 10%}
+ .hidden-finding-note h3{max-width:88%;font-size:24px}
+ .hidden-finding-note p{max-width:92%;font-size:13px}
+ @keyframes hiddenFindingIn{from{opacity:0;transform:translateY(-46%) rotate(-1deg) scale(.96)}to{opacity:1;transform:translateY(-50%) rotate(-1deg) scale(1)}}
+ .finding--hero-globe{left:0;top:40%;width:31%;height:27%}
+ .finding--training-lantern{left:11%;top:38%;width:30%;height:24%}
+ .finding--discovery-lamp{left:0;top:42%;width:27%;height:24%}
+ .finding--rules-scroll{right:0;top:67%;width:31%;height:24%}
+ .finding--astrolabe-case{left:0;top:70%;width:35%;height:21%}
+ .finding--diary-lantern{left:0;top:26%;width:28%;height:30%}
+ .finding--objects-instrument{right:0;top:62%;width:35%;height:26%}
+ .finding--explorer-binoculars{left:0;top:55%;width:32%;height:21%}
+ .finding--compass-dome{right:0;top:29%;width:37%;height:27%}
+ .finding--trial-vessel{right:0;top:66%;width:27%;height:23%}
+ .finding--author-right-cabinet{right:0;top:45%;width:33%;height:31%}
+ .finding--connected-card{right:0;top:64%;width:33%;height:22%}
+ .finding--final-compass{left:52%;top:72%;width:27%;height:18%}
+ .finding--listening-envelope{right:0;top:71%;width:38%;height:19%}
+}
+
+/* Final mobile calibration; kept last so legacy desktop-era overrides cannot win. */
+@media (max-width:760px){
+ main>section,main>section:not(.hero),.second-pass-archive{display:block!important;height:100svh!important;min-height:100svh!important;content-visibility:visible!important;contain:none!important;opacity:1!important;visibility:visible!important;transform:none!important}
+ main>section>picture,.second-pass-archive>picture{position:absolute;inset:0;display:block;width:100%;height:100%}
+ .hero-scene,.training-level__scene,.discovery-level__scene,.rules-level__scene,.astrolabe3d__scene,.diary-interlude__scene{object-fit:cover!important;object-position:50% 50%!important;opacity:1!important;visibility:visible!important;transform:none!important;animation:none!important}
+ .hero-copy{padding:max(70px,env(safe-area-inset-top)) 20px 0!important}.hero h1{width:min(88vw,390px)!important;font-size:clamp(35px,10.8vw,48px)!important;line-height:.98!important}
+ .hero-note{left:62.5%!important;top:64.3%!important;width:24%!important;min-width:0!important;font-size:clamp(5px,1.45vw,7px)!important;line-height:1.15!important;transform:rotate(1.5deg)!important}.hero-note-arrow{margin-top:2px!important;font-size:14px!important}
+ .training-level__intro,.discovery-level__intro,.rules-level__title-paper,.astrolabe3d__paper-title{top:max(64px,env(safe-area-inset-top))!important;left:20px!important;right:58px!important}
+ .training-item--folder{left:43%!important;top:70%!important;width:40%!important;height:18%!important}.training-photo{left:72%!important;top:79%!important;width:22%!important}.tutorial-callout--folder{left:47%!important;top:70%!important}.tutorial-callout--photo{left:59%!important;top:82%!important}.finding--training-lantern{left:27%!important;top:54%!important;width:22%!important;height:20%!important}
+ .discovery-photo{left:28%!important;top:60%!important;width:25vw!important}.archive-mark{left:39%!important;top:61%!important;width:13%!important}.finding--discovery-lamp{left:0!important;top:47%!important;width:19%!important;height:23%!important}
+ .rules-photo{left:4%!important;top:76%!important;width:31%!important}.rules-note-object{right:1%!important;top:70%!important;width:27%!important}.rules-globe{left:43%!important;top:58%!important;width:25%!important}.finding--rules-scroll{right:0!important;top:68%!important;width:26%!important;height:23%!important}
+ .astrolabe3d__artifact{left:8%!important;top:48%!important;width:84%!important;height:43%!important}.finding--astrolabe-case{left:0!important;top:55%!important;width:24%!important;height:25%!important}
+ .diary-entry,.second-journey .diary-entry{left:12%!important;top:71.5%!important;width:34%!important;transform:rotate(.8deg)!important}.diary-entry h2,.second-journey .diary-entry h2{font-size:clamp(13px,3.8vw,17px)!important}.diary-entry p,.second-journey .diary-entry p{font-size:clamp(5px,1.5vw,7px)!important;line-height:1.22!important}.diary-margin-note,.second-journey .diary-margin-note{left:52%!important;top:79%!important;width:29%!important;font-size:clamp(5px,1.35vw,7px)!important;transform:rotate(-1deg)!important}.finding--diary-lantern{left:0!important;top:43%!important;width:27%!important;height:27%!important}
+}
+
+/* Mobile phase 4: fixed viewport, complete late-route calibration and stable overlays. */
+@media(max-width:760px){
+ html,body{overflow-anchor:none!important;scroll-snap-type:none!important}
+ main>section,main>section:not(.hero),.second-pass-archive{height:var(--mobile-scene-height,100svh)!important;min-height:var(--mobile-scene-height,100svh)!important;max-height:var(--mobile-scene-height,100svh)!important}
+ main>section::after,main>section::before{animation:none!important;transition:none!important}
+ .journey-ready main>section:not(.hero)::after{display:none!important}
+ body:has(.training-note,.hidden-finding-note,.found-archive,.family-photo-reveal,.barcelona-note.is-visible,.mila-note.is-visible,.author-section.is-open .author-draft,.author-project-reveal.is-visible,.author-3d-reveal.is-visible,.diary-project-reveal.is-visible,.is-letter-open .final-letter){overflow-x:hidden!important;overflow-y:auto!important;touch-action:pan-y!important}
+
+ .astrolabe3d__artifact--bitmap{left:19%!important;top:37%!important;width:62%!important;height:48%!important;border:0!important;background:transparent!important;box-shadow:none!important;transform:none!important}
+ .astrolabe3d__artifact--bitmap::before,.astrolabe3d__artifact--bitmap::after{display:none!important}
+ .astrolabe3d.is-active .astrolabe3d__scene{filter:saturate(1.08) brightness(1.06)!important}
+
+ .expedition-flute{left:0!important;top:65%!important;width:46%!important;height:21%!important}.finding--objects-instrument{left:48%!important;right:auto!important;top:64%!important;width:30%!important;height:20%!important}
+ .camp-case{left:10%!important;top:53%!important;width:45%!important;height:18%!important}.camp-map-symbol{left:32%!important;top:61%!important;width:53%!important;height:25%!important}.camp-stone{left:69%!important;top:78%!important;width:25%!important;height:14%!important}.sound-relic--guitar{left:0!important;top:62%!important;width:53%!important;height:23%!important}.boxing-memory-hit{left:26%!important;top:53%!important;width:31%!important;height:17%!important}
+ .compass-awaken{left:35%!important;top:58%!important;width:30%!important;height:17%!important;transform:none!important}.family-photo-hit{left:69%!important;top:57%!important;width:30%!important;height:22%!important}.finding--compass-dome{right:0!important;top:42%!important;width:30%!important;height:18%!important}
+ .trial-target--stone{left:0!important;top:60%!important;width:35%!important;height:20%!important}.trial-target--lever{right:0!important;top:47%!important;width:28%!important;height:24%!important}.trial-target--route{right:19%!important;top:55%!important;width:33%!important;height:24%!important}.sound-relic--sax{right:0!important;top:54%!important;width:23%!important;height:26%!important}.trial-barcelona-hit{right:8%!important;top:57%!important;width:25%!important;height:17%!important}
+ .author-project{left:3%!important;top:42%!important;width:45%!important;height:24%!important}.archive-film{left:3%!important;top:57%!important;width:38%!important;height:22%!important}.sound-relic--violin{left:0!important;top:62%!important;width:29%!important;height:24%!important}.author-3d-hit{left:4%!important;top:42%!important;width:45%!important;height:24%!important}.finding--author-right-cabinet{right:0!important;top:51%!important;width:34%!important;height:27%!important}
+ .system-core{left:27%!important;top:51%!important;width:46%!important;height:30%!important;transform:none!important}.sound-relic--piano{right:0!important;top:66%!important;width:36%!important;height:22%!important}.finding--connected-card{right:0!important;top:67%!important;width:35%!important;height:19%!important}
+ .final-marker{right:7%!important;bottom:8%!important;width:39%!important;height:21%!important}.finding--final-compass{left:60%!important;top:63%!important;width:29%!important;height:17%!important}
+ .record-player-hit{left:7%!important;top:55%!important;width:59%!important;height:23%!important}.y6one-hit{left:34%!important;top:65%!important;width:27%!important;height:9%!important}.mila-hit{left:0!important;top:63%!important;width:27%!important;height:19%!important}.finding--listening-envelope{right:0!important;top:72%!important;width:35%!important;height:17%!important}
+
+ .family-photo-reveal img,.barcelona-note img,.mila-note>img,.author-project-reveal>img,.author-3d-reveal>img,.diary-project-reveal>img{max-width:100%!important;max-height:72svh!important;object-fit:contain!important}
+ .artifact-close{z-index:10!important;display:grid!important;place-items:center!important;color:#fff!important;background:#160b1d!important;border:1px solid rgba(252,203,240,.7)!important;font-size:28px!important;line-height:1!important}
 }

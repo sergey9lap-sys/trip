@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import HiddenFinding from "@/components/adventure/HiddenFinding";
+import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 
 export default function TrainingLevelSection() {
   const [folderOpen, setFolderOpen] = useState(false);
@@ -9,13 +11,11 @@ export default function TrainingLevelSection() {
 
   return (
     <section id="first-rule" className="training-level" aria-label="Первое правило экспедиции">
-      <img
+      <ResponsiveScene
         className="training-level__scene"
         src="/images/journey-02-threshold.png"
         alt=""
         aria-hidden="true"
-        loading="lazy"
-        decoding="async"
       />
       <div className="training-level__shade" aria-hidden="true" />
 
@@ -49,7 +49,7 @@ export default function TrainingLevelSection() {
         <span className="training-photo__inner" aria-hidden="true">
           <span className="training-photo__front" />
           <span className="training-photo__back">
-            <img src="/images/vintage-photo-back.png" alt="" />
+            <img src="/optimized/vintage-photo-back.avif" alt="" />
             <span>Видите?<br />Второй раз уже проще.</span>
           </span>
         </span>
@@ -59,6 +59,7 @@ export default function TrainingLevelSection() {
           <span className="tutorial-callout__text">Попробуйте ещё раз</span>
         </div>
       ) : null}
+      <HiddenFinding className="finding--training-lantern" label="Проверить старый фонарь" title="Заметка о первом действии">Первое действие специально сделано очевидным. Оно не проверяет внимательность — оно объясняет язык, на котором дальше разговаривает сайт.</HiddenFinding>
 
       {folderOpen ? (
         <div className="training-note" role="dialog" aria-modal="true" aria-label="Открытая записка">

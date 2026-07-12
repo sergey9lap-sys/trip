@@ -59,6 +59,11 @@ export default function JourneyTracker({ secondPassActive = false }) {
   }, [secondPassActive]);
 
   const progress = chapters.length > 1 ? activeIndex / (chapters.length - 1) : 0;
+  const goToChapter = (id) => {
+    if (window.matchMedia("(max-width: 760px)").matches) return;
+    const mobile = window.matchMedia("(max-width: 760px)").matches;
+    document.getElementById(id)?.scrollIntoView({ behavior: mobile ? "auto" : "smooth" });
+  };
 
   return (
     <nav
@@ -81,7 +86,7 @@ export default function JourneyTracker({ secondPassActive = false }) {
               type="button"
               aria-label={`${index + 1}. ${chapter.label}`}
               aria-current={index === activeIndex ? "step" : undefined}
-              onClick={() => document.getElementById(chapter.id)?.scrollIntoView({ behavior: "smooth" })}
+              onClick={() => goToChapter(chapter.id)}
             >
               <span>{String(index + 1).padStart(2, "0")}</span>
             </button>

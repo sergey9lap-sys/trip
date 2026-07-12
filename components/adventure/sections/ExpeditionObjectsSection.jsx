@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import HiddenFinding from "@/components/adventure/HiddenFinding";
+import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 
 export default function ExpeditionObjectsSection() {
   const audioRef = useRef(null);
@@ -26,7 +28,7 @@ export default function ExpeditionObjectsSection() {
 
   return (
     <section id="findings" className="expedition-objects" aria-label="Находки экспедиции">
-      <img className="expedition-objects__scene" src="/images/journey-07-departure-station.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <ResponsiveScene className="expedition-objects__scene" src="/images/journey-07-departure-station.png" />
       <div className="expedition-objects__shade" aria-hidden="true" />
       <div className="expedition-objects__light" aria-hidden="true" />
 
@@ -50,6 +52,7 @@ export default function ExpeditionObjectsSection() {
         <span className="expedition-flute__glow" aria-hidden="true" />
       </button>
       <audio ref={audioRef} src="/audio/flute.mp3" preload="none" />
+      <HiddenFinding className="finding--objects-instrument" label="Осмотреть измерительный инструмент" title="Перед запуском">Проверить мобильную композицию, скорость первого экрана, доступность кнопок, обработку ошибок, метрики и понятный следующий шаг.</HiddenFinding>
     </section>
   );
 }

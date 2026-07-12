@@ -1,15 +1,11 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useEffect, useRef, useState } from "react";
-
-const CompassExperience = dynamic(() => import("@/components/adventure/CompassExperience"), {
-  ssr: false,
-  loading: () => <span className="compass-loader">Инструмент настраивается…</span>,
-});
+import { useState } from "react";
+import HiddenFinding from "@/components/adventure/HiddenFinding";
+import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 
 function Scene({ src }) {
-  return <img className="late-scene" src={src} alt="" aria-hidden="true" loading="lazy" decoding="async" />;
+  return <ResponsiveScene className="late-scene" src={src} />;
 }
 
 function SoundRelic({ src, label, className }) {
@@ -48,6 +44,7 @@ export function ExplorerSection({ choice, onChoose, secondPassActive }) {
       <SoundRelic className="sound-relic--guitar" src="/audio/guitar.mp3" label="Коснуться струн походной гитары" />
       {secondPassActive ? <button className="boxing-memory-hit" type="button" aria-label="Коснуться старых боксёрских перчаток" onClick={() => setMemoryLit(true)} /> : null}
       {memoryLit ? <span className="boxing-memory-light" aria-hidden="true" /> : null}
+      <HiddenFinding className="finding--explorer-binoculars" label="Проверить походный бинокль" title="Исследование перед проектом">До визуала нужно понять три вещи: кто принимает решение, что ему мешает и какое действие сайт должен сделать естественным.</HiddenFinding>
     </section>
   );
 }
@@ -55,17 +52,8 @@ export function ExplorerSection({ choice, onChoose, secondPassActive }) {
 export function CompassSection({ signalFound, secondPassActive }) {
   const [loaded, setLoaded] = useState(false);
   const [familyOpen, setFamilyOpen] = useState(false);
-  const sectionRef = useRef(null);
-  const [nearViewport, setNearViewport] = useState(false);
-  useEffect(() => {
-    const node = sectionRef.current;
-    if (!node) return;
-    const observer = new IntersectionObserver(([entry]) => setNearViewport(entry.isIntersecting), { rootMargin: "240px 0px" });
-    observer.observe(node);
-    return () => observer.disconnect();
-  }, []);
   return (
-    <section ref={sectionRef} id="compass" className="late-section compass-section" aria-label="Инструмент исследователя">
+    <section id="compass" className={loaded ? "late-section compass-section is-awake" : "late-section compass-section"} aria-label="Инструмент исследователя">
       <Scene src={secondPassActive ? "/images/compass-family-second-pass.png" : "/images/compass-observatory.png"} />
       <div className="late-shade" aria-hidden="true" />
       <div className="late-copy late-copy--left compact-copy">
@@ -73,17 +61,12 @@ export function CompassSection({ signalFound, secondPassActive }) {
         <h2>Похоже, вам действительно интересно, что будет дальше.</h2>
         <p>До этого места обычно доходят немногие.</p>
       </div>
-      {!loaded ? (
-        <button className="compass-awaken" type="button" onClick={() => setLoaded(true)}>
-          Разбудить компас
-        </button>
-      ) : nearViewport ? (
-        <div className="compass-canvas" aria-label="Интерактивный трёхмерный компас">
-          <CompassExperience awakened={signalFound} />
-        </div>
-      ) : null}
+      <button className="compass-awaken" type="button" aria-label="Разбудить компас" onClick={() => setLoaded(true)}>
+        {loaded ? "Направление найдено" : "Разбудить компас"}
+      </button>
       {secondPassActive ? <button className="family-photo-hit" type="button" aria-label="Рассмотреть семейную фотографию" onClick={() => setFamilyOpen(true)} /> : null}
-      {familyOpen ? <aside className="family-photo-reveal"><img src="/images/family-reference.jpg" alt="Семейная фотография" /><button className="artifact-close" type="button" aria-label="Закрыть фотографию" onClick={() => setFamilyOpen(false)}>×</button></aside> : null}
+      {familyOpen ? <aside className="family-photo-reveal"><img src="/optimized/family-reference.avif" alt="Семейная фотография" /><button className="artifact-close" type="button" aria-label="Закрыть фотографию" onClick={() => setFamilyOpen(false)}>×</button></aside> : null}
+      <HiddenFinding className="finding--compass-dome" label="Осмотреть далёкую обсерваторию" title="Следующий ориентир" secondPassActive={secondPassActive} secondTitle="Анонс, которого раньше не было">Здесь появится ближайший публичный проект. Пока направление уже выбрано, но точка на карте ещё не подписана.</HiddenFinding>
     </section>
   );
 }
@@ -103,14 +86,19 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
         setCrossing(1);
         window.setTimeout(() => setCrossing(2), 1100);
         window.setTimeout(() => setCrossing(3), 2350);
-        window.setTimeout(() => document.getElementById("author")?.scrollIntoView({ behavior: "smooth" }), 4300);
+        window.setTimeout(() => {
+          if (!window.matchMedia("(max-width: 760px)").matches) {
+            const mobile = window.matchMedia("(max-width: 760px)").matches;
+            document.getElementById("author")?.scrollIntoView({ behavior: mobile ? "auto" : "smooth" });
+          }
+        }, 4300);
       }
     }
   };
   return (
     <section id="trial" className={`late-section trial-section ${completed ? "is-solved" : ""} ${lastMark ? `found-${lastMark}` : ""}`} aria-label="Тихое испытание">
       <Scene src={secondPassActive ? "/images/trial-barcelona-second-pass.png" : "/images/silent-trial-with-sax.png"} />
-      {!secondPassActive ? <div className={`bridge-cinematic step-${crossing}`} aria-hidden="true"><img src="/images/bridge-awakened.png" alt="" /><img src="/images/bridge-crossing.png" alt="" /><img src="/images/bridge-arrival.png" alt="" /></div> : null}
+      {!secondPassActive && crossing > 0 ? <div className={`bridge-cinematic step-${crossing}`} aria-hidden="true"><ResponsiveScene src="/images/bridge-awakened.png" /><ResponsiveScene src="/images/bridge-crossing.png" /><ResponsiveScene src="/images/bridge-arrival.png" /></div> : null}
       <div className="late-shade" aria-hidden="true" />
       <div className="trial-copy">
         <span className="late-kicker">Глава X</span>
@@ -128,9 +116,10 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
       </p>
       {secondPassActive ? <button className="trial-barcelona-hit" type="button" aria-label="Открыть записку с эмблемой" onClick={() => setBarcelonaOpen(true)} /> : null}
       <aside className={barcelonaOpen ? "barcelona-note is-visible" : "barcelona-note"} aria-hidden={!barcelonaOpen}>
-        <img src="/images/vintage-photo-back.png" alt="" aria-hidden="true" />
-        <div><img src="/images/barcelona-vintage.png" alt="Эмблема Барселоны" /><strong>soon…</strong><button className="artifact-close" type="button" aria-label="Закрыть записку" onClick={() => setBarcelonaOpen(false)}>×</button></div>
+        <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
+        <div><img src="/optimized/barcelona-vintage.avif" alt="Эмблема Барселоны" /><strong>soon…</strong><button className="artifact-close" type="button" aria-label="Закрыть записку" onClick={() => setBarcelonaOpen(false)}>×</button></div>
       </aside>
+      <HiddenFinding className="finding--trial-vessel" label="Проверить сосуд у стены" title="Неиспользованный вариант">Не каждая красивая механика остаётся. Если она не помогает понять историю или автора, она становится просто эффектом.</HiddenFinding>
     </section>
   );
 }
@@ -151,7 +140,7 @@ export function AuthorSection({ secondPassActive }) {
       <button className="archive-film" type="button" aria-label="Проявить скрытый черновик" onClick={() => setOpen(true)} />
       <SoundRelic className="sound-relic--violin" src="/audio/violin.mp3" label="Коснуться старой записи скрипки" />
       <aside className="author-draft" data-placeholder="code-snippet-placeholder" aria-hidden={!open}>
-        <img src="/images/vintage-photo-back.png" alt="" aria-hidden="true" />
+        <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
         <div>
         <button className="artifact-close" type="button" aria-label="Закрыть заметку" onClick={() => setOpen(false)}>×</button>
         <span>Заметка автора · версия 04</span>
@@ -170,15 +159,16 @@ export function AuthorSection({ secondPassActive }) {
         <span className="sr-only">Один из проектов</span>
       </button>
       <aside className={projectOpen ? "author-project-reveal is-visible" : "author-project-reveal"} aria-hidden={!projectOpen}>
-        <img src="/images/lpsflow-project.png" alt="Главный экран сайта lpsflow.ru" />
+        <img src="/optimized/lpsflow-project.avif" alt="Главный экран сайта lpsflow.ru" />
         <button className="artifact-close" type="button" aria-label="Закрыть проект" onClick={() => setProjectOpen(false)}>×</button>
         <div><small>Реальный проект.</small><strong>Сайт-портфолио LPS Flow</strong><a href="https://lpsflow.ru" target="_blank" rel="noreferrer">Перейти на сайт →</a></div>
       </aside>
       {secondPassActive ? <button className="author-3d-hit" type="button" aria-label="Открыть анонс будущих 3D-видео" onClick={() => setTeaserOpen(true)} /> : null}
       <aside className={teaserOpen ? "author-3d-reveal is-visible" : "author-3d-reveal"} aria-hidden={!teaserOpen}>
-        <img src="/images/3д.jpg" alt="Сергей внутри интерактивного мира сайта" />
+        <img src="/optimized/3д.avif" alt="Сергей внутри интерактивного мира сайта" />
         <div><button className="artifact-close" type="button" aria-label="Закрыть анонс" onClick={() => setTeaserOpen(false)}>×</button><strong>Скоро.</strong><p>Видео о том, как я погружаюсь внутрь созданных сайтов.</p></div>
       </aside>
+      <HiddenFinding className="finding--author-right-cabinet" label="Открыть правый архивный шкаф" title="Техническое досье">Проект собирается вокруг сценария, а технология выбирается после: по сложности интерактива, скорости загрузки и дальнейшей поддержке.</HiddenFinding>
     </section>
   );
 }
@@ -196,6 +186,7 @@ export function ConnectedSection({ secondPassActive, onUnlockSecondPass }) {
       <button className="system-core" type="button" aria-label="Открыть второй слой сайта" onClick={onUnlockSecondPass} />
       <SoundRelic className="sound-relic--piano" src="/audio/piano.mp3" label="Активировать фрагмент мелодии" />
       <div className="system-pulse" aria-hidden="true" />
+      <HiddenFinding className="finding--connected-card" label="Проверить архивную карточку" title="README проекта" secondPassActive={secondPassActive} secondTitle="README второго слоя">Второй слой не заменяет первый. Он использует те же главы, но раскрывает другие детали и сохраняет найденное в личном архиве посетителя.</HiddenFinding>
     </section>
   );
 }
@@ -215,7 +206,7 @@ export function FinaleSection() {
       </div>
       <button className="final-marker" type="button" aria-label="Открыть последнее письмо" onClick={() => setLetterOpen(true)} />
       <aside className="final-letter" aria-hidden={!letterOpen}>
-        <img src="/images/final-letter-open.png" alt="" aria-hidden="true" />
+        <img src="/optimized/final-letter-open.avif" alt="" aria-hidden="true" />
         <div>
         <button className="artifact-close" type="button" aria-label="Закрыть письмо" onClick={() => setLetterOpen(false)}>×</button>
         <p>Спасибо, что дошли до конца.</p>
@@ -223,6 +214,7 @@ export function FinaleSection() {
         <a href="https://t.me/lp_sergey" target="_blank" rel="noreferrer">Написать в Telegram</a>
         </div>
       </aside>
+      <HiddenFinding className="finding--final-compass" label="Проверить компас у края сцены" title="С чего начать проект">Достаточно цели, примеров, приблизительного объёма и честного ответа на вопрос: что посетитель должен сделать после знакомства с сайтом.</HiddenFinding>
     </section>
   );
 }

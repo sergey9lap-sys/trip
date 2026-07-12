@@ -1,19 +1,20 @@
 "use client";
 
 import { useState } from "react";
+import HiddenFinding from "@/components/adventure/HiddenFinding";
+import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 
 export default function HeroSection({ secondPassActive = false }) {
   const [artifactOpen, setArtifactOpen] = useState(false);
   const [kazamiFound, setKazamiFound] = useState(false);
   return (
     <section id="threshold" className="hero" aria-label="Порог экспедиции">
-      <img
+      <ResponsiveScene
         className="hero-scene"
         src={secondPassActive ? "/images/hero-kazami-second-pass.png" : "/images/journey-01-study-with-note.png"}
         alt=""
         aria-hidden="true"
-        fetchPriority="high"
-        decoding="async"
+        priority
       />
       <div className="hero-shadow" aria-hidden="true" />
       <div className="hero-light" aria-hidden="true" />
@@ -51,6 +52,7 @@ export default function HeroSection({ secondPassActive = false }) {
           <p className={kazamiFound ? "second-pass-caption hero-kazami-caption is-visible" : "second-pass-caption hero-kazami-caption"}>Имя для работ, которые ещё впереди.</p>
         </>
       ) : null}
+      <HiddenFinding className="finding--hero-globe" label="Осмотреть глобус в тени" title="Черновик маршрута" secondPassActive={secondPassActive} secondTitle="Маршрут, которого раньше не было">Сначала появился не визуал, а последовательность: научить нажимать, перестать подсказывать, дать выбор и только потом показать автора.</HiddenFinding>
     </section>
   );
 }

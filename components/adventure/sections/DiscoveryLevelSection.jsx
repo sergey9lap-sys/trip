@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import HiddenFinding from "@/components/adventure/HiddenFinding";
+import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 
 export default function DiscoveryLevelSection({ secondPassActive = false }) {
   const [flipped, setFlipped] = useState(false);
@@ -10,13 +12,11 @@ export default function DiscoveryLevelSection({ secondPassActive = false }) {
 
   return (
     <section id="discovery" className="discovery-level" aria-label="Самостоятельное наблюдение">
-      <img
+      <ResponsiveScene
         className="discovery-level__scene"
         src={secondPassActive ? "/images/archive-milka-second-pass.png" : "/images/journey-03-archive-token-v3.png"}
         alt=""
         aria-hidden="true"
-        loading="lazy"
-        decoding="async"
       />
       <div className="discovery-level__shade" aria-hidden="true" />
 
@@ -51,6 +51,7 @@ export default function DiscoveryLevelSection({ secondPassActive = false }) {
           <p className={milkaFound ? "second-pass-caption archive-milka-caption is-visible" : "second-pass-caption archive-milka-caption"}>Стратегический запас на случай долгой разработки.</p>
         </>
       ) : null}
+      <HiddenFinding className="finding--discovery-lamp" label="Осмотреть лампу у архива" title="Решение из ранней версии" secondPassActive={secondPassActive} secondTitle="Исправление, которое осталось незаметным">Раньше фотографию показывала стрелка. Потом стрелку убрали: если человек уже понял правило, лучше позволить ему применить его самостоятельно.</HiddenFinding>
     </section>
   );
 }

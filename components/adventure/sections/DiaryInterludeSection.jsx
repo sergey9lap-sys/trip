@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import HiddenFinding from "@/components/adventure/HiddenFinding";
+import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 
 export default function DiaryInterludeSection({ secondPassActive = false }) {
   const [noticed, setNoticed] = useState(false);
@@ -8,7 +10,7 @@ export default function DiaryInterludeSection({ secondPassActive = false }) {
 
   return (
     <section id="diary" className="diary-interlude" aria-label="Страница дневника">
-      <img className="diary-interlude__scene" src={secondPassActive ? "/images/diary-barcelona-project.png" : "/images/journey-06-funicular-diary-v2.png"} alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <ResponsiveScene className="diary-interlude__scene" src={secondPassActive ? "/images/diary-barcelona-project.png" : "/images/journey-06-funicular-diary-v2.png"} />
       <div className="diary-interlude__shade" aria-hidden="true" />
 
       <div className="diary-interlude__page diary-interlude__page--left" aria-hidden="true" />
@@ -40,11 +42,12 @@ export default function DiaryInterludeSection({ secondPassActive = false }) {
         <>
           <button className="diary-project-hit" type="button" aria-label="Открыть проект Barcelona" onClick={() => setProjectFound(true)} />
           <aside className={projectFound ? "diary-project-reveal is-visible" : "diary-project-reveal"} aria-hidden={!projectFound}>
-            <img src="/images/барса проект.jpg" alt="Интерфейс проекта Барса сегодня" />
+            <img src="/optimized/барса проект.avif" alt="Интерфейс проекта Барса сегодня" />
             <button className="artifact-close" type="button" aria-label="Закрыть фотографию проекта" onClick={() => setProjectFound(false)}>×</button>
           </aside>
         </>
       ) : null}
+      <HiddenFinding className="finding--diary-lantern" label="Осмотреть основание фонаря" title="Личная заметка" secondPassActive={secondPassActive} secondTitle="Заметка после возвращения">Интерактив имеет смысл только тогда, когда после действия что-то меняется: состояние, понимание, маршрут или отношение к автору.</HiddenFinding>
     </section>
   );
 }

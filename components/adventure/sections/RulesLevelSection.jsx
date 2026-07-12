@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import HiddenFinding from "@/components/adventure/HiddenFinding";
+import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 
 export default function RulesLevelSection() {
   const [photoFlipped, setPhotoFlipped] = useState(false);
@@ -9,8 +11,8 @@ export default function RulesLevelSection() {
 
   return (
     <section id="rules" className="rules-level" aria-label="Правила экспедиции">
-      <img className="rules-level__scene" src="/images/journey-04-stairhall.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-      <img className={routePoint ? "rules-level__scene rules-level__scene--alternate is-visible" : "rules-level__scene rules-level__scene--alternate"} src="/images/stairhall-reconfigured.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <ResponsiveScene className="rules-level__scene" src="/images/journey-04-stairhall.png" />
+      {routePoint ? <ResponsiveScene className="rules-level__scene rules-level__scene--alternate is-visible" src="/images/stairhall-reconfigured.png" /> : null}
       <div className="rules-level__shade" aria-hidden="true" />
 
       <div className="rules-level__title-paper">
@@ -47,6 +49,7 @@ export default function RulesLevelSection() {
       />
       <span className={routePoint ? "rules-route-point is-visible" : "rules-route-point"} aria-hidden="true" />
       <p className={routePoint ? "hall-shift-note is-visible" : "hall-shift-note"}>Дверь осталась на месте. Зал — нет.</p>
+      <HiddenFinding className="finding--rules-scroll" label="Развернуть план на перилах" title="Схема переходов">Каждая следующая глава уменьшает количество прямых инструкций. Интерфейс постепенно передаёт управление посетителю.</HiddenFinding>
     </section>
   );
 }

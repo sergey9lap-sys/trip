@@ -1,6 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import HiddenFinding from "@/components/adventure/HiddenFinding";
+import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 
 export default function SecondPassArchiveSection() {
   const audioRef = useRef(null);
@@ -26,7 +28,7 @@ export default function SecondPassArchiveSection() {
 
   return (
     <section id="listening-archive" className={playing ? "second-pass-archive is-playing" : "second-pass-archive"} aria-label="Скрытая комната второго маршрута">
-      <img className="second-pass-archive__scene" src="/images/listening-y6one-second-pass.png" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <ResponsiveScene className="second-pass-archive__scene" src="/images/listening-y6one-second-pass.png" />
       <div className="second-pass-archive__shade" aria-hidden="true" />
       <div className="second-pass-archive__copy">
         <span>Найдено после возвращения</span>
@@ -41,7 +43,7 @@ export default function SecondPassArchiveSection() {
       <button className="mila-hit" type="button" aria-label="Познакомиться с Милой" onClick={() => setMilaOpen(true)} />
 
       <aside className={milaOpen ? "mila-note is-visible" : "mila-note"} aria-hidden={!milaOpen}>
-        <img src="/images/vintage-photo-back.png" alt="" aria-hidden="true" />
+        <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
         <div>
           <button className="artifact-close" type="button" aria-label="Закрыть записку Милы" onClick={() => setMilaOpen(false)}>×</button>
           <h3>Привет, меня зовут Мила.</h3>
@@ -51,6 +53,7 @@ export default function SecondPassArchiveSection() {
           <a href="https://t.me/lp_sergey" target="_blank" rel="noreferrer">Написать «Мила»</a>
         </div>
       </aside>
+      <HiddenFinding className="finding--listening-envelope" label="Проверить запечатанный конверт" title="Будущий релиз">Этот конверт зарезервирован для следующего совместного релиза. Когда материал будет готов, находка получит звук и дату.</HiddenFinding>
     </section>
   );
 }

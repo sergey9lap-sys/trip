@@ -11,6 +11,8 @@ import ExpeditionObjectsSection from "@/components/adventure/sections/Expedition
 import JourneyTracker from "@/components/adventure/JourneyTracker";
 import FinalChapters from "@/components/adventure/sections/FinalChapters";
 import SecondPassArchiveSection from "@/components/adventure/sections/SecondPassArchiveSection";
+import PerformanceManager from "@/components/adventure/PerformanceManager";
+import FoundArchive from "@/components/adventure/FoundArchive";
 
 export default function AdventurePage() {
   const [secondPassActive, setSecondPassActive] = useState(false);
@@ -32,6 +34,8 @@ export default function AdventurePage() {
 
   return (
     <main>
+      <PerformanceManager />
+      <FoundArchive />
       <JourneyTracker secondPassActive={secondPassActive} />
       <HeroSection secondPassActive={secondPassActive} />
       <TrainingLevelSection />
