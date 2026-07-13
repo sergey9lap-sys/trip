@@ -59,9 +59,9 @@ export default function TrainingLevelSection() {
         <div className="artifact-modal-shell">
         <aside className="training-photo-reveal" role="dialog" aria-modal="true" aria-label="Открытая фотография">
           <img src="/optimized/vintage-photo-back.avif" alt="Оборот найденной фотографии" />
+          <button className="artifact-close" type="button" aria-label="Закрыть фотографию" onClick={() => setPhotoOpen(false)}>×</button>
           <div><strong>Видите?</strong><p>Второй раз уже проще.</p></div>
         </aside>
-        <button className="artifact-modal-dismiss" type="button" aria-label="Закрыть фотографию" onPointerDown={(event) => { event.preventDefault(); event.stopPropagation(); setPhotoOpen(false); }} onTouchStart={(event) => { event.preventDefault(); event.stopPropagation(); setPhotoOpen(false); }}>×</button>
         </div>
         </div>, document.body
       ) : null}

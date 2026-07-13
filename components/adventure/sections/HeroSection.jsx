@@ -9,7 +9,10 @@ export default function HeroSection({ secondPassActive = false }) {
   const [zeroOpen, setZeroOpen] = useState(false);
   useEffect(() => {
     const read = () => {
-      try { setFoundCount(Object.keys(JSON.parse(window.localStorage.getItem("tripFoundMaterials") ?? "{}")).length); }
+      try {
+        const stored = JSON.parse(window.localStorage.getItem("tripFoundMaterials") ?? "{}");
+        setFoundCount(Object.keys(stored).filter((id) => id !== "finding--connected-card").length);
+      }
       catch { setFoundCount(0); }
     };
     read();
@@ -54,7 +57,7 @@ export default function HeroSection({ secondPassActive = false }) {
       </div>
       {secondPassActive ? (
         <>
-          {foundCount >= 14 ? <button className="hero-kazami-hit is-zero-ready" type="button" aria-label="Осмотреть знак KaZaMI" onClick={() => setZeroOpen(true)} /> : null}
+          {foundCount >= 13 ? <button className="hero-kazami-hit is-zero-ready" type="button" aria-label="Осмотреть знак KaZaMI" onClick={() => setZeroOpen(true)} /> : null}
         </>
       ) : null}
       {zeroOpen ? <aside className="zero-coordinate" role="dialog" aria-modal="true" aria-label="Нулевая координата">

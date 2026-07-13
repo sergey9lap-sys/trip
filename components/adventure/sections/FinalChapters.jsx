@@ -113,8 +113,9 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
       {secondPassActive ? <button className="trial-barcelona-hit" type="button" aria-label="Открыть записку с эмблемой" onClick={() => setBarcelonaOpen(true)} /> : null}
       {barcelonaOpen && typeof document !== "undefined" ? createPortal(<div className="artifact-modal-backdrop" onClick={(event) => { if (event.target === event.currentTarget) setBarcelonaOpen(false); }}><div className="artifact-modal-shell"><aside className="barcelona-note is-visible" role="dialog" aria-modal="true" aria-label="Записка Барселона">
         <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
+        <button className="artifact-close" type="button" aria-label="Закрыть записку" onClick={() => setBarcelonaOpen(false)}>×</button>
         <div><span className="barcelona-crest"><img src="/optimized/barcelona-crest-transparent.png" alt="Эмблема Барселоны" /></span><strong>Barça Vision soon.....</strong></div>
-      </aside><button className="artifact-modal-dismiss" type="button" aria-label="Закрыть записку" onPointerDown={(event) => { event.preventDefault(); event.stopPropagation(); setBarcelonaOpen(false); }} onTouchStart={(event) => { event.preventDefault(); event.stopPropagation(); setBarcelonaOpen(false); }}>×</button></div></div>, document.body) : null}
+      </aside></div></div>, document.body) : null}
     </section>
   );
 }
@@ -181,12 +182,11 @@ export function ConnectedSection({ secondPassActive, onUnlockSecondPass }) {
       <button className="system-core" type="button" aria-label="Открыть второй слой сайта" onClick={onUnlockSecondPass} />
       <SoundRelic className="sound-relic--piano" src="/audio/piano.mp3" label="Активировать фрагмент мелодии" />
       <div className="system-pulse" aria-hidden="true" />
-      <HiddenFinding className="finding--connected-card" label="Рассмотреть три фигурки" title="Три команды">Небольшая личная отсылка к футбольным командам, за которые я играю сейчас.</HiddenFinding>
     </section>
   );
 }
 
-export function FinaleSection() {
+export function FinaleSection({ secondPassActive, onReturnToFirstPass }) {
   const [letterOpen, setLetterOpen] = useState(false);
   return (
     <section id="finale" className={letterOpen ? "late-section finale-section is-letter-open" : "late-section finale-section"} aria-label="Финал путешествия">
@@ -200,6 +200,7 @@ export function FinaleSection() {
         <p>Если честно…<br /><br />Я не знаю, сколько секретов вы нашли.<br /><br />Но пока вы их искали, вы успели познакомиться со мной намного лучше,<br />чем если бы просто посмотрели обычное портфолио.</p>
         <a className="finale-cta" href="https://t.me/lp_sergey" target="_blank" rel="noreferrer">Написать в Telegram</a>
         <small className="finale-note">Если дошли до этого места —<br />думаю, нам будет интересно поработать вместе.</small>
+        {secondPassActive ? <button className="finale-first-pass" type="button" onClick={onReturnToFirstPass}>Вернуться к первой версии</button> : null}
       </div>
       <button className="final-marker" type="button" aria-label="Открыть последнее письмо" onClick={() => setLetterOpen(true)} />
       <aside className="final-letter" aria-hidden={!letterOpen}>
@@ -216,7 +217,7 @@ export function FinaleSection() {
   );
 }
 
-export default function FinalChapters({ secondPassActive, onUnlockSecondPass }) {
+export default function FinalChapters({ secondPassActive, onUnlockSecondPass, onReturnToFirstPass }) {
   const [choice, setChoice] = useState(null);
   const [trialComplete, setTrialComplete] = useState(false);
   return (
@@ -226,7 +227,7 @@ export default function FinalChapters({ secondPassActive, onUnlockSecondPass }) 
       <TrialSection secondPassActive={secondPassActive} completed={trialComplete} onComplete={() => setTrialComplete(true)} />
       <AuthorSection secondPassActive={secondPassActive} />
       <ConnectedSection secondPassActive={secondPassActive} onUnlockSecondPass={onUnlockSecondPass} />
-      <FinaleSection />
+      <FinaleSection secondPassActive={secondPassActive} onReturnToFirstPass={onReturnToFirstPass} />
     </>
   );
 }

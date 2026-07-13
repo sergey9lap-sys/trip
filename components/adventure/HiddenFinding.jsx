@@ -7,7 +7,7 @@ const fallbackCategories = {
   "finding--hero-globe": "СТРУКТУРА", "finding--training-lantern": "ПРОЦЕСС", "finding--discovery-lamp": "ДО И ПОСЛЕ",
   "finding--rules-scroll": "UX", "finding--astrolabe-case": "ТЕХНОЛОГИИ", "finding--diary-lantern": "ЛИЧНОЕ",
   "finding--objects-instrument": "ПОЛЕЗНЫЙ ФАЙЛ", "finding--explorer-binoculars": "ИССЛЕДОВАНИЕ", "finding--compass-dome": "АНОНС",
-  "finding--trial-vessel": "ЧЕРНОВИК", "finding--author-right-cabinet": "АРХИТЕКТУРА", "finding--connected-card": "ДОКУМЕНТАЦИЯ",
+  "finding--trial-vessel": "ЧЕРНОВИК", "finding--author-right-cabinet": "АРХИТЕКТУРА",
   "finding--final-compass": "НАЧАЛО РАБОТЫ", "finding--listening-envelope": "БУДУЩИЙ РЕЛИЗ",
 };
 

@@ -3915,6 +3915,14 @@ body:has(.artifact-modal-backdrop){overflow:hidden!important;touch-action:none!i
 .artifact-modal-dismiss{position:absolute!important;z-index:20!important;right:12px!important;top:12px!important;display:grid!important;place-items:center!important;width:48px!important;height:48px!important;padding:0!important;color:#fff!important;border:1px solid rgba(252,203,240,.72)!important;border-radius:50%!important;background:#160b1d!important;box-shadow:0 8px 22px rgba(0,0,0,.45)!important;font:400 34px/1 Arial,sans-serif!important;cursor:pointer!important;pointer-events:auto!important;touch-action:none!important;-webkit-tap-highlight-color:transparent!important}
 @media(max-width:760px){.artifact-modal-shell{width:92vw!important;max-width:92vw!important}.artifact-modal-dismiss{right:10px!important;top:10px!important;width:46px!important;height:46px!important}}
 
+/* Training prompts sit directly on the journal and the photo. */
+.training-level .tutorial-callout--folder{left:62%!important;right:auto!important;top:67%!important;transform:translateX(-50%)!important}
+.training-level .tutorial-callout--photo{left:83%!important;right:auto!important;top:80%!important;transform:translateX(-50%)!important}
+@media(max-width:760px){
+ .training-level .tutorial-callout--folder{left:62%!important;top:69%!important}
+ .training-level .tutorial-callout--photo{left:83%!important;top:80%!important}
+}
+
 /* Explorer actions: guitar plays, stone changes the route, chest opens the note. */
 .explorer-section .finding--explorer-binoculars{left:4%!important;top:33%!important;width:34%!important;height:29%!important;z-index:110!important}
 .astrolabe3d .finding--astrolabe-case{z-index:110!important}
@@ -4243,6 +4251,8 @@ main > section:not(.hero) {
 .finale-return-copy{max-width:560px!important;margin:18px 0 0!important;font-size:14px!important;color:rgba(239,224,205,.8)}
 .finale-return{display:inline-flex;margin-top:12px;padding:12px 18px;border:1px solid rgba(252,203,240,.42);color:#fccbf0;background:rgba(5,3,7,.5);font:700 10px/1 "Courier New",monospace;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .25s ease,transform .25s ease}
 .finale-return:hover,.finale-return:focus-visible{background:rgba(103,0,163,.72);transform:translateY(-2px)}
+.finale-first-pass{display:block;margin-top:16px;padding:12px 18px;border:1px solid rgba(255,90,87,.55);color:#ffb7b5;background:rgba(5,3,7,.62);font:700 10px/1 "Courier New",monospace;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .25s ease,transform .25s ease,color .25s ease}
+.finale-first-pass:hover,.finale-first-pass:focus-visible{color:#fff;background:rgba(224,47,117,.74);transform:translateY(-2px)}
 
 .compass-visual{position:absolute;z-index:4;left:50%;top:58%;width:240px;height:240px;border:1px solid rgba(252,203,240,.3);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 45px rgba(103,0,163,.34),inset 0 0 35px rgba(224,47,117,.12);pointer-events:none;animation:compassReveal .65s ease both}
 .compass-visual span{position:absolute;inset:12%;border:1px solid rgba(252,203,240,.25);border-radius:50%}
@@ -5201,7 +5211,7 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
  .diary-entry{left:8%!important}.second-journey .diary-entry{left:8%!important}
  .finding--objects-instrument{left:58%!important;right:auto!important;top:54%!important;width:34%!important;height:24%!important}
  .compass-visual{left:22.5%;top:80.5%;width:150px;height:150px}
- .finale-return-copy{max-width:88%!important;margin-top:14px!important;font-size:12px!important;line-height:1.3!important}.finale-return{margin-top:10px;padding:11px 14px;font-size:9px}.finale-note{margin-top:14px!important}
+ .finale-return-copy{max-width:88%!important;margin-top:14px!important;font-size:12px!important;line-height:1.3!important}.finale-return{margin-top:10px;padding:11px 14px;font-size:9px}.finale-note{margin-top:14px!important}.finale-first-pass{margin-top:11px;padding:10px 13px;font-size:8px}
  .system-core{animation-name:systemCoreNudgeMobile}
 }
 @keyframes systemCoreNudgeMobile{0%,100%{box-shadow:0 0 42px rgba(103,0,163,.22),inset 0 0 35px rgba(224,47,117,.12);transform:none}50%{box-shadow:0 0 68px rgba(224,47,117,.55),inset 0 0 45px rgba(103,0,163,.28);transform:scale(1.055)}}

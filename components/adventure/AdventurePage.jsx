@@ -49,6 +49,16 @@ export default function AdventurePage() {
     setSecondPassActive(true);
   };
 
+  const returnToFirstPass = () => {
+    window.localStorage.removeItem("secondJourneyUnlocked");
+    document.documentElement.classList.remove("second-journey", "second-pass-active");
+    document.body.classList.remove("second-pass-active");
+    setSecondPassActive(false);
+    window.setTimeout(() => {
+      document.getElementById("threshold")?.scrollIntoView({ behavior: "auto", block: "start" });
+    }, 0);
+  };
+
   return (
     <main>
       <PerformanceManager />
@@ -62,7 +72,7 @@ export default function AdventurePage() {
       <DiaryInterludeSection secondPassActive={secondPassActive} />
       {secondPassActive ? <SecondPassArchiveSection /> : null}
       <ExpeditionObjectsSection />
-      <FinalChapters secondPassActive={secondPassActive} onUnlockSecondPass={unlockSecondPass} />
+      <FinalChapters secondPassActive={secondPassActive} onUnlockSecondPass={unlockSecondPass} onReturnToFirstPass={returnToFirstPass} />
     </main>
   );
 }

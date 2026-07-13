@@ -3,7 +3,8 @@
 import { useEffect, useState } from "react";
 import { findingMaterials } from "@/components/adventure/findingContent";
 
-const total = 14;
+const removedFindingIds = new Set(["finding--connected-card"]);
+const total = 13;
 
 export default function FoundArchive() {
   const [materials, setMaterials] = useState([]);
@@ -12,7 +13,8 @@ export default function FoundArchive() {
   useEffect(() => {
     const read = () => {
       try {
-        const stored = Object.values(JSON.parse(window.localStorage.getItem("tripFoundMaterials") ?? "{}"));
+        const stored = Object.values(JSON.parse(window.localStorage.getItem("tripFoundMaterials") ?? "{}"))
+          .filter((material) => !removedFindingIds.has(material.id));
         setMaterials(stored.map((material) => ({ ...material, ...(findingMaterials[material.id] ?? {}) })));
       } catch {
         setMaterials([]);
@@ -55,8 +57,8 @@ export default function FoundArchive() {
         <h3>Пакет запуска · 20 000 ₽</h3>
         <p>Предварительная структура, сценарий сайта, идея первого экрана и направление визуальной концепции. При полноценном заказе номинал выбранного бонуса вычитается из стоимости проекта.</p>
       </section> : null}
-      {materials.length >= 14 ? <section className="archive-reward archive-reward--complete">
-        <small>Полный архив · 14 из 14</small>
+      {materials.length >= total ? <section className="archive-reward archive-reward--complete">
+        <small>Полный архив · {total} из {total}</small>
         <h3>Сертификат · 30 000 ₽</h3>
         <p>Архив собран полностью. Сертификат можно использовать при заказе сайта вместо другого найденного денежного бонуса.</p>
         <div className="archive-zero-clue">
