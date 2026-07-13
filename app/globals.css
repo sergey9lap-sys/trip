@@ -4259,6 +4259,11 @@ main > section:not(.hero) {
  .hero-scene{transform:none!important;animation:none!important}
  .trial-section .late-scene{object-fit:contain!important;transform:none!important;animation:none!important}
 }
+@media(max-width:760px){
+ .expedition-objects .finding--objects-instrument{left:43%!important;right:auto!important;top:58%!important;width:42%!important;height:22%!important}
+ .trial-section .late-scene,.bridge-cinematic img{object-fit:contain!important;transform:none!important;animation:none!important}
+ .hero .hero-kazami-hit{left:82%!important;top:63%!important;width:18%!important;height:12%!important}
+}
 
 .compass-visual{position:absolute;z-index:4;left:50%;top:58%;width:240px;height:240px;border:1px solid rgba(252,203,240,.3);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 45px rgba(103,0,163,.34),inset 0 0 35px rgba(224,47,117,.12);pointer-events:none;animation:compassReveal .65s ease both}
 .compass-visual span{position:absolute;inset:12%;border:1px solid rgba(252,203,240,.25);border-radius:50%}

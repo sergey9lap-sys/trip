@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import HiddenFinding, { FindingContent } from "@/components/adventure/HiddenFinding";
 import { milaBonus } from "@/components/adventure/findingContent";
 import ResponsiveScene from "@/components/adventure/ResponsiveScene";
@@ -52,7 +53,7 @@ export default function SecondPassArchiveSection() {
 
       <button ref={milaTriggerRef} className="mila-hit" type="button" aria-label="Познакомиться с Милой" onClick={() => setMilaOpen(true)} />
 
-      {milaOpen ? <div className="finding-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setMilaOpen(false); }}>
+      {milaOpen && typeof document !== "undefined" ? createPortal(<div className="finding-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setMilaOpen(false); }}>
         <aside className="mila-note is-visible" role="dialog" aria-modal="true" aria-label="Привет, меня зовут Мила.">
           <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
           <div className="mila-note__scroll">
@@ -63,7 +64,7 @@ export default function SecondPassArchiveSection() {
             <a href="https://t.me/lp_sergey" target="_blank" rel="noreferrer">Написать «Мила»</a>
           </div>
         </aside>
-      </div> : null}
+      </div>, document.body) : null}
       <HiddenFinding className="finding--listening-envelope" label="Проверить запечатанный конверт" title="Будущий релиз">Этот конверт зарезервирован для следующего совместного релиза. Когда материал будет готов, находка получит звук и дату.</HiddenFinding>
     </section>
   );

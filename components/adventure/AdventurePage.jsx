@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { flushSync } from "react-dom";
 import HeroSection from "@/components/adventure/sections/HeroSection";
 import TrainingLevelSection from "@/components/adventure/sections/TrainingLevelSection";
 import DiscoveryLevelSection from "@/components/adventure/sections/DiscoveryLevelSection";
@@ -43,10 +44,16 @@ export default function AdventurePage() {
   }, []);
 
   const unlockSecondPass = () => {
+    const anchor = document.getElementById("connected");
+    const topBeforeSwitch = anchor?.getBoundingClientRect().top;
     window.localStorage.setItem("secondJourneyUnlocked", "true");
     document.documentElement.classList.add("second-journey", "second-pass-active");
     document.body.classList.add("second-pass-active");
-    setSecondPassActive(true);
+    flushSync(() => setSecondPassActive(true));
+    if (anchor && topBeforeSwitch != null) {
+      const topAfterSwitch = anchor.getBoundingClientRect().top;
+      window.scrollBy({ top: topAfterSwitch - topBeforeSwitch, behavior: "auto" });
+    }
   };
 
   const returnToFirstPass = () => {
