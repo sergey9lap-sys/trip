@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import HiddenFinding from "@/components/adventure/HiddenFinding";
 import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 
@@ -110,10 +111,10 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
         {lastMark === "route" ? "Столбик сохранил найденную отметку." : null}
       </p>
       {secondPassActive ? <button className="trial-barcelona-hit" type="button" aria-label="Открыть записку с эмблемой" onClick={() => setBarcelonaOpen(true)} /> : null}
-      <aside className={barcelonaOpen ? "barcelona-note is-visible" : "barcelona-note"} aria-hidden={!barcelonaOpen}>
+      {barcelonaOpen && typeof document !== "undefined" ? createPortal(<div className="artifact-modal-backdrop" onClick={(event) => { if (event.target === event.currentTarget) setBarcelonaOpen(false); }}><div className="artifact-modal-shell"><aside className="barcelona-note is-visible" role="dialog" aria-modal="true" aria-label="Записка Барселона">
         <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
-        <div><span className="barcelona-crest"><img src="/optimized/barcelona-vintage.avif" alt="Эмблема Барселоны" /></span><strong>soon…</strong><button className="artifact-close" type="button" aria-label="Закрыть записку" onPointerUp={(event) => { event.stopPropagation(); setBarcelonaOpen(false); }}>×</button></div>
-      </aside>
+        <div><span className="barcelona-crest"><img src="/optimized/barcelona-crest-transparent.png" alt="Эмблема Барселоны" /></span><strong>Barça Vision soon.....</strong></div>
+      </aside><button className="artifact-modal-dismiss" type="button" aria-label="Закрыть записку" onPointerDown={(event) => { event.preventDefault(); event.stopPropagation(); setBarcelonaOpen(false); }} onTouchStart={(event) => { event.preventDefault(); event.stopPropagation(); setBarcelonaOpen(false); }}>×</button></div></div>, document.body) : null}
     </section>
   );
 }

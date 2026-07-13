@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { createPortal } from "react-dom";
 import HiddenFinding from "@/components/adventure/HiddenFinding";
 import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 
@@ -53,12 +54,16 @@ export default function TrainingLevelSection() {
           <span className="tutorial-callout__text">Попробуйте ещё раз</span>
         </div>
       ) : null}
-      {photoOpen ? (
+      {photoOpen && typeof document !== "undefined" ? createPortal(
+        <div className="artifact-modal-backdrop" onClick={(event) => { if (event.target === event.currentTarget) setPhotoOpen(false); }}>
+        <div className="artifact-modal-shell">
         <aside className="training-photo-reveal" role="dialog" aria-modal="true" aria-label="Открытая фотография">
           <img src="/optimized/vintage-photo-back.avif" alt="Оборот найденной фотографии" />
           <div><strong>Видите?</strong><p>Второй раз уже проще.</p></div>
-          <button className="artifact-close" type="button" aria-label="Закрыть фотографию" onPointerUp={(event) => { event.stopPropagation(); setPhotoOpen(false); }}>×</button>
         </aside>
+        <button className="artifact-modal-dismiss" type="button" aria-label="Закрыть фотографию" onPointerDown={(event) => { event.preventDefault(); event.stopPropagation(); setPhotoOpen(false); }} onTouchStart={(event) => { event.preventDefault(); event.stopPropagation(); setPhotoOpen(false); }}>×</button>
+        </div>
+        </div>, document.body
       ) : null}
       <HiddenFinding className="finding--training-lantern" label="Проверить старый фонарь" title="Заметка о первом действии">Первое действие специально сделано очевидным. Оно не проверяет внимательность — оно объясняет язык, на котором дальше разговаривает сайт.</HiddenFinding>
 

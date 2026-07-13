@@ -3897,6 +3897,24 @@ main > section:not(.hero) { min-height: 108vh; min-height: 108svh; margin-top: -
   .final-letter p{max-width:78%;font-size:14px;}
 }
 
+/* Portalled artifact viewers: never remain attached to a scrolling scene. */
+.artifact-modal-backdrop{position:fixed!important;z-index:1000!important;inset:0!important;display:grid!important;place-items:center!important;padding:24px!important;background:rgba(3,2,7,.62)!important;overscroll-behavior:contain!important;touch-action:none!important}
+.artifact-modal-backdrop>.training-photo-reveal,.artifact-modal-backdrop>.barcelona-note{position:relative!important;z-index:1!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;margin:0!important;opacity:1!important;pointer-events:auto!important;transform:rotate(-1deg)!important}
+.artifact-modal-backdrop .artifact-close{z-index:5!important;pointer-events:auto!important;touch-action:manipulation!important}
+.artifact-modal-backdrop .barcelona-crest{display:grid!important;place-items:center!important;width:112px!important;height:112px!important;overflow:visible!important;mix-blend-mode:normal!important}
+.artifact-modal-backdrop .barcelona-crest img{display:block!important;width:112px!important;height:112px!important;max-width:112px!important;max-height:112px!important;object-fit:contain!important;transform:none!important;filter:none!important}
+body:has(.artifact-modal-backdrop){overflow:hidden!important;touch-action:none!important}
+@media(max-width:760px){
+ .artifact-modal-backdrop{padding:18px!important}
+ .artifact-modal-backdrop>.training-photo-reveal,.artifact-modal-backdrop>.barcelona-note{width:min(92vw,620px)!important;max-width:92vw!important;max-height:82svh!important;transform:rotate(-1deg)!important}
+ .tutorial-callout--folder{left:52%!important;right:auto!important;top:69%!important}
+}
+
+.artifact-modal-shell{position:relative!important;width:min(620px,86vw)!important;max-width:86vw!important}
+.artifact-modal-shell>.training-photo-reveal,.artifact-modal-shell>.barcelona-note{position:relative!important;left:auto!important;right:auto!important;top:auto!important;width:100%!important;max-width:none!important;margin:0!important;opacity:1!important;pointer-events:auto!important;transform:rotate(-1deg)!important}
+.artifact-modal-dismiss{position:absolute!important;z-index:20!important;right:12px!important;top:12px!important;display:grid!important;place-items:center!important;width:48px!important;height:48px!important;padding:0!important;color:#fff!important;border:1px solid rgba(252,203,240,.72)!important;border-radius:50%!important;background:#160b1d!important;box-shadow:0 8px 22px rgba(0,0,0,.45)!important;font:400 34px/1 Arial,sans-serif!important;cursor:pointer!important;pointer-events:auto!important;touch-action:none!important;-webkit-tap-highlight-color:transparent!important}
+@media(max-width:760px){.artifact-modal-shell{width:92vw!important;max-width:92vw!important}.artifact-modal-dismiss{right:10px!important;top:10px!important;width:46px!important;height:46px!important}}
+
 /* Explorer actions: guitar plays, stone changes the route, chest opens the note. */
 .explorer-section .finding--explorer-binoculars{left:4%!important;top:33%!important;width:34%!important;height:29%!important;z-index:110!important}
 .astrolabe3d .finding--astrolabe-case{z-index:110!important}
@@ -5270,8 +5288,6 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
 .training-photo-reveal .artifact-close,.barcelona-note .artifact-close{z-index:260!important;pointer-events:auto!important;touch-action:manipulation!important}
 .barcelona-crest{display:block;width:82px;height:88px;overflow:hidden;mix-blend-mode:multiply}
 .barcelona-crest img{display:block;width:246px!important;max-width:none!important;height:88px!important;max-height:none!important;object-fit:contain!important;transform:translateX(-82px);filter:contrast(1.18) saturate(1.08)}
-.trial-target--route::after{content:"";position:absolute;right:20%;top:4%;width:34px;height:25px;background:linear-gradient(135deg,#e02f75,#6700a3);clip-path:polygon(0 0,100% 18%,72% 54%,100% 88%,0 72%);border-left:2px solid #d7b783;filter:drop-shadow(0 3px 7px #000);transform-origin:left center;animation:routeFlagHint 1.8s ease-in-out 1s 3;pointer-events:none}
-@keyframes routeFlagHint{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(5deg) skewY(-3deg)}}
 .hero-scene,.training-level__scene,.discovery-level__scene,.rules-level__scene,.astrolabe3d__scene,.diary-interlude__scene,.expedition-objects__scene,.late-scene,.second-pass-archive__scene{filter:brightness(1.13) saturate(1.04)!important}
 .hero-shadow,.training-level__shade,.discovery-level__shade,.rules-level__shade,.astrolabe3d__shade,.diary-interlude__shade,.expedition-objects__shade,.late-shade,.second-pass-archive__shade{opacity:.72!important}
 @media(max-width:760px){
@@ -5282,6 +5298,18 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
  .training-photo-reveal,.barcelona-note{position:fixed!important;left:4vw!important;right:auto!important;top:50%!important;width:92vw!important;transform:translateY(-50%) rotate(-1deg)!important}
  .barcelona-note:not(.is-visible){transform:translateY(-46%) scale(.96) rotate(-1deg)!important}.barcelona-note.is-visible{transform:translateY(-50%) scale(1) rotate(-1deg)!important}
  .zero-coordinate{left:4vw!important;right:auto!important;top:50%!important;width:92vw!important;max-width:92vw!important;box-sizing:border-box!important;transform:translateY(-50%)!important}
- .trial-target--route::after{right:12%;top:8%;width:28px;height:21px}
  body:has(.training-photo-reveal,.barcelona-note.is-visible,.zero-coordinate){overflow:hidden!important;touch-action:none!important}
+}
+
+/* Portalled artifact viewers — authoritative and intentionally last. */
+.artifact-modal-backdrop{position:fixed!important;z-index:1000!important;inset:0!important;display:grid!important;place-items:center!important;padding:24px!important;background:rgba(3,2,7,.62)!important;overscroll-behavior:contain!important;touch-action:none!important}
+.artifact-modal-backdrop>.training-photo-reveal,.artifact-modal-backdrop>.barcelona-note{position:relative!important;z-index:1!important;left:auto!important;right:auto!important;top:auto!important;bottom:auto!important;margin:0!important;width:min(620px,86vw)!important;max-width:86vw!important;max-height:82vh!important;opacity:1!important;pointer-events:auto!important;transform:rotate(-1deg)!important}
+.artifact-modal-backdrop .artifact-close{z-index:5!important;pointer-events:auto!important;touch-action:manipulation!important}
+.artifact-modal-backdrop .barcelona-crest{display:grid!important;place-items:center!important;width:112px!important;height:112px!important;overflow:visible!important;mix-blend-mode:normal!important}
+.artifact-modal-backdrop .barcelona-crest img{display:block!important;width:112px!important;height:112px!important;max-width:112px!important;max-height:112px!important;object-fit:contain!important;transform:none!important;filter:none!important}
+body:has(.artifact-modal-backdrop){overflow:hidden!important;touch-action:none!important}
+@media(max-width:760px){
+ .artifact-modal-backdrop{padding:18px!important}
+ .artifact-modal-backdrop>.training-photo-reveal,.artifact-modal-backdrop>.barcelona-note{width:92vw!important;max-width:92vw!important;max-height:82svh!important;transform:rotate(-1deg)!important}
+ .tutorial-callout--folder{left:52%!important;right:auto!important;top:69%!important}
 }

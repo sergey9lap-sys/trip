@@ -9,6 +9,7 @@ export default function ResponsiveScene({ src, className, alt = "", priority = f
     "compass-observatory": "/optimized/compass-observatory-with-compass.png",
     "compass-family-second-pass": "/optimized/compass-family-with-compass.png",
     "connected-chamber-readme-v2": "/optimized/connected-football-figures-v2.png",
+    "silent-trial-with-sax": "/optimized/silent-trial-flagged.png",
   };
   const desktopSrc = desktopScenes[name] ?? `/optimized/${name}.avif`;
   const portraitScenes = {
@@ -23,6 +24,7 @@ export default function ResponsiveScene({ src, className, alt = "", priority = f
     "compass-observatory": "/optimized/compass-observatory-with-compass.mobile.png",
     "compass-family-second-pass": "/optimized/compass-family-with-compass.mobile.png",
     "connected-chamber-readme-v2": "/optimized/connected-football-figures-v2.mobile.png",
+    "silent-trial-with-sax": "/optimized/silent-trial-flagged.mobile.png",
   };
   portraitScenes["journey-06-funicular-diary-v2"] = "/optimized/journey-06-funicular-diary-v2-text.mobile.png";
   const mobileSrc = portraitScenes[name] ?? `/optimized/${name}.mobile.avif`;
