@@ -44,14 +44,13 @@ export function ExplorerSection({ choice, onChoose, secondPassActive }) {
       <SoundRelic className="sound-relic--guitar" src="/audio/guitar.mp3" label="Коснуться струн походной гитары" />
       {secondPassActive ? <button className="boxing-memory-hit" type="button" aria-label="Коснуться старых боксёрских перчаток" onClick={() => setMemoryLit(true)} /> : null}
       {memoryLit ? <span className="boxing-memory-light" aria-hidden="true" /> : null}
-      <HiddenFinding className="finding--explorer-binoculars" label="Проверить походный бинокль" title="Исследование перед проектом">До визуала нужно понять три вещи: кто принимает решение, что ему мешает и какое действие сайт должен сделать естественным.</HiddenFinding>
+      <HiddenFinding className="finding--explorer-binoculars" label="Открыть походный ящик" title="Исследование перед проектом">До визуала нужно понять три вещи: кто принимает решение, что ему мешает и какое действие сайт должен сделать естественным.</HiddenFinding>
     </section>
   );
 }
 
 export function CompassSection({ signalFound, secondPassActive }) {
   const [loaded, setLoaded] = useState(false);
-  const [familyOpen, setFamilyOpen] = useState(false);
   return (
     <section id="compass" className={loaded ? "late-section compass-section is-awake" : "late-section compass-section"} aria-label="Инструмент исследователя">
       <Scene src={secondPassActive ? "/images/compass-family-second-pass.png" : "/images/compass-observatory.png"} />
@@ -64,8 +63,6 @@ export function CompassSection({ signalFound, secondPassActive }) {
       <button className="compass-awaken" type="button" aria-label="Разбудить компас" onClick={() => setLoaded(true)}>
         {loaded ? "Направление найдено" : "Разбудить компас"}
       </button>
-      {secondPassActive ? <button className="family-photo-hit" type="button" aria-label="Рассмотреть семейную фотографию" onClick={() => setFamilyOpen(true)} /> : null}
-      {familyOpen ? <aside className="family-photo-reveal"><img src="/optimized/family-reference.avif" alt="Семейная фотография" /><button className="artifact-close" type="button" aria-label="Закрыть фотографию" onClick={() => setFamilyOpen(false)}>×</button></aside> : null}
       <HiddenFinding className="finding--compass-dome" label="Осмотреть далёкую обсерваторию" title="Следующий ориентир" secondPassActive={secondPassActive} secondTitle="Анонс, которого раньше не было">Здесь появится ближайший публичный проект. Пока направление уже выбрано, но точка на карте ещё не подписана.</HiddenFinding>
     </section>
   );
@@ -87,10 +84,8 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
         window.setTimeout(() => setCrossing(2), 1100);
         window.setTimeout(() => setCrossing(3), 2350);
         window.setTimeout(() => {
-          if (!window.matchMedia("(max-width: 760px)").matches) {
-            const mobile = window.matchMedia("(max-width: 760px)").matches;
-            document.getElementById("author")?.scrollIntoView({ behavior: mobile ? "auto" : "smooth" });
-          }
+          const mobile = window.matchMedia("(max-width: 760px)").matches;
+          document.getElementById("author")?.scrollIntoView({ behavior: mobile ? "auto" : "smooth" });
         }, 4300);
       }
     }
@@ -119,7 +114,6 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
         <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
         <div><img src="/optimized/barcelona-vintage.avif" alt="Эмблема Барселоны" /><strong>soon…</strong><button className="artifact-close" type="button" aria-label="Закрыть записку" onClick={() => setBarcelonaOpen(false)}>×</button></div>
       </aside>
-      <HiddenFinding className="finding--trial-vessel" label="Проверить сосуд у стены" title="Неиспользованный вариант">Не каждая красивая механика остаётся. Если она не помогает понять историю или автора, она становится просто эффектом.</HiddenFinding>
     </section>
   );
 }
@@ -186,7 +180,7 @@ export function ConnectedSection({ secondPassActive, onUnlockSecondPass }) {
       <button className="system-core" type="button" aria-label="Открыть второй слой сайта" onClick={onUnlockSecondPass} />
       <SoundRelic className="sound-relic--piano" src="/audio/piano.mp3" label="Активировать фрагмент мелодии" />
       <div className="system-pulse" aria-hidden="true" />
-      <HiddenFinding className="finding--connected-card" label="Проверить архивную карточку" title="README проекта" secondPassActive={secondPassActive} secondTitle="README второго слоя">Второй слой не заменяет первый. Он использует те же главы, но раскрывает другие детали и сохраняет найденное в личном архиве посетителя.</HiddenFinding>
+      <HiddenFinding className="finding--connected-card" label="Рассмотреть три фигурки" title="Три команды">Небольшая личная отсылка к футбольным командам, за которые я играю сейчас.</HiddenFinding>
     </section>
   );
 }
@@ -200,6 +194,8 @@ export function FinaleSection() {
       <div className="finale-copy">
         <span className="late-kicker">Глава XIII</span>
         <h2>Вы уверены, что изучили всё внимательно?</h2>
+        <p className="finale-return-copy">Кажется, некоторые детали всё ещё могли остаться незамеченными. Может, стоит вернуться в начало?</p>
+        <button className="finale-return" type="button" onClick={() => document.getElementById("threshold")?.scrollIntoView({ behavior: window.matchMedia("(max-width: 760px)").matches ? "auto" : "smooth" })}>Вернуться к началу</button>
         <p>Если честно…<br /><br />Я не знаю, сколько секретов вы нашли.<br /><br />Но пока вы их искали, вы успели познакомиться со мной намного лучше,<br />чем если бы просто посмотрели обычное портфолио.</p>
         <a className="finale-cta" href="https://t.me/lp_sergey" target="_blank" rel="noreferrer">Написать в Telegram</a>
         <small className="finale-note">Если дошли до этого места —<br />думаю, нам будет интересно поработать вместе.</small>

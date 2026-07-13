@@ -48,7 +48,6 @@ export default function RulesLevelSection() {
         onClick={() => setRoutePoint((value) => !value)}
       />
       <span className={routePoint ? "rules-route-point is-visible" : "rules-route-point"} aria-hidden="true" />
-      <p className={routePoint ? "hall-shift-note is-visible" : "hall-shift-note"}>Дверь осталась на месте. Зал — нет.</p>
       <HiddenFinding className="finding--rules-scroll" label="Развернуть план на перилах" title="Схема переходов">Каждая следующая глава уменьшает количество прямых инструкций. Интерфейс постепенно передаёт управление посетителю.</HiddenFinding>
     </section>
   );

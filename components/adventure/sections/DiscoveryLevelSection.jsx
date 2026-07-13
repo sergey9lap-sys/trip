@@ -52,6 +52,7 @@ export default function DiscoveryLevelSection({ secondPassActive = false }) {
         </>
       ) : null}
       <HiddenFinding className="finding--discovery-lamp" label="Осмотреть лампу у архива" title="Решение из ранней версии" secondPassActive={secondPassActive} secondTitle="Исправление, которое осталось незаметным">Раньше фотографию показывала стрелка. Потом стрелку убрали: если человек уже понял правило, лучше позволить ему применить его самостоятельно.</HiddenFinding>
+      <HiddenFinding className="finding--trial-vessel" label="Проверить папку в открытом ящике" title="Маршрут">За этой дверью начинается следующий участок маршрута.</HiddenFinding>
     </section>
   );
 }

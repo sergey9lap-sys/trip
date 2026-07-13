@@ -1,15 +1,25 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import HiddenFinding from "@/components/adventure/HiddenFinding";
+import HiddenFinding, { FindingContent } from "@/components/adventure/HiddenFinding";
+import { milaBonus } from "@/components/adventure/findingContent";
 import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 
 export default function SecondPassArchiveSection() {
   const audioRef = useRef(null);
+  const milaTriggerRef = useRef(null);
+  const milaCloseRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [milaOpen, setMilaOpen] = useState(false);
 
   useEffect(() => () => window.clearTimeout(Number(audioRef.current?.dataset?.timer)), []);
+  useEffect(() => {
+    if (!milaOpen) return;
+    milaCloseRef.current?.focus();
+    const onKeyDown = (event) => { if (event.key === "Escape") setMilaOpen(false); };
+    document.addEventListener("keydown", onKeyDown);
+    return () => { document.removeEventListener("keydown", onKeyDown); window.setTimeout(() => milaTriggerRef.current?.focus(), 0); };
+  }, [milaOpen]);
 
   const playRecord = () => {
     const audio = audioRef.current;
@@ -40,19 +50,20 @@ export default function SecondPassArchiveSection() {
       <audio ref={audioRef} src="/audio/Diamonds.mp3" preload="none" />
       <a className="y6one-hit" href="https://t.me/officialchannelY6ONE" target="_blank" rel="noreferrer" aria-label="Открыть Telegram-канал Y6ONE" />
 
-      <button className="mila-hit" type="button" aria-label="Познакомиться с Милой" onClick={() => setMilaOpen(true)} />
+      <button ref={milaTriggerRef} className="mila-hit" type="button" aria-label="Познакомиться с Милой" onClick={() => setMilaOpen(true)} />
 
-      <aside className={milaOpen ? "mila-note is-visible" : "mila-note"} aria-hidden={!milaOpen}>
-        <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
-        <div>
-          <button className="artifact-close" type="button" aria-label="Закрыть записку Милы" onClick={() => setMilaOpen(false)}>×</button>
-          <h3>Привет, меня зовут Мила.</h3>
-          <p>Я здесь слежу, чтобы Сергей не забывал о главном.</p>
-          <p>А у вас есть влажный корм? 😋<br />Ой, простите. О чём это я…</p>
-          <p>Ах да. Напишите Сергею кодовое слово <strong>«Мила»</strong> — получите мой личный стикерпак в Telegram и одну персональную интерактивную деталь для вашего сайта в подарок.</p>
-          <a href="https://t.me/lp_sergey" target="_blank" rel="noreferrer">Написать «Мила»</a>
-        </div>
-      </aside>
+      {milaOpen ? <div className="finding-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setMilaOpen(false); }}>
+        <aside className="mila-note is-visible" role="dialog" aria-modal="true" aria-label="Привет, меня зовут Мила.">
+          <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
+          <div className="mila-note__scroll">
+            <button ref={milaCloseRef} className="artifact-close" type="button" aria-label="Закрыть записку Милы" onClick={() => setMilaOpen(false)}>×</button>
+            <small className="finding-note__label">{milaBonus.label}</small>
+            <h3>{milaBonus.title}</h3>
+            <FindingContent content={milaBonus} />
+            <a href="https://t.me/lp_sergey" target="_blank" rel="noreferrer">Написать «Мила»</a>
+          </div>
+        </aside>
+      </div> : null}
       <HiddenFinding className="finding--listening-envelope" label="Проверить запечатанный конверт" title="Будущий релиз">Этот конверт зарезервирован для следующего совместного релиза. Когда материал будет готов, находка получит звук и дату.</HiddenFinding>
     </section>
   );

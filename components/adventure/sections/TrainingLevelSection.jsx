@@ -7,7 +7,7 @@ import ResponsiveScene from "@/components/adventure/ResponsiveScene";
 export default function TrainingLevelSection() {
   const [folderOpen, setFolderOpen] = useState(false);
   const [folderSeen, setFolderSeen] = useState(false);
-  const [photoFlipped, setPhotoFlipped] = useState(false);
+  const [photoOpen, setPhotoOpen] = useState(false);
 
   return (
     <section id="first-rule" className="training-level" aria-label="Первое правило экспедиции">
@@ -41,23 +41,24 @@ export default function TrainingLevelSection() {
       </div>
 
       <button
-        className={photoFlipped ? "training-photo is-flipped" : "training-photo"}
+        className="training-photo"
         type="button"
         aria-label="Перевернуть фотографию"
-        onClick={() => setPhotoFlipped(true)}
+        onClick={() => setPhotoOpen(true)}
       >
-        <span className="training-photo__inner" aria-hidden="true">
-          <span className="training-photo__front" />
-          <span className="training-photo__back">
-            <img src="/optimized/vintage-photo-back.avif" alt="" />
-            <span>Видите?<br />Второй раз уже проще.</span>
-          </span>
-        </span>
+        <span className="training-photo__inner" aria-hidden="true"><span className="training-photo__front" /></span>
       </button>
-      {folderSeen && !photoFlipped ? (
+      {folderSeen && !photoOpen ? (
         <div className="tutorial-callout tutorial-callout--photo" aria-hidden="true">
           <span className="tutorial-callout__text">Попробуйте ещё раз</span>
         </div>
+      ) : null}
+      {photoOpen ? (
+        <aside className="training-photo-reveal" role="dialog" aria-modal="true" aria-label="Открытая фотография">
+          <img src="/optimized/vintage-photo-back.avif" alt="Оборот найденной фотографии" />
+          <div><strong>Видите?</strong><p>Второй раз уже проще.</p></div>
+          <button className="artifact-close" type="button" aria-label="Закрыть фотографию" onClick={() => setPhotoOpen(false)}>×</button>
+        </aside>
       ) : null}
       <HiddenFinding className="finding--training-lantern" label="Проверить старый фонарь" title="Заметка о первом действии">Первое действие специально сделано очевидным. Оно не проверяет внимательность — оно объясняет язык, на котором дальше разговаривает сайт.</HiddenFinding>
 

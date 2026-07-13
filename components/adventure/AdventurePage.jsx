@@ -25,6 +25,23 @@ export default function AdventurePage() {
     document.body.classList.toggle("second-pass-active", active);
   }, []);
 
+  useEffect(() => {
+    const guardTelegram = (event) => {
+      const link = event.target.closest?.('a[href*="t.me/"]');
+      if (!link) return;
+      const section = link.closest("section");
+      const rect = link.getBoundingClientRect();
+      const directlyInside = event.clientX >= rect.left && event.clientX <= rect.right && event.clientY >= rect.top && event.clientY <= rect.bottom;
+      const sectionVisible = section && section.getBoundingClientRect().top < window.innerHeight * 0.8 && section.getBoundingClientRect().bottom > window.innerHeight * 0.2;
+      if (!directlyInside || !sectionVisible) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    };
+    document.addEventListener("click", guardTelegram, true);
+    return () => document.removeEventListener("click", guardTelegram, true);
+  }, []);
+
   const unlockSecondPass = () => {
     window.localStorage.setItem("secondJourneyUnlocked", "true");
     document.documentElement.classList.add("second-journey", "second-pass-active");

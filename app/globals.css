@@ -59,6 +59,82 @@
   .journey-tracker { position: fixed !important; }
 }
 
+/* Final interaction alignment pass: keep every hit area on its visible object. */
+.hidden-finding-hit {
+  pointer-events: auto !important;
+  touch-action: manipulation !important;
+  z-index: 92 !important;
+}
+
+.discovery-level .finding--trial-vessel {
+  left: 13% !important;
+  right: auto !important;
+  top: 50% !important;
+  width: 20% !important;
+  height: 22% !important;
+}
+
+.astrolabe3d .finding--astrolabe-case {
+  left: 25% !important;
+  top: 36% !important;
+  width: 50% !important;
+  height: 51% !important;
+  z-index: 94 !important;
+}
+
+.compass-section .finding--compass-dome,
+.expedition-objects .finding--objects-instrument,
+.explorer-section .finding--explorer-binoculars {
+  z-index: 94 !important;
+}
+
+.system-core {
+  left: 50% !important;
+  top: 49% !important;
+  width: 31% !important;
+  height: 36% !important;
+  transform: translate(-50%, -50%) !important;
+  animation: systemCoreInvite 1.05s ease-in-out 1.2s 2 !important;
+  z-index: 80 !important;
+}
+
+.second-pass-active .system-core,
+.connected-section.is-connected .system-core { animation: none !important; }
+
+@keyframes systemCoreInvite {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); filter: none; }
+  50% { transform: translate(-50%, -50%) scale(1.07); filter: drop-shadow(0 0 18px rgba(201, 93, 255, .7)); }
+}
+
+.connected-section .finding--connected-card {
+  left: 40% !important;
+  right: auto !important;
+  top: 55% !important;
+  width: 20% !important;
+  height: 18% !important;
+  z-index: 94 !important;
+}
+
+@media (max-width: 760px) {
+  .training-item--folder { left: 39% !important; top: 62% !important; width: 46% !important; height: 23% !important; }
+  .training-photo { left: 72% !important; top: 77% !important; width: 23% !important; }
+  .tutorial-callout--folder { left: 51% !important; top: 68% !important; right: auto !important; }
+  .tutorial-callout--photo { left: 61% !important; top: 79% !important; right: auto !important; }
+
+  .discovery-level .finding--trial-vessel { left: 7% !important; top: 53% !important; width: 29% !important; height: 20% !important; }
+  .astrolabe3d .finding--astrolabe-case { left: 13% !important; top: 38% !important; width: 74% !important; height: 48% !important; }
+
+  .system-core {
+    left: 50% !important;
+    top: 54% !important;
+    width: 68% !important;
+    height: 34% !important;
+    transform: translate(-50%, -50%) !important;
+    animation-name: systemCoreInvite !important;
+  }
+  .connected-section .finding--connected-card { left: 31% !important; top: 62% !important; width: 42% !important; height: 17% !important; }
+}
+
 * {
   box-sizing: border-box;
 }
@@ -3821,6 +3897,138 @@ main > section:not(.hero) { min-height: 108vh; min-height: 108svh; margin-top: -
   .final-letter p{max-width:78%;font-size:14px;}
 }
 
+/* Explorer actions: guitar plays, stone changes the route, chest opens the note. */
+.explorer-section .finding--explorer-binoculars{left:4%!important;top:33%!important;width:34%!important;height:29%!important;z-index:110!important}
+.astrolabe3d .finding--astrolabe-case{z-index:110!important}
+@media(max-width:760px){
+ .explorer-section .finding--explorer-binoculars{left:8%!important;top:54%!important;width:45%!important;height:16%!important}
+ .astrolabe3d .finding--astrolabe-case{left:13%!important;top:38%!important;width:74%!important;height:48%!important;z-index:110!important}
+}
+
+/* Hero cleanup: one KaZaMI mark and the finding on the upper wall map. */
+.hero-kazami-hit span{display:none!important}
+.hero .finding--hero-globe{left:53%!important;top:7%!important;width:20%!important;height:27%!important;z-index:66!important}
+@media(max-width:760px){.hero .finding--hero-globe{left:46%!important;top:34%!important;width:27%!important;height:19%!important}}
+
+/* Unified readable paper system for every found note. */
+.finding-dialog-backdrop{position:fixed;z-index:290;inset:0;display:grid;place-items:center;padding:24px;background:rgba(2,1,6,.68);backdrop-filter:blur(5px)}
+.finding-dialog-backdrop .hidden-finding-note,.finding-dialog-backdrop .mila-note{position:relative!important;z-index:291!important;left:auto!important;right:auto!important;top:auto!important;width:min(820px,92vw)!important;height:min(82vh,860px)!important;max-width:none!important;max-height:none!important;min-height:0!important;aspect-ratio:auto!important;overflow:hidden!important;opacity:1!important;pointer-events:auto!important;transform:rotate(-.35deg)!important;animation:hiddenFindingInReadable .38s ease both!important}
+.finding-dialog-backdrop .hidden-finding-note>img,.finding-dialog-backdrop .mila-note>img{position:absolute;inset:0;width:100%;height:100%;max-height:none!important;object-fit:cover;filter:none}
+.hidden-finding-note__scroll,.mila-note__scroll{position:relative!important;z-index:2!important;height:100%;padding:58px clamp(34px,6vw,74px) 46px!important;overflow-x:hidden;overflow-y:auto;overscroll-behavior:contain;color:#2b1b13;scrollbar-width:thin;scrollbar-color:rgba(77,45,26,.45) transparent}
+.hidden-finding-note__scroll .artifact-close,.mila-note__scroll .artifact-close{position:absolute!important;z-index:4!important;right:15px!important;top:15px!important}
+.finding-note__label{display:block!important;margin:0 54px 13px 0!important;color:#673b24!important;font:800 11px/1.15 "Courier New",monospace!important;letter-spacing:.14em!important;text-transform:uppercase!important}
+.hidden-finding-note h3,.mila-note h3{max-width:680px!important;margin:0 54px 22px 0!important;color:#28170f;font:700 clamp(30px,4vw,52px)/.98 Georgia,"Times New Roman",serif!important;letter-spacing:-.025em}
+.hidden-finding-note__scroll>p,.mila-note__scroll>p,.finding-note__section p{max-width:680px!important;margin:0 0 14px!important;color:#382216;font:600 16px/1.48 Georgia,"Times New Roman",serif!important;white-space:pre-line;text-transform:none!important;text-shadow:none!important}
+.finding-note__amount{display:block;margin:-8px 0 22px;color:#6700a3;font:800 clamp(34px,5vw,58px)/1 Georgia,serif}
+.finding-note__list,.finding-note__checklist{display:grid;gap:9px;max-width:680px;margin:12px 0 22px;padding:0;list-style:none}
+.finding-note__list li,.finding-note__checklist li{position:relative;padding:10px 12px 10px 31px;color:#2f1b11;border-left:2px solid rgba(103,0,163,.4);background:rgba(255,247,226,.2);font:700 14px/1.35 Georgia,serif}
+.finding-note__list li::before{content:"—";position:absolute;left:11px;color:#6700a3}.finding-note__checklist li::before{content:"□";position:absolute;left:10px;top:9px;color:#6700a3;font:800 17px/1 Georgia,serif}
+.finding-note__route{max-width:700px!important;margin:8px 0 22px!important;padding:15px 18px;color:#3a1d17!important;border:1px solid rgba(103,0,163,.24);background:rgba(252,203,240,.13);font:800 13px/1.5 "Courier New",monospace!important}
+.finding-note__callout{max-width:680px!important;margin:18px 0!important;padding:13px 17px;color:#fff!important;background:#6700a3!important;font:800 17px/1.25 Georgia,serif!important}
+.finding-note__questions{display:grid;gap:12px;margin:14px 0 22px}.finding-note__questions section{padding:14px 17px;border-left:3px solid #6700a3;background:rgba(255,247,226,.22)}.finding-note__questions strong{display:block;margin-bottom:5px;color:#2b1b13;font:800 18px/1.2 Georgia,serif}.finding-note__questions p{margin:0;color:#5a4030;font:600 13px/1.4 Georgia,serif}
+.finding-note__steps{display:grid;gap:0;max-width:680px;margin:14px 0 22px;padding:0 0 0 25px;counter-reset:route;list-style:none;border-left:1px solid rgba(103,0,163,.38)}.finding-note__steps li{position:relative;padding:7px 0 7px 21px;color:#352014;font:700 14px/1.35 Georgia,serif}.finding-note__steps li::before{content:"";position:absolute;left:-30px;top:14px;width:9px;height:9px;border:2px solid #6700a3;border-radius:50%;background:#d8b88b}
+.finding-note__section{max-width:700px;margin:22px 0;padding-top:18px;border-top:1px solid rgba(74,42,24,.22)}.finding-note__section h4{margin:0 0 12px;color:#2b1b13;font:800 18px/1.15 Georgia,serif}
+.finding-note__section-amount{display:inline-block;margin:2px 0 10px;padding:8px 12px;color:#fff;background:#6700a3;font:900 19px/1 "Courier New",monospace}
+.finding-note__conclusion{max-width:700px!important;margin:22px 0 0!important;padding:17px 19px;color:#2b1b13!important;border-top:2px solid rgba(103,0,163,.38);background:rgba(103,0,163,.08);font:800 16px/1.42 Georgia,serif!important}.finding-note__conclusion p{margin:0 0 5px;font:inherit}.finding-note__conclusion p:last-child{margin-bottom:0}
+.finding-note__code{display:inline-grid;gap:6px;margin:8px 0 20px;padding:13px 22px;color:#fff;background:#6700a3;box-shadow:0 8px 22px rgba(103,0,163,.24)}.finding-note__code small{font:700 9px/1 "Courier New",monospace;letter-spacing:.12em;text-transform:uppercase}.finding-note__code strong{font:900 23px/1 "Courier New",monospace;letter-spacing:.14em}
+.finding-note__status{max-width:680px!important;margin-top:24px!important;padding-top:14px;border-top:1px solid rgba(74,42,24,.25);font:800 12px/1.35 "Courier New",monospace!important}.finding-note__footnote{display:block;max-width:680px;margin-top:16px;color:#654b39;font:700 11px/1.45 Georgia,serif}
+.mila-note__scroll>a{display:inline-flex!important;margin:4px 0 10px!important;padding:13px 18px!important;color:#fff!important;background:#6700a3!important;text-decoration:none;font:800 10px/1 "Courier New",monospace!important;letter-spacing:.1em;text-transform:uppercase}
+@keyframes hiddenFindingInReadable{from{opacity:0;transform:translateY(18px) rotate(-.35deg) scale(.97)}to{opacity:1;transform:translateY(0) rotate(-.35deg) scale(1)}}
+body:has(.finding-dialog-backdrop){overflow:hidden!important;touch-action:none!important}
+@media(max-width:760px){
+ .finding-dialog-backdrop{padding:14px}.finding-dialog-backdrop .hidden-finding-note,.finding-dialog-backdrop .mila-note{width:94vw!important;height:84svh!important;transform:none!important}.hidden-finding-note__scroll,.mila-note__scroll{padding:54px 21px 32px!important}.finding-note__label{font-size:9px!important}.hidden-finding-note h3,.mila-note h3{margin-right:42px!important;font-size:30px!important;line-height:1.02!important}.hidden-finding-note__scroll>p,.mila-note__scroll>p,.finding-note__section p{font-size:15px!important;line-height:1.43!important}.finding-note__list li,.finding-note__checklist li{font-size:13px;padding-top:9px;padding-bottom:9px}.finding-note__amount{font-size:40px}.finding-note__route{font-size:11px!important}.finding-note__conclusion{font-size:14px!important}.finding-note__questions strong{font-size:16px}.finding-note__questions p{font-size:12px!important}
+}
+
+/* Final physical alignment for compass, astrolabe, chest and football figures. */
+.compass-awaken{left:50%!important;top:61%!important;width:34%!important;height:34%!important;border:0!important;background:transparent!important;box-shadow:none!important;backdrop-filter:none!important;transform:translate(-50%,-50%)!important;color:#ead9ca!important;text-shadow:0 2px 8px #000,0 0 12px rgba(224,47,117,.7)!important}
+.compass-section.is-awake .late-scene{filter:saturate(1.12) brightness(1.08)!important}.compass-section.is-awake .compass-awaken{animation:compassFoundPulse .8s ease 1!important}
+@keyframes compassFoundPulse{0%{filter:drop-shadow(0 0 0 rgba(224,47,117,0))}50%{filter:drop-shadow(0 0 24px rgba(224,47,117,.8))}100%{filter:drop-shadow(0 0 0 rgba(224,47,117,0))}}
+.finding--compass-dome{right:3%!important;top:14%!important;width:20%!important;height:31%!important;z-index:66!important;pointer-events:auto!important}
+.finding--explorer-binoculars{left:8%!important;top:50%!important;width:22%!important;height:22%!important;z-index:66!important}
+.finding--connected-card{left:auto!important;right:7%!important;top:58%!important;width:18%!important;height:25%!important;z-index:66!important}
+.astrolabe3d__artifact{z-index:62!important;pointer-events:auto!important}.finding--astrolabe-case{z-index:66!important;pointer-events:auto!important}
+.astrolabe3d.is-active .astrolabe3d__scene{filter:saturate(1.18) brightness(1.1)!important;transform:scale(1.01)!important}.astrolabe3d__response{z-index:70!important;left:50%!important;right:auto!important;bottom:8%!important;width:auto!important;max-width:520px!important;padding:16px 22px!important;color:#ead9ca!important;border:1px solid rgba(252,203,240,.4)!important;background:rgba(5,3,7,.86)!important;box-shadow:0 18px 45px rgba(0,0,0,.65)!important;transform:translateX(-50%)!important;text-align:center!important}.astrolabe3d__response.is-visible{opacity:1!important}
+@media(max-width:760px){
+ .compass-awaken{left:50%!important;top:68%!important;width:58%!important;height:28%!important}.finding--compass-dome{right:0!important;top:35%!important;width:31%!important;height:24%!important}
+ .finding--explorer-binoculars{left:8%!important;top:53%!important;width:25%!important;height:18%!important}.finding--connected-card{left:auto!important;right:0!important;top:66%!important;width:39%!important;height:21%!important}
+ .astrolabe3d__response{bottom:7%!important;width:84%!important;padding:13px 16px!important;font-size:11px!important}
+}
+
+/* These two first-pass notes are baked into their scene bitmaps. */
+html:not(.second-journey) .hero-note,
+html:not(.second-journey) .diary-entry,
+html:not(.second-journey) .diary-margin-note,
+html:not(.second-journey) .diary-found-note{display:none!important}
+
+html.second-journey .hero-note,
+html.second-journey .diary-entry,
+html.second-journey .diary-margin-note,
+html.second-journey .diary-found-note{display:none!important}
+
+/* Archive rewards and the final hidden coordinate. */
+.archive-reward{margin-top:22px;padding:22px;border:1px solid rgba(252,203,240,.2);background:linear-gradient(135deg,rgba(103,0,163,.14),rgba(224,47,117,.06))}
+.archive-reward>small,.archive-zero-clue>strong{color:#fccbf0;font:700 9px/1.2 "Courier New",monospace;letter-spacing:.12em;text-transform:uppercase}
+.archive-reward h3{margin:9px 0;color:#ead9ca;font:600 clamp(22px,2.4vw,34px)/1.05 Georgia,serif}.archive-reward p{margin:0;color:rgba(234,217,202,.78);font:500 14px/1.5 Georgia,serif}
+.archive-zero-clue{margin-top:18px;padding-top:18px;border-top:1px solid rgba(252,203,240,.14)}.archive-zero-clue p{margin-top:10px}.archive-zero-clue button{margin-top:14px;padding:11px 15px;color:#fccbf0;border:1px solid rgba(252,203,240,.35);background:rgba(5,3,7,.5);font:700 9px/1 "Courier New",monospace;letter-spacing:.1em;text-transform:uppercase;cursor:pointer}
+.archive-terms{margin:20px 0 0!important;padding-top:16px;border-top:1px solid rgba(252,203,240,.12);font-size:11px!important;opacity:.68}
+
+.hero-kazami-hit span{position:absolute;inset:35% 2% auto;display:block;padding:3px 2px;color:#c99b55;background:rgba(25,15,8,.82);font:700 clamp(6px,.7vw,11px)/1 Georgia,serif;letter-spacing:.05em;text-align:center;pointer-events:none}
+.hero-kazami-hit.is-zero-ready::after{content:"";position:absolute;inset:25% -8%;border-radius:50%;box-shadow:0 0 0 rgba(252,203,240,0);animation:kazamiSecretGlint 1.4s ease 3s 1;pointer-events:none}
+@keyframes kazamiSecretGlint{0%,100%{box-shadow:0 0 0 rgba(252,203,240,0)}50%{box-shadow:0 0 28px rgba(252,203,240,.5)}}
+.zero-coordinate{position:fixed;z-index:300;left:50%;top:50%;width:min(680px,88vw);max-height:86vh;padding:clamp(30px,5vw,58px);overflow:auto;color:#ead9ca;border:1px solid rgba(252,203,240,.35);background:radial-gradient(circle at 70% 15%,rgba(103,0,163,.32),transparent 35%),linear-gradient(145deg,#120817,#050c38);box-shadow:0 45px 110px rgba(0,0,0,.9);transform:translate(-50%,-50%);animation:hiddenFindingIn .45s ease both}
+.zero-coordinate>small:first-of-type{color:#fccbf0;font:700 9px/1 "Courier New",monospace;letter-spacing:.14em;text-transform:uppercase}.zero-coordinate h2{margin:14px 0;font:500 clamp(36px,5vw,62px)/.98 Georgia,serif}.zero-coordinate p{max-width:580px;font:500 16px/1.5 Georgia,serif}.zero-coordinate>strong{display:block;margin:22px 0 12px;color:#fccbf0;font:600 clamp(26px,3vw,42px)/1 Georgia,serif}.zero-coordinate ul{padding-left:20px;color:rgba(234,217,202,.82);font:500 14px/1.55 Georgia,serif}.zero-coordinate-link{display:inline-flex;margin-top:18px;padding:15px 20px;color:#fff;background:#6700a3;text-decoration:none;font:700 10px/1 "Courier New",monospace;letter-spacing:.1em;text-transform:uppercase}.zero-coordinate__terms{display:block;margin-top:18px;color:rgba(234,217,202,.52)!important;font:500 10px/1.45 Georgia,serif!important;letter-spacing:0!important;text-transform:none!important}
+@media(max-width:760px){.found-archive{padding:44px 20px 28px!important}.archive-reward{padding:17px}.archive-reward p{font-size:12px}.zero-coordinate{width:92vw;max-height:82svh;padding:44px 22px 28px}.zero-coordinate h2{font-size:36px}.zero-coordinate p{font-size:13px}.hero-kazami-hit span{inset:35% 0 auto;font-size:7px}}
+
+/* Physical hit-map corrections after the full archive review. */
+.hero-kazami-hit span{inset:62% 7% auto!important;padding:4px 3px!important;background:rgba(37,22,10,.96)!important;color:#d7aa60!important}
+.record-player-hit{left:4%!important;top:22%!important;width:49%!important;height:53%!important;z-index:62!important;pointer-events:auto!important}
+.y6one-hit{left:28%!important;top:57%!important;width:15%!important;height:13%!important;z-index:64!important;pointer-events:auto!important}
+.finding--listening-envelope{right:4%!important;top:68%!important;width:23%!important;height:22%!important}
+.rules-level .finding--trial-vessel{left:43%!important;right:auto!important;top:43%!important;width:20%!important;height:31%!important}
+.finding--objects-instrument{left:27%!important;right:auto!important;top:27%!important;width:25%!important;height:38%!important}
+
+.compass-section.is-awake .compass-visual{width:430px!important;height:430px!important;border:8px solid #a77a3f!important;background:repeating-conic-gradient(from -3deg,rgba(239,224,205,.9) 0 1deg,transparent 1deg 15deg),radial-gradient(circle at 50% 50%,#28170f 0 8%,#c59b5d 8% 10%,#24140e 10% 45%,#9b713b 46% 49%,#160d0b 50% 100%)!important;box-shadow:0 0 0 3px #2a170e,0 0 0 6px rgba(220,171,100,.55),0 35px 70px rgba(0,0,0,.8),0 0 55px rgba(224,47,117,.3)!important}
+.compass-section.is-awake .compass-visual span{inset:12%!important;border:2px solid rgba(239,224,205,.62)!important;box-shadow:inset 0 0 30px rgba(0,0,0,.8)!important}
+.compass-section.is-awake .compass-visual span::before{content:"N";position:absolute;left:50%;top:4%;color:#ead9ca;font:700 24px/1 Georgia,serif;transform:translateX(-50%)}
+.compass-section.is-awake .compass-visual i{top:14%!important;height:72%!important;width:14px!important;background:linear-gradient(to bottom,#e02f75 0 48%,#ead9ca 48% 100%)!important;clip-path:polygon(50% 0,100% 48%,62% 50%,100% 100%,50% 78%,0 100%,38% 50%,0 48%)!important;filter:drop-shadow(0 0 10px rgba(224,47,117,.75))!important}
+.compass-section.is-awake .compass-awaken{color:#ead9ca!important;text-shadow:0 2px 8px #000!important}
+@media(max-width:760px){
+ .hero-kazami-hit span{inset:64% 3% auto!important;font-size:6px!important}
+ .record-player-hit{left:0!important;top:31%!important;width:70%!important;height:38%!important}.y6one-hit{left:31%!important;top:58%!important;width:28%!important;height:12%!important}
+ .finding--listening-envelope{right:0!important;top:70%!important;width:37%!important;height:20%!important}
+ .rules-level .finding--trial-vessel{left:42%!important;right:auto!important;top:43%!important;width:28%!important;height:30%!important}
+ .finding--objects-instrument{left:30%!important;right:auto!important;top:35%!important;width:39%!important;height:27%!important}
+ .compass-section.is-awake .compass-visual{width:270px!important;height:270px!important;border-width:6px!important}.compass-section.is-awake .compass-visual span::before{font-size:17px}
+}
+
+/* Mobile interaction repair: scene media never intercepts taps. */
+@media(max-width:760px){
+ main>section>picture,.second-pass-archive>picture,.bridge-cinematic>picture{z-index:-3!important;pointer-events:none!important;touch-action:none!important}
+ main>section>picture img,.second-pass-archive>picture img,.bridge-cinematic>picture img{pointer-events:none!important}
+ .hero-shadow,.hero-light,.training-level__shade,.discovery-level__shade,.rules-level__shade,.astrolabe3d__shade,.diary-interlude__shade,.expedition-objects__shade,.expedition-objects__light,.late-shade,.second-pass-archive__shade,.continuous-journey,.system-pulse,.rules-route-point,.boxing-memory-light{pointer-events:none!important}
+ button,a{touch-action:manipulation}
+ .training-item,.training-photo,.discovery-photo,.archive-mark,.rules-photo,.rules-note-object,.rules-globe,.astrolabe3d__artifact,.expedition-flute,.camp-case,.camp-stone,.camp-map-symbol,.sound-relic,.compass-awaken,.trial-target,.trial-barcelona-hit,.archive-film,.author-project,.author-3d-hit,.system-core,.system-readme,.record-player-hit,.y6one-hit,.mila-hit,.hidden-finding-hit,.final-marker{z-index:30!important;pointer-events:auto!important}
+ .training-note,.hidden-finding-note,.found-archive,.family-photo-reveal,.barcelona-note,.mila-note,.author-draft,.author-project-reveal,.author-3d-reveal,.diary-project-reveal,.final-letter{z-index:200!important;pointer-events:auto!important}
+ .artifact-close,.training-note__close{z-index:230!important;pointer-events:auto!important;touch-action:manipulation!important}
+
+ .hero-note{left:65%!important;top:63.2%!important;width:18%!important;font-size:clamp(4px,1.2vw,6px)!important;line-height:1.12!important;text-align:center!important}
+ .training-note{inset:auto 4%!important;top:50%!important;width:92%!important;max-height:78svh!important;transform:translateY(-50%)!important}
+ .training-note__close{right:12px!important;top:12px!important;width:44px!important;height:44px!important}
+
+ .discovery-photo{left:29%!important;top:60%!important;width:25%!important;height:12%!important}.archive-mark{left:39%!important;top:59%!important;width:15%!important;height:12%!important}.archive-prototype-hit{left:25%!important;top:56%!important;width:35%!important;height:19%!important;z-index:31!important}.archive-milka-hit{left:18%!important;top:55%!important;width:42%!important;height:20%!important;z-index:32!important}
+ .rules-photo{left:3%!important;top:72%!important;width:31%!important;height:15%!important}.rules-note-object{left:auto!important;right:0!important;top:68%!important;width:29%!important;height:24%!important}.rules-globe{left:42%!important;top:55%!important;width:25%!important;height:20%!important}.finding--rules-scroll{right:0!important;top:68%!important;width:28%!important;height:24%!important}
+
+ .diary-entry,.second-journey .diary-entry{left:11%!important;top:71.2%!important;width:35%!important;transform:rotate(.4deg)!important}.diary-entry h2,.second-journey .diary-entry h2{font-size:clamp(12px,3.5vw,16px)!important}.diary-entry p,.second-journey .diary-entry p{font-size:clamp(4.5px,1.25vw,6px)!important;line-height:1.2!important}.diary-margin-note,.second-journey .diary-margin-note{left:51%!important;top:78.2%!important;width:30%!important;font-size:clamp(4.5px,1.2vw,6px)!important}
+
+ .expedition-flute{left:0!important;top:65%!important;width:45%!important;height:20%!important}.finding--objects-instrument{left:47%!important;top:63%!important;width:26%!important;height:19%!important}
+ .record-player-hit{left:8%!important;top:54%!important;width:58%!important;height:23%!important}.y6one-hit{left:35%!important;top:65%!important;width:25%!important;height:10%!important}.mila-hit{left:0!important;top:65%!important;width:25%!important;height:18%!important}.finding--listening-envelope{right:0!important;top:72%!important;width:28%!important;height:17%!important}
+ .camp-case{left:8%!important;top:54%!important;width:45%!important;height:16%!important}.camp-map-symbol{left:31%!important;top:62%!important;width:49%!important;height:22%!important}.camp-stone{left:70%!important;top:77%!important;width:24%!important;height:15%!important}.sound-relic--guitar{left:0!important;top:63%!important;width:48%!important;height:22%!important}.boxing-memory-hit{left:28%!important;top:53%!important;width:28%!important;height:17%!important}
+ .compass-awaken{left:7%!important;top:73%!important;width:31%!important;height:15%!important;transform:none!important}.family-photo-hit{left:70%!important;top:57%!important;width:29%!important;height:21%!important}.finding--compass-dome{right:0!important;top:42%!important;width:25%!important;height:17%!important}
+ .trial-copy{left:20px!important;right:58px!important;top:max(100px,env(safe-area-inset-top))!important;width:auto!important;transform:none!important;text-align:left!important}.trial-copy h2{font-size:clamp(34px,10vw,46px)!important;line-height:.98!important}.trial-target--stone{left:0!important;top:58%!important;width:34%!important;height:22%!important}.trial-target--lever{right:0!important;top:46%!important;width:26%!important;height:25%!important}.trial-target--route{right:17%!important;top:54%!important;width:36%!important;height:25%!important}.trial-barcelona-hit{right:5%!important;top:56%!important;width:28%!important;height:20%!important}.sound-relic--sax{right:0!important;top:54%!important;width:20%!important;height:27%!important}
+ .author-project,.author-3d-hit{left:4%!important;top:43%!important;width:45%!important;height:23%!important}.archive-film{left:3%!important;top:59%!important;width:35%!important;height:19%!important}.sound-relic--violin{left:0!important;top:65%!important;width:28%!important;height:21%!important}.finding--author-right-cabinet{right:0!important;top:52%!important;width:31%!important;height:25%!important}
+ .system-core{left:29%!important;top:52%!important;width:42%!important;height:27%!important}.sound-relic--piano{right:0!important;top:69%!important;width:29%!important;height:18%!important}.finding--connected-card{left:0!important;right:auto!important;top:70%!important;width:29%!important;height:17%!important}
+}
+
 /* Hard performance budget: effects settle once and fully stop off-screen. */
 main > section *,
 main > section::before,
@@ -4014,6 +4222,18 @@ main > section:not(.hero) {
 .finale-copy p{max-width:700px;margin-top:20px;font-size:clamp(15px,1.16vw,19px);line-height:1.38}
 .finale-cta{display:inline-flex;margin-top:24px;padding:15px 22px;color:#fff;background:#6700a3;border:1px solid rgba(252,203,240,.28);box-shadow:0 12px 28px rgba(103,0,163,.32),0 0 22px rgba(224,47,117,.12);text-decoration:none;font:700 12px/1 "Courier New",monospace;letter-spacing:.09em;text-transform:uppercase;transition:transform .25s ease,background .25s ease,box-shadow .25s ease}
 .finale-cta:hover,.finale-cta:focus-visible{background:#e02f75;transform:translateY(-2px);box-shadow:0 16px 34px rgba(103,0,163,.38),0 0 28px rgba(224,47,117,.2)}
+.finale-return-copy{max-width:560px!important;margin:18px 0 0!important;font-size:14px!important;color:rgba(239,224,205,.8)}
+.finale-return{display:inline-flex;margin-top:12px;padding:12px 18px;border:1px solid rgba(252,203,240,.42);color:#fccbf0;background:rgba(5,3,7,.5);font:700 10px/1 "Courier New",monospace;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .25s ease,transform .25s ease}
+.finale-return:hover,.finale-return:focus-visible{background:rgba(103,0,163,.72);transform:translateY(-2px)}
+
+.compass-visual{position:absolute;z-index:4;left:50%;top:58%;width:240px;height:240px;border:1px solid rgba(252,203,240,.3);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 45px rgba(103,0,163,.34),inset 0 0 35px rgba(224,47,117,.12);pointer-events:none;animation:compassReveal .65s ease both}
+.compass-visual span{position:absolute;inset:12%;border:1px solid rgba(252,203,240,.25);border-radius:50%}
+.compass-visual i{position:absolute;left:50%;top:18%;width:2px;height:64%;background:linear-gradient(#fccbf0 0 48%,#6700a3 48%);transform:translateX(-50%) rotate(38deg);transform-origin:center;filter:drop-shadow(0 0 7px #e02f75)}
+@keyframes compassReveal{from{opacity:0;transform:translate(-50%,-50%) scale(.72) rotate(-20deg)}to{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0)}}
+
+.system-core{animation:systemCoreNudge 1.05s ease-in-out 1.1s 2}
+.second-pass-active .system-core{animation:none}
+@keyframes systemCoreNudge{0%,100%{box-shadow:0 0 42px rgba(103,0,163,.22),inset 0 0 35px rgba(224,47,117,.12);transform:scale(1)}50%{box-shadow:0 0 68px rgba(224,47,117,.55),inset 0 0 45px rgba(103,0,163,.28);transform:scale(1.055)}}
 .finale-handle{display:inline-block;margin-left:12px;color:rgba(252,203,240,.72);font:700 11px "Courier New",monospace;letter-spacing:.08em}
 .finale-note{display:block;margin-top:16px;color:rgba(239,224,205,.72);font:600 13px/1.45 Georgia,serif}
 .final-letter strong{font-weight:800}
@@ -4532,9 +4752,9 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
 .bridge-cinematic{position:absolute;z-index:12;inset:0;pointer-events:none;opacity:0;background:#050307;transition:opacity .65s ease;overflow:hidden}
 .bridge-cinematic.step-1,.bridge-cinematic.step-2,.bridge-cinematic.step-3{opacity:1}
 .bridge-cinematic img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.035);transition:opacity .85s ease,transform 1.5s cubic-bezier(.2,.75,.2,1)}
-.bridge-cinematic.step-1 img:nth-child(1){opacity:1;transform:scale(1)}
-.bridge-cinematic.step-2 img:nth-child(2){opacity:1;transform:scale(1)}
-.bridge-cinematic.step-3 img:nth-child(3){opacity:1;transform:scale(1)}
+.bridge-cinematic.step-1>picture:nth-child(1) img{opacity:1;transform:scale(1)}
+.bridge-cinematic.step-2>picture:nth-child(2) img{opacity:1;transform:scale(1)}
+.bridge-cinematic.step-3>picture:nth-child(3) img{opacity:1;transform:scale(1)}
 .trial-section:has(.bridge-cinematic.step-1) .trial-copy,
 .trial-section:has(.bridge-cinematic.step-2) .trial-copy,
 .trial-section:has(.bridge-cinematic.step-3) .trial-copy{opacity:0;transition:opacity .35s ease}
@@ -4926,4 +5146,122 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
 
  .family-photo-reveal img,.barcelona-note img,.mila-note>img,.author-project-reveal>img,.author-3d-reveal>img,.diary-project-reveal>img{max-width:100%!important;max-height:72svh!important;object-fit:contain!important}
  .artifact-close{z-index:10!important;display:grid!important;place-items:center!important;color:#fff!important;background:#160b1d!important;border:1px solid rgba(252,203,240,.7)!important;font-size:28px!important;line-height:1!important}
+}
+
+/* Authoritative mobile tap map — must stay last. */
+@media(max-width:760px){
+ main>section>picture,.second-pass-archive>picture,.bridge-cinematic>picture{z-index:-3!important;pointer-events:none!important}.hero-scene,.training-level__scene,.discovery-level__scene,.rules-level__scene,.astrolabe3d__scene,.diary-interlude__scene,.expedition-objects__scene,.late-scene,.second-pass-archive__scene{pointer-events:none!important}
+ .hero-shadow,.hero-light,.training-level__shade,.discovery-level__shade,.rules-level__shade,.astrolabe3d__shade,.diary-interlude__shade,.expedition-objects__shade,.expedition-objects__light,.late-shade,.second-pass-archive__shade,.continuous-journey,.system-pulse,.rules-route-point,.boxing-memory-light{pointer-events:none!important}
+ .training-item,.training-photo,.discovery-photo,.archive-mark,.rules-photo,.rules-note-object,.rules-globe,.astrolabe3d__artifact,.expedition-flute,.camp-case,.camp-stone,.camp-map-symbol,.sound-relic,.compass-awaken,.trial-target,.trial-barcelona-hit,.archive-film,.author-project,.author-3d-hit,.system-core,.system-readme,.record-player-hit,.y6one-hit,.mila-hit,.hidden-finding-hit,.final-marker{z-index:30!important;pointer-events:auto!important;touch-action:manipulation!important}
+ .training-note,.hidden-finding-note,.found-archive,.family-photo-reveal,.barcelona-note,.mila-note,.author-draft,.author-project-reveal,.author-3d-reveal,.diary-project-reveal,.final-letter{z-index:200!important}.artifact-close,.training-note__close{z-index:230!important;pointer-events:auto!important;touch-action:manipulation!important}
+ .hero-note{left:65%!important;top:63.2%!important;width:18%!important;min-width:0!important;font-size:clamp(4px,1.2vw,6px)!important;line-height:1.12!important;text-align:center!important}.training-note{left:4%!important;right:4%!important;top:50%!important;width:92%!important;max-height:78svh!important;transform:translateY(-50%)!important}.training-note__close{right:12px!important;top:12px!important;width:44px!important;height:44px!important}
+ .discovery-photo{left:29%!important;top:60%!important;width:25%!important;height:12%!important}.archive-mark{left:39%!important;top:59%!important;width:15%!important;height:12%!important}.archive-prototype-hit{left:25%!important;top:56%!important;width:35%!important;height:19%!important;z-index:31!important}.archive-milka-hit{left:18%!important;top:55%!important;width:42%!important;height:20%!important;z-index:32!important}
+ .rules-photo{left:3%!important;top:72%!important;width:31%!important;height:15%!important}.rules-note-object{left:auto!important;right:0!important;top:68%!important;width:29%!important;height:24%!important}.rules-globe{left:42%!important;top:55%!important;width:25%!important;height:20%!important}.finding--rules-scroll{right:0!important;top:68%!important;width:28%!important;height:24%!important}
+ .diary-entry,.second-journey .diary-entry{left:11%!important;top:71.2%!important;width:35%!important;transform:rotate(.4deg)!important}.diary-entry h2,.second-journey .diary-entry h2{font-size:clamp(12px,3.5vw,16px)!important}.diary-entry p,.second-journey .diary-entry p{font-size:clamp(4.5px,1.25vw,6px)!important;line-height:1.2!important}.diary-margin-note,.second-journey .diary-margin-note{left:51%!important;top:78.2%!important;width:30%!important;font-size:clamp(4.5px,1.2vw,6px)!important}
+ .expedition-flute{left:0!important;top:65%!important;width:45%!important;height:20%!important}.finding--objects-instrument{left:47%!important;right:auto!important;top:63%!important;width:26%!important;height:19%!important}.record-player-hit{left:8%!important;top:54%!important;width:58%!important;height:23%!important}.y6one-hit{left:35%!important;top:65%!important;width:25%!important;height:10%!important}.mila-hit{left:0!important;top:65%!important;width:25%!important;height:18%!important}.finding--listening-envelope{right:0!important;top:72%!important;width:28%!important;height:17%!important}
+ .camp-case{left:8%!important;top:54%!important;width:45%!important;height:16%!important}.camp-map-symbol{left:31%!important;top:62%!important;width:49%!important;height:22%!important}.camp-stone{left:70%!important;top:77%!important;width:24%!important;height:15%!important}.sound-relic--guitar{left:0!important;top:63%!important;width:48%!important;height:22%!important}.boxing-memory-hit{left:28%!important;top:53%!important;width:28%!important;height:17%!important}
+ .compass-awaken{left:7%!important;top:73%!important;width:31%!important;height:15%!important;transform:none!important}.family-photo-hit{left:70%!important;top:57%!important;width:29%!important;height:21%!important}.finding--compass-dome{right:0!important;top:42%!important;width:25%!important;height:17%!important}
+ .trial-copy{left:20px!important;right:58px!important;top:max(100px,env(safe-area-inset-top))!important;width:auto!important;transform:none!important;text-align:left!important}.trial-copy h2{font-size:clamp(34px,10vw,46px)!important;line-height:.98!important}.trial-target--stone{left:0!important;top:58%!important;width:34%!important;height:22%!important}.trial-target--lever{right:0!important;top:46%!important;width:26%!important;height:25%!important}.trial-target--route{right:17%!important;top:54%!important;width:36%!important;height:25%!important}.trial-barcelona-hit{right:5%!important;top:56%!important;width:28%!important;height:20%!important}.sound-relic--sax{right:0!important;top:54%!important;width:20%!important;height:27%!important}
+ .author-project,.author-3d-hit{left:4%!important;top:43%!important;width:45%!important;height:23%!important}.archive-film{left:3%!important;top:59%!important;width:35%!important;height:19%!important}.sound-relic--violin{left:0!important;top:65%!important;width:28%!important;height:21%!important}.finding--author-right-cabinet{right:0!important;top:52%!important;width:31%!important;height:25%!important}.system-core{left:29%!important;top:52%!important;width:42%!important;height:27%!important}.sound-relic--piano{right:0!important;top:69%!important;width:29%!important;height:18%!important}.finding--connected-card{left:0!important;right:auto!important;top:70%!important;width:29%!important;height:17%!important}
+}
+
+@media(max-width:760px){
+ .training-level__intro,.discovery-level__intro,.rules-level__title-paper,.astrolabe3d__paper-title,.expedition-objects__copy,.late-copy,.trial-copy,.finale-copy,.second-pass-archive__copy{top:max(104px,env(safe-area-inset-top))!important}
+ .second-journey .diary-entry{left:11%!important;top:59.5%!important;width:25%!important}.second-journey .diary-margin-note{left:37%!important;top:67%!important;width:25%!important}.diary-project-hit{left:34%!important;top:57%!important;width:25%!important;height:13%!important;z-index:31!important;pointer-events:auto!important}
+ .bridge-cinematic{z-index:80!important;pointer-events:none!important}.bridge-cinematic>picture{z-index:auto!important;pointer-events:none!important}.bridge-cinematic>picture>img{pointer-events:none!important}
+}
+
+@media(max-width:760px){
+ .discovery-photo{z-index:36!important}.archive-mark{z-index:37!important}.archive-prototype-hit{left:22%!important;top:57%!important;width:36%!important;height:18%!important;z-index:31!important}.archive-milka-hit{left:28%!important;top:62%!important;width:26%!important;height:9%!important;z-index:32!important}
+ .finding--rules-scroll{right:0!important;top:45%!important;width:21%!important;height:15%!important}.rules-note-object{z-index:36!important}
+ .author-project,.author-3d-hit{left:6%!important;top:46%!important;width:27%!important;height:14%!important;z-index:36!important}.archive-film{left:34%!important;top:50%!important;width:15%!important;height:13%!important;z-index:33!important}.sound-relic--violin{left:19%!important;top:60%!important;width:21%!important;height:17%!important;z-index:35!important}
+}
+
+/* Requested mobile composition refinements. */
+@media(max-width:760px){
+ .hero-copy{padding-left:24px!important;padding-right:34px!important}.hero h1{width:82vw!important;font-size:clamp(33px,9.8vw,44px)!important;line-height:1.01!important}
+ .diary-entry{left:8%!important}.second-journey .diary-entry{left:8%!important}
+ .finding--objects-instrument{left:58%!important;right:auto!important;top:54%!important;width:34%!important;height:24%!important}
+ .compass-visual{left:22.5%;top:80.5%;width:150px;height:150px}
+ .finale-return-copy{max-width:88%!important;margin-top:14px!important;font-size:12px!important;line-height:1.3!important}.finale-return{margin-top:10px;padding:11px 14px;font-size:9px}.finale-note{margin-top:14px!important}
+ .system-core{animation-name:systemCoreNudgeMobile}
+}
+@keyframes systemCoreNudgeMobile{0%,100%{box-shadow:0 0 42px rgba(103,0,163,.22),inset 0 0 35px rgba(224,47,117,.12);transform:none}50%{box-shadow:0 0 68px rgba(224,47,117,.55),inset 0 0 45px rgba(103,0,163,.28);transform:scale(1.055)}}
+
+/* Photograph viewer: same stable modal language as the later discoveries. */
+.training-photo-reveal{position:fixed;z-index:240;left:50%;top:50%;width:min(620px,86vw);aspect-ratio:1.5;overflow:hidden;transform:translate(-50%,-50%) rotate(-1deg);box-shadow:0 36px 80px rgba(0,0,0,.8);animation:photoRevealIn .4s ease both}
+.training-photo-reveal>img{display:block;width:100%;height:100%;object-fit:cover}
+.training-photo-reveal>div{position:absolute;inset:0;display:grid;place-content:center;padding:12%;color:#2b1b13;text-align:center;pointer-events:none}
+.training-photo-reveal strong{font:700 clamp(25px,3vw,42px)/1 Georgia,serif}.training-photo-reveal p{margin:10px 0 0;font:700 clamp(13px,1.1vw,17px)/1.3 "Courier New",monospace}
+@keyframes photoRevealIn{from{opacity:0;transform:translate(-50%,-46%) rotate(-1deg) scale(.95)}to{opacity:1;transform:translate(-50%,-50%) rotate(-1deg) scale(1)}}
+
+/* Mobile layer isolation: hidden dialogs can never steal taps from another chapter. */
+@media(max-width:760px){
+ main>section,main>section:not(.hero),.second-pass-archive{position:relative!important;margin-top:0!important;height:100svh!important;min-height:100svh!important;max-height:100svh!important;overflow:hidden!important;isolation:isolate!important}
+ main>section{pointer-events:auto!important}
+ .training-note,.hidden-finding-note,.found-archive,.family-photo-reveal,.barcelona-note,.mila-note,.author-draft,.author-project-reveal,.author-3d-reveal,.diary-project-reveal,.final-letter{pointer-events:none!important}
+ .training-note,.hidden-finding-note,.found-archive,.family-photo-reveal,.barcelona-note.is-visible,.mila-note.is-visible,.author-section.is-open .author-draft,.author-project-reveal.is-visible,.author-3d-reveal.is-visible,.diary-project-reveal.is-visible,.is-letter-open .final-letter{pointer-events:auto!important}
+ .finale-cta,.final-letter a{pointer-events:auto!important}
+
+ .hero-copy{min-height:100svh!important;padding:max(92px,env(safe-area-inset-top)) 28px 12svh!important;align-items:start!important}.hero h1{width:calc(100vw - 56px)!important;max-width:390px!important;font-size:clamp(36px,10.4vw,46px)!important;line-height:1.01!important;text-wrap:initial!important}
+ .hero-note{left:65%!important;top:63.5%!important;width:20%!important;font-size:clamp(5px,1.35vw,6.5px)!important}
+ .training-level__intro,.discovery-level__intro,.rules-level__title-paper,.astrolabe3d__paper-title,.expedition-objects__copy,.late-copy,.trial-copy,.finale-copy,.second-pass-archive__copy{top:max(92px,env(safe-area-inset-top))!important}
+ .training-item--folder{left:42%!important;top:61%!important;width:44%!important;height:24%!important}.tutorial-callout--folder{left:48%!important;top:69%!important}.tutorial-callout--photo{left:62%!important;top:80%!important}
+ .training-photo-reveal{width:92vw;max-height:76svh;aspect-ratio:1.5}.training-photo-reveal .artifact-close{z-index:3!important;pointer-events:auto!important}
+ .diary-entry{left:7%!important;top:70.5%!important;width:40%!important}.diary-entry h2{font-size:clamp(14px,4vw,18px)!important}.diary-entry p{font-size:clamp(6px,1.65vw,8px)!important;line-height:1.22!important}.diary-margin-note{left:49%!important;top:78%!important;width:34%!important;font-size:clamp(5.5px,1.5vw,7px)!important}
+}
+
+/* Final mobile interaction and typography pass. */
+@media(max-width:760px){
+ .hero-copy{position:absolute!important;z-index:10!important;inset:0!important;width:100%!important;min-height:0!important;padding:92px 26px 0!important;display:block!important;pointer-events:none!important}.hero h1{margin:0!important;width:100%!important;max-width:410px!important;font-size:clamp(36px,10.2vw,45px)!important;line-height:1.02!important;animation:none!important;opacity:1!important;transform:none!important}
+ .training-level__intro,.discovery-level__intro,.rules-level__title-paper,.astrolabe3d__paper-title,.expedition-objects__copy,.late-copy,.trial-copy,.finale-copy,.second-pass-archive__copy{animation:none!important;opacity:1!important;transform:none!important}
+ .training-level__intro{top:92px!important}.discovery-level__intro,.rules-level__title-paper,.astrolabe3d__paper-title{top:104px!important}
+ .late-copy,.trial-copy,.finale-copy,.expedition-objects__copy,.second-pass-archive__copy{top:94px!important}
+ .diary-entry{left:9%!important;top:70%!important;width:39%!important;transform:rotate(.3deg)!important}.diary-entry h2{font-size:15px!important}.diary-entry p{font-size:6.2px!important;line-height:1.18!important}
+ .finding--objects-instrument{left:3%!important;right:auto!important;top:56%!important;width:31%!important;height:25%!important}
+ .training-item,.training-photo,.discovery-photo,.archive-mark,.rules-photo,.rules-note-object,.rules-globe,.astrolabe3d__artifact,.expedition-flute,.camp-case,.camp-stone,.camp-map-symbol,.sound-relic,.compass-awaken,.trial-target,.trial-barcelona-hit,.archive-film,.author-project,.author-3d-hit,.system-core,.system-readme,.record-player-hit,.y6one-hit,.mila-hit,.hidden-finding-hit,.final-marker,.hero-project-hit,.hero-kazami-hit,.archive-prototype-hit,.archive-milka-hit,.boxing-memory-hit,.family-photo-hit,.diary-project-hit{z-index:60!important;pointer-events:auto!important}
+ #finale:not(.is-current-view) .finale-cta,#finale:not(.is-current-view) .final-letter a{pointer-events:none!important}
+ .finale-return-copy{margin:12px 0 0!important}.finale-return{margin:9px 0 5px!important}.finale-copy>p:not(.finale-return-copy){margin-top:12px!important}.finale-cta{margin-top:14px!important}
+}
+
+.compass-section.is-awake::before{content:"";position:absolute;z-index:2;inset:0;background:radial-gradient(circle at 50% 58%,rgba(103,0,163,.08) 0 22%,rgba(5,3,7,.48) 58%,rgba(5,3,7,.72));pointer-events:none;animation:compassSceneIn .6s ease both}
+.compass-section.is-awake .compass-visual{left:50%;top:58%;width:min(40vw,520px);height:min(40vw,520px);z-index:8;background:radial-gradient(circle,rgba(28,15,35,.82),rgba(5,3,7,.92));border:2px solid rgba(252,203,240,.58)}
+.compass-section.is-awake .compass-awaken{left:50%;top:58%;z-index:9;transform:translate(-50%,-50%);background:transparent;border:0;box-shadow:none}
+@keyframes compassSceneIn{from{opacity:0}to{opacity:1}}
+@media(max-width:760px){
+ .compass-awaken,.compass-section.is-awake .compass-awaken{left:50%!important;top:68%!important;width:150px!important;height:150px!important;transform:translate(-50%,-50%)!important}
+ .compass-section.is-awake .compass-visual{left:50%!important;top:68%!important;width:250px!important;height:250px!important}
+}
+
+/* Text alignment against the final portrait crops. */
+@media(max-width:760px){
+ .hero-copy{padding:112px 18px 0!important}.hero h1{max-width:365px!important;font-size:clamp(33px,9.2vw,40px)!important;line-height:1.04!important}
+ .hero-note{left:63%!important;top:53.5%!important;width:18%!important;font-size:clamp(4px,1.08vw,5.2px)!important;line-height:1.1!important;transform:rotate(1deg)!important}.hero-note-arrow{font-size:11px!important}
+ .diary-entry,.second-journey .diary-entry{left:13.5%!important;top:62.4%!important;width:35%!important;transform:rotate(.2deg)!important}.diary-entry h2,.second-journey .diary-entry h2{margin-bottom:3px!important;font-size:clamp(14px,3.8vw,17px)!important;line-height:1!important}.diary-entry p,.second-journey .diary-entry p{font-size:clamp(6.5px,1.72vw,8px)!important;line-height:1.16!important}.diary-margin-note,.second-journey .diary-margin-note{left:53%!important;top:69.5%!important;width:31%!important;font-size:clamp(5.5px,1.45vw,7px)!important;line-height:1.18!important}
+ html:not(.second-journey) .diary-entry,html:not(.second-journey) .diary-margin-note,html:not(.second-journey) .diary-found-note{display:none!important}
+}
+
+/* Keep the unified note typography authoritative over legacy note rules. */
+.finding-dialog-backdrop .hidden-finding-note>.hidden-finding-note__scroll,.finding-dialog-backdrop .mila-note>.mila-note__scroll{position:relative!important;inset:auto!important;height:100%!important;padding:58px clamp(34px,6vw,74px) 46px!important;overflow-x:hidden!important;overflow-y:auto!important;transform:none!important}
+.finding-dialog-backdrop .hidden-finding-note h3,.finding-dialog-backdrop .mila-note h3{max-width:680px!important;margin:0 54px 22px 0!important;font-size:clamp(30px,4vw,52px)!important;line-height:.98!important}
+.finding-dialog-backdrop .hidden-finding-note p,.finding-dialog-backdrop .mila-note p{max-width:680px;font-size:16px;line-height:1.48;text-transform:none;text-shadow:none}
+@media(max-width:760px){.finding-dialog-backdrop .hidden-finding-note>.hidden-finding-note__scroll,.finding-dialog-backdrop .mila-note>.mila-note__scroll{padding:54px 21px 32px!important}.finding-dialog-backdrop .hidden-finding-note h3,.finding-dialog-backdrop .mila-note h3{font-size:30px!important}.finding-dialog-backdrop .hidden-finding-note p,.finding-dialog-backdrop .mila-note p{font-size:15px;line-height:1.43}}
+
+/* Final explorer/astrolabe interaction ownership. */
+.explorer-section .finding--explorer-binoculars{left:4%!important;top:33%!important;width:34%!important;height:29%!important;z-index:110!important}
+.astrolabe3d .finding--astrolabe-case{z-index:110!important}
+@media(max-width:760px){.explorer-section .finding--explorer-binoculars{left:8%!important;top:54%!important;width:45%!important;height:16%!important}.astrolabe3d .finding--astrolabe-case{left:13%!important;top:38%!important;width:74%!important;height:48%!important;z-index:110!important}}
+
+/* Authoritative object hit map. Keep this block last. */
+.hidden-finding-hit{z-index:92!important;pointer-events:auto!important;touch-action:manipulation!important}
+.discovery-level .finding--trial-vessel{left:13%!important;right:auto!important;top:50%!important;width:20%!important;height:22%!important}
+.astrolabe3d .finding--astrolabe-case{left:25%!important;top:36%!important;width:50%!important;height:51%!important;z-index:94!important}
+.compass-section .finding--compass-dome,.expedition-objects .finding--objects-instrument,.explorer-section .finding--explorer-binoculars{z-index:94!important}
+.system-core{left:50%!important;top:49%!important;width:31%!important;height:36%!important;transform:translate(-50%,-50%)!important;animation:systemCoreInvite 1.05s ease-in-out 1.2s 2!important;z-index:80!important}
+.connected-section.is-connected .system-core{animation:none!important}
+.connected-section .finding--connected-card{left:40%!important;right:auto!important;top:55%!important;width:20%!important;height:18%!important;z-index:94!important}
+@media(max-width:760px){
+ .training-item--folder{left:39%!important;top:62%!important;width:46%!important;height:23%!important}.training-photo{left:72%!important;top:77%!important;width:23%!important}.tutorial-callout--folder{left:51%!important;right:auto!important;top:68%!important}.tutorial-callout--photo{left:61%!important;right:auto!important;top:79%!important}
+ .discovery-level .finding--trial-vessel{left:7%!important;top:53%!important;width:29%!important;height:20%!important}.astrolabe3d .finding--astrolabe-case{left:13%!important;top:38%!important;width:74%!important;height:48%!important}
+ .system-core{left:50%!important;top:54%!important;width:68%!important;height:34%!important;transform:translate(-50%,-50%)!important;animation:systemCoreInvite 1.05s ease-in-out 1.2s 2!important}.connected-section .finding--connected-card{left:31%!important;right:auto!important;top:62%!important;width:42%!important;height:17%!important}
 }
