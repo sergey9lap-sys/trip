@@ -112,7 +112,7 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
       {secondPassActive ? <button className="trial-barcelona-hit" type="button" aria-label="Открыть записку с эмблемой" onClick={() => setBarcelonaOpen(true)} /> : null}
       <aside className={barcelonaOpen ? "barcelona-note is-visible" : "barcelona-note"} aria-hidden={!barcelonaOpen}>
         <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
-        <div><img src="/optimized/barcelona-vintage.avif" alt="Эмблема Барселоны" /><strong>soon…</strong><button className="artifact-close" type="button" aria-label="Закрыть записку" onClick={() => setBarcelonaOpen(false)}>×</button></div>
+        <div><span className="barcelona-crest"><img src="/optimized/barcelona-vintage.avif" alt="Эмблема Барселоны" /></span><strong>soon…</strong><button className="artifact-close" type="button" aria-label="Закрыть записку" onPointerUp={(event) => { event.stopPropagation(); setBarcelonaOpen(false); }}>×</button></div>
       </aside>
     </section>
   );

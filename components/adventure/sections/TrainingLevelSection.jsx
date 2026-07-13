@@ -57,7 +57,7 @@ export default function TrainingLevelSection() {
         <aside className="training-photo-reveal" role="dialog" aria-modal="true" aria-label="Открытая фотография">
           <img src="/optimized/vintage-photo-back.avif" alt="Оборот найденной фотографии" />
           <div><strong>Видите?</strong><p>Второй раз уже проще.</p></div>
-          <button className="artifact-close" type="button" aria-label="Закрыть фотографию" onClick={() => setPhotoOpen(false)}>×</button>
+          <button className="artifact-close" type="button" aria-label="Закрыть фотографию" onPointerUp={(event) => { event.stopPropagation(); setPhotoOpen(false); }}>×</button>
         </aside>
       ) : null}
       <HiddenFinding className="finding--training-lantern" label="Проверить старый фонарь" title="Заметка о первом действии">Первое действие специально сделано очевидным. Оно не проверяет внимательность — оно объясняет язык, на котором дальше разговаривает сайт.</HiddenFinding>

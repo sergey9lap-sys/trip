@@ -5265,3 +5265,23 @@ main > section:not(.hero){content-visibility:auto;contain-intrinsic-size:108svh}
  .discovery-level .finding--trial-vessel{left:7%!important;top:53%!important;width:29%!important;height:20%!important}.astrolabe3d .finding--astrolabe-case{left:13%!important;top:38%!important;width:74%!important;height:48%!important}
  .system-core{left:50%!important;top:54%!important;width:68%!important;height:34%!important;transform:translate(-50%,-50%)!important;animation:systemCoreInvite 1.05s ease-in-out 1.2s 2!important}.connected-section .finding--connected-card{left:31%!important;right:auto!important;top:62%!important;width:42%!important;height:17%!important}
 }
+
+/* Final modal, visibility and mobile scroll stabilization pass. */
+.training-photo-reveal .artifact-close,.barcelona-note .artifact-close{z-index:260!important;pointer-events:auto!important;touch-action:manipulation!important}
+.barcelona-crest{display:block;width:82px;height:88px;overflow:hidden;mix-blend-mode:multiply}
+.barcelona-crest img{display:block;width:246px!important;max-width:none!important;height:88px!important;max-height:none!important;object-fit:contain!important;transform:translateX(-82px);filter:contrast(1.18) saturate(1.08)}
+.trial-target--route::after{content:"";position:absolute;right:20%;top:4%;width:34px;height:25px;background:linear-gradient(135deg,#e02f75,#6700a3);clip-path:polygon(0 0,100% 18%,72% 54%,100% 88%,0 72%);border-left:2px solid #d7b783;filter:drop-shadow(0 3px 7px #000);transform-origin:left center;animation:routeFlagHint 1.8s ease-in-out 1s 3;pointer-events:none}
+@keyframes routeFlagHint{0%,100%{transform:rotate(-2deg)}50%{transform:rotate(5deg) skewY(-3deg)}}
+.hero-scene,.training-level__scene,.discovery-level__scene,.rules-level__scene,.astrolabe3d__scene,.diary-interlude__scene,.expedition-objects__scene,.late-scene,.second-pass-archive__scene{filter:brightness(1.13) saturate(1.04)!important}
+.hero-shadow,.training-level__shade,.discovery-level__shade,.rules-level__shade,.astrolabe3d__shade,.diary-interlude__shade,.expedition-objects__shade,.late-shade,.second-pass-archive__shade{opacity:.72!important}
+@media(max-width:760px){
+ html,body{overscroll-behavior-y:none!important;scroll-behavior:auto!important}
+ main{overflow:clip!important}
+ .hero-scene,.training-level__scene,.discovery-level__scene,.rules-level__scene,.astrolabe3d__scene,.diary-interlude__scene,.expedition-objects__scene,.late-scene,.second-pass-archive__scene{filter:brightness(1.24) saturate(1.06)!important}
+ .hero-shadow,.training-level__shade,.discovery-level__shade,.rules-level__shade,.astrolabe3d__shade,.diary-interlude__shade,.expedition-objects__shade,.late-shade,.second-pass-archive__shade{opacity:.58!important}
+ .training-photo-reveal,.barcelona-note{position:fixed!important;left:4vw!important;right:auto!important;top:50%!important;width:92vw!important;transform:translateY(-50%) rotate(-1deg)!important}
+ .barcelona-note:not(.is-visible){transform:translateY(-46%) scale(.96) rotate(-1deg)!important}.barcelona-note.is-visible{transform:translateY(-50%) scale(1) rotate(-1deg)!important}
+ .zero-coordinate{left:4vw!important;right:auto!important;top:50%!important;width:92vw!important;max-width:92vw!important;box-sizing:border-box!important;transform:translateY(-50%)!important}
+ .trial-target--route::after{right:12%;top:8%;width:28px;height:21px}
+ body:has(.training-photo-reveal,.barcelona-note.is-visible,.zero-coordinate){overflow:hidden!important;touch-action:none!important}
+}
