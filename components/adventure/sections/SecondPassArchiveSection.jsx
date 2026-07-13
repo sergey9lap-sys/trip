@@ -47,7 +47,7 @@ export default function SecondPassArchiveSection() {
       </div>
 
       <button className="record-player-hit" type="button" aria-label="Запустить кассету на десять секунд" onClick={playRecord} />
-      <audio ref={audioRef} src="/audio/Diamonds.mp3" preload="none" />
+      <audio ref={audioRef} src="/audio/Clone%20Me%20Y61%20Pattern.mp3" preload="none" />
       <a className="y6one-hit" href="https://t.me/officialchannelY6ONE" target="_blank" rel="noreferrer" aria-label="Открыть Telegram-канал Y6ONE" />
 
       <button ref={milaTriggerRef} className="mila-hit" type="button" aria-label="Познакомиться с Милой" onClick={() => setMilaOpen(true)} />
