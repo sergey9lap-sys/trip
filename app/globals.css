@@ -5334,3 +5334,14 @@ body:has(.artifact-modal-backdrop){overflow:hidden!important;touch-action:none!i
  .artifact-modal-backdrop>.training-photo-reveal,.artifact-modal-backdrop>.barcelona-note{width:92vw!important;max-width:92vw!important;max-height:82svh!important;transform:rotate(-1deg)!important}
  .tutorial-callout--folder{left:52%!important;right:auto!important;top:69%!important}
 }
+
+/* Mila note: the paper owns the whole scroll viewport, not only its image. */
+.finding-dialog-backdrop .mila-note{background:#d8b88b url("/optimized/vintage-photo-back.avif") center/cover no-repeat!important}
+.finding-dialog-backdrop .mila-note>img{display:none!important}
+.finding-dialog-backdrop .mila-note>.artifact-close{position:absolute!important;z-index:6!important;right:15px!important;top:15px!important}
+.finding-dialog-backdrop .mila-note>.mila-note__scroll{padding-top:68px!important}
+@media(max-width:760px){
+ .finding-dialog-backdrop .mila-note{width:94vw!important;height:84svh!important;max-height:84svh!important;overflow:hidden!important}
+ .finding-dialog-backdrop .mila-note>.artifact-close{right:12px!important;top:12px!important}
+ .finding-dialog-backdrop .mila-note>.mila-note__scroll{height:100%!important;padding:58px 21px 32px!important;overflow-y:auto!important}
+}

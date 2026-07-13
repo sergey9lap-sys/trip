@@ -56,8 +56,8 @@ export default function SecondPassArchiveSection() {
       {milaOpen && typeof document !== "undefined" ? createPortal(<div className="finding-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setMilaOpen(false); }}>
         <aside className="mila-note is-visible" role="dialog" aria-modal="true" aria-label="Привет, меня зовут Мила.">
           <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
+          <button ref={milaCloseRef} className="artifact-close" type="button" aria-label="Закрыть записку Милы" onClick={() => setMilaOpen(false)}>×</button>
           <div className="mila-note__scroll">
-            <button ref={milaCloseRef} className="artifact-close" type="button" aria-label="Закрыть записку Милы" onClick={() => setMilaOpen(false)}>×</button>
             <small className="finding-note__label">{milaBonus.label}</small>
             <h3>{milaBonus.title}</h3>
             <FindingContent content={milaBonus} />
