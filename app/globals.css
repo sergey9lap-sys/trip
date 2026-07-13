@@ -4254,6 +4254,12 @@ main > section:not(.hero) {
 .finale-first-pass{display:block;margin-top:16px;padding:12px 18px;border:1px solid rgba(255,90,87,.55);color:#ffb7b5;background:rgba(5,3,7,.62);font:700 10px/1 "Courier New",monospace;letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:background .25s ease,transform .25s ease,color .25s ease}
 .finale-first-pass:hover,.finale-first-pass:focus-visible{color:#fff;background:rgba(224,47,117,.74);transform:translateY(-2px)}
 
+/* Keep the full desktop trial artwork visible instead of enlarging its centre. */
+@media(min-width:761px){
+ .hero-scene{transform:none!important;animation:none!important}
+ .trial-section .late-scene{object-fit:contain!important;transform:none!important;animation:none!important}
+}
+
 .compass-visual{position:absolute;z-index:4;left:50%;top:58%;width:240px;height:240px;border:1px solid rgba(252,203,240,.3);border-radius:50%;transform:translate(-50%,-50%);box-shadow:0 0 45px rgba(103,0,163,.34),inset 0 0 35px rgba(224,47,117,.12);pointer-events:none;animation:compassReveal .65s ease both}
 .compass-visual span{position:absolute;inset:12%;border:1px solid rgba(252,203,240,.25);border-radius:50%}
 .compass-visual i{position:absolute;left:50%;top:18%;width:2px;height:64%;background:linear-gradient(#fccbf0 0 48%,#6700a3 48%);transform:translateX(-50%) rotate(38deg);transform-origin:center;filter:drop-shadow(0 0 7px #e02f75)}

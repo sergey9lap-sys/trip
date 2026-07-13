@@ -50,10 +50,9 @@ export function ExplorerSection({ choice, onChoose, secondPassActive }) {
   );
 }
 
-export function CompassSection({ signalFound, secondPassActive }) {
-  const [loaded, setLoaded] = useState(false);
+export function CompassSection({ secondPassActive }) {
   return (
-    <section id="compass" className={loaded ? "late-section compass-section is-awake" : "late-section compass-section"} aria-label="Инструмент исследователя">
+    <section id="compass" className="late-section compass-section" aria-label="Инструмент исследователя">
       <Scene src={secondPassActive ? "/images/compass-family-second-pass.png" : "/images/compass-observatory.png"} />
       <div className="late-shade" aria-hidden="true" />
       <div className="late-copy late-copy--left compact-copy">
@@ -61,9 +60,6 @@ export function CompassSection({ signalFound, secondPassActive }) {
         <h2>Похоже, вам действительно интересно, что будет дальше.</h2>
         <p>До этого места обычно доходят немногие.</p>
       </div>
-      <button className="compass-awaken" type="button" aria-label="Разбудить компас" onClick={() => setLoaded(true)}>
-        {loaded ? "Направление найдено" : "Разбудить компас"}
-      </button>
       <HiddenFinding className="finding--compass-dome" label="Осмотреть далёкую обсерваторию" title="Следующий ориентир" secondPassActive={secondPassActive} secondTitle="Анонс, которого раньше не было">Здесь появится ближайший публичный проект. Пока направление уже выбрано, но точка на карте ещё не подписана.</HiddenFinding>
     </section>
   );
@@ -71,16 +67,14 @@ export function CompassSection({ signalFound, secondPassActive }) {
 
 export function TrialSection({ onComplete, completed, secondPassActive }) {
   const [marks, setMarks] = useState(() => new Set());
-  const [lastMark, setLastMark] = useState(null);
   const [barcelonaOpen, setBarcelonaOpen] = useState(false);
   const [crossing, setCrossing] = useState(0);
   const find = (mark) => {
     const next = new Set(marks).add(mark);
     setMarks(next);
-    setLastMark(mark);
     if (next.size === 3) {
       onComplete();
-      if (!secondPassActive && crossing === 0) {
+      if (crossing === 0) {
         setCrossing(1);
         window.setTimeout(() => setCrossing(2), 1100);
         window.setTimeout(() => setCrossing(3), 2350);
@@ -92,9 +86,9 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
     }
   };
   return (
-    <section id="trial" className={`late-section trial-section ${completed ? "is-solved" : ""} ${lastMark ? `found-${lastMark}` : ""}`} aria-label="Тихое испытание">
+    <section id="trial" className={`late-section trial-section ${completed ? "is-solved" : ""}`} aria-label="Тихое испытание">
       <Scene src={secondPassActive ? "/images/trial-barcelona-second-pass.png" : "/images/silent-trial-with-sax.png"} />
-      {!secondPassActive && crossing > 0 ? <div className={`bridge-cinematic step-${crossing}`} aria-hidden="true"><ResponsiveScene src="/images/bridge-awakened.png" /><ResponsiveScene src="/images/bridge-crossing.png" /><ResponsiveScene src="/images/bridge-arrival.png" /></div> : null}
+      {crossing > 0 ? <div className={`bridge-cinematic step-${crossing}`} aria-hidden="true"><ResponsiveScene src="/images/bridge-awakened.png" /><ResponsiveScene src="/images/bridge-crossing.png" /><ResponsiveScene src="/images/bridge-arrival.png" /></div> : null}
       <div className="late-shade" aria-hidden="true" />
       <div className="trial-copy">
         <span className="late-kicker">Глава X</span>
@@ -104,12 +98,6 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
       <button className="trial-target trial-target--lever" type="button" aria-label="Проверить механизм" onClick={() => find("lever")} />
       <button className="trial-target trial-target--route" type="button" aria-label="Проследить линию" onClick={() => find("route")} />
       <SoundRelic className="sound-relic--sax" src="/audio/sax.mp3" label="Услышать далёкий саксофон" />
-      <div className="trial-reward" aria-live="polite">Тишина тоже умеет отвечать.</div>
-      <p className={lastMark ? "trial-action-note is-visible" : "trial-action-note"} aria-live="polite">
-        {lastMark === "stone" ? "Камень зажёг одну точку маршрута." : null}
-        {lastMark === "lever" ? "Рычаг изменил свет у выхода." : null}
-        {lastMark === "route" ? "Столбик сохранил найденную отметку." : null}
-      </p>
       {secondPassActive ? <button className="trial-barcelona-hit" type="button" aria-label="Открыть записку с эмблемой" onClick={() => setBarcelonaOpen(true)} /> : null}
       {barcelonaOpen && typeof document !== "undefined" ? createPortal(<div className="artifact-modal-backdrop" onClick={(event) => { if (event.target === event.currentTarget) setBarcelonaOpen(false); }}><div className="artifact-modal-shell"><aside className="barcelona-note is-visible" role="dialog" aria-modal="true" aria-label="Записка Барселона">
         <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
@@ -223,7 +211,7 @@ export default function FinalChapters({ secondPassActive, onUnlockSecondPass, on
   return (
     <>
       <ExplorerSection secondPassActive={secondPassActive} choice={choice} onChoose={(nextChoice) => setChoice((current) => current ?? nextChoice)} />
-      <CompassSection secondPassActive={secondPassActive} signalFound={Boolean(choice)} />
+      <CompassSection secondPassActive={secondPassActive} />
       <TrialSection secondPassActive={secondPassActive} completed={trialComplete} onComplete={() => setTrialComplete(true)} />
       <AuthorSection secondPassActive={secondPassActive} />
       <ConnectedSection secondPassActive={secondPassActive} onUnlockSecondPass={onUnlockSecondPass} />

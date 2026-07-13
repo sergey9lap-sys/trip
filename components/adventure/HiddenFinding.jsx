@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { createPortal } from "react-dom";
 import { findingMaterials } from "@/components/adventure/findingContent";
 
 const fallbackCategories = {
@@ -67,18 +68,20 @@ export default function HiddenFinding({ className, label, title, children, secon
     setOpen(true);
   };
 
+  const dialog = open ? <div className="finding-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
+    <aside className="hidden-finding-note" role="dialog" aria-modal="true" aria-label={resolvedTitle}>
+      <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" loading="lazy" decoding="async" />
+      <div className="hidden-finding-note__scroll">
+        <button ref={closeRef} className="artifact-close" type="button" aria-label="Закрыть находку" onClick={close}>×</button>
+        <small className="finding-note__label">{content?.category ?? fallbackCategories[className] ?? "НАЙДЕННЫЙ МАТЕРИАЛ"}</small>
+        <h3>{resolvedTitle}</h3>
+        <FindingContent content={content} fallback={children} />
+      </div>
+    </aside>
+  </div> : null;
+
   return <>
     <button ref={triggerRef} className={`hidden-finding-hit ${className}`} type="button" aria-label={label} onPointerUp={reveal} />
-    {open ? <div className="finding-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) close(); }}>
-      <aside className="hidden-finding-note" role="dialog" aria-modal="true" aria-label={resolvedTitle}>
-        <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" loading="lazy" decoding="async" />
-        <div className="hidden-finding-note__scroll">
-          <button ref={closeRef} className="artifact-close" type="button" aria-label="Закрыть находку" onClick={close}>×</button>
-          <small className="finding-note__label">{content?.category ?? fallbackCategories[className] ?? "НАЙДЕННЫЙ МАТЕРИАЛ"}</small>
-          <h3>{resolvedTitle}</h3>
-          <FindingContent content={content} fallback={children} />
-        </div>
-      </aside>
-    </div> : null}
+    {dialog && typeof document !== "undefined" ? createPortal(dialog, document.body) : null}
   </>;
 }

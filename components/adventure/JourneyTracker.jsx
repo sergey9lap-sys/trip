@@ -23,6 +23,7 @@ export default function JourneyTracker({ secondPassActive = false }) {
   const chapters = secondPassActive
     ? [...baseChapters.slice(0, 6), { id: "listening-archive", label: "Скрытая запись" }, ...baseChapters.slice(6)]
     : baseChapters;
+  const visibleIndex = Math.min(activeIndex, chapters.length - 1);
 
   useEffect(() => {
     const sections = chapters
@@ -58,7 +59,7 @@ export default function JourneyTracker({ secondPassActive = false }) {
     };
   }, [secondPassActive]);
 
-  const progress = chapters.length > 1 ? activeIndex / (chapters.length - 1) : 0;
+  const progress = chapters.length > 1 ? visibleIndex / (chapters.length - 1) : 0;
   const goToChapter = (id) => {
     if (window.matchMedia("(max-width: 760px)").matches) return;
     const mobile = window.matchMedia("(max-width: 760px)").matches;
@@ -73,7 +74,7 @@ export default function JourneyTracker({ secondPassActive = false }) {
     >
       <p className="journey-tracker__eyebrow">Экспедиция</p>
       <p className="journey-tracker__current" aria-live="polite">
-        {chapters[activeIndex].label}
+        {chapters[visibleIndex].label}
       </p>
       <div className="journey-tracker__route" aria-hidden="true">
         <span className="journey-tracker__progress" />
@@ -82,10 +83,10 @@ export default function JourneyTracker({ secondPassActive = false }) {
         {chapters.map((chapter, index) => (
           <li key={chapter.id}>
             <button
-              className={index === activeIndex ? "is-current" : index < activeIndex ? "is-passed" : ""}
+              className={index === visibleIndex ? "is-current" : index < visibleIndex ? "is-passed" : ""}
               type="button"
               aria-label={`${index + 1}. ${chapter.label}`}
-              aria-current={index === activeIndex ? "step" : undefined}
+              aria-current={index === visibleIndex ? "step" : undefined}
               onClick={() => goToChapter(chapter.id)}
             >
               <span>{String(index + 1).padStart(2, "0")}</span>
@@ -94,7 +95,7 @@ export default function JourneyTracker({ secondPassActive = false }) {
         ))}
       </ol>
       <p className="journey-tracker__count">
-        {String(activeIndex + 1).padStart(2, "0")} / {String(chapters.length).padStart(2, "0")}
+        {String(visibleIndex + 1).padStart(2, "0")} / {String(chapters.length).padStart(2, "0")}
       </p>
     </nav>
   );
