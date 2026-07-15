@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import HiddenFinding, { FindingContent } from "@/components/adventure/HiddenFinding";
 import { milaBonus } from "@/components/adventure/findingContent";
@@ -10,13 +10,18 @@ export default function SecondPassArchiveSection() {
   const audioRef = useRef(null);
   const milaTriggerRef = useRef(null);
   const milaCloseRef = useRef(null);
+  const milaScrollRef = useRef(null);
   const [playing, setPlaying] = useState(false);
   const [milaOpen, setMilaOpen] = useState(false);
 
   useEffect(() => () => window.clearTimeout(Number(audioRef.current?.dataset?.timer)), []);
+  useLayoutEffect(() => {
+    if (!milaOpen) return;
+    milaScrollRef.current?.scrollTo({ top: 0, behavior: "auto" });
+    milaCloseRef.current?.focus({ preventScroll: true });
+  }, [milaOpen]);
   useEffect(() => {
     if (!milaOpen) return;
-    milaCloseRef.current?.focus();
     const onKeyDown = (event) => { if (event.key === "Escape") setMilaOpen(false); };
     document.addEventListener("keydown", onKeyDown);
     return () => { document.removeEventListener("keydown", onKeyDown); window.setTimeout(() => milaTriggerRef.current?.focus(), 0); };
@@ -53,11 +58,11 @@ export default function SecondPassArchiveSection() {
 
       <button ref={milaTriggerRef} className="mila-hit" type="button" aria-label="Познакомиться с Милой" onClick={() => setMilaOpen(true)} />
 
-      {milaOpen && typeof document !== "undefined" ? createPortal(<div className="finding-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setMilaOpen(false); }}>
+      {milaOpen && typeof document !== "undefined" ? createPortal(<div className="finding-dialog-backdrop mila-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setMilaOpen(false); }}>
         <aside className="mila-note is-visible" role="dialog" aria-modal="true" aria-label="Привет, меня зовут Мила.">
           <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
           <button ref={milaCloseRef} className="artifact-close" type="button" aria-label="Закрыть записку Милы" onClick={() => setMilaOpen(false)}>×</button>
-          <div className="mila-note__scroll">
+          <div ref={milaScrollRef} className="mila-note__scroll">
             <small className="finding-note__label">{milaBonus.label}</small>
             <h3>{milaBonus.title}</h3>
             <FindingContent content={milaBonus} />

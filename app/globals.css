@@ -5345,3 +5345,13 @@ body:has(.artifact-modal-backdrop){overflow:hidden!important;touch-action:none!i
  .finding-dialog-backdrop .mila-note>.artifact-close{right:12px!important;top:12px!important}
  .finding-dialog-backdrop .mila-note>.mila-note__scroll{height:100%!important;padding:58px 21px 32px!important;overflow-y:auto!important}
 }
+
+/* Mila viewer stays centred in the visual viewport on mobile Safari. */
+.mila-dialog-backdrop{position:fixed!important;z-index:1200!important;inset:0!important;width:100vw!important;height:100dvh!important;margin:0!important;padding:clamp(12px,3vw,24px)!important;display:flex!important;align-items:center!important;justify-content:center!important;overflow:hidden!important;transform:none!important}
+.mila-dialog-backdrop>.mila-note{position:relative!important;inset:auto!important;margin:0!important;flex:none!important;transform:none!important}
+body:has(.mila-dialog-backdrop){overflow:hidden!important;touch-action:none!important}
+@media(max-width:760px){
+ .mila-dialog-backdrop{height:100dvh!important;min-height:100dvh!important;padding:max(12px,env(safe-area-inset-top)) 12px max(12px,env(safe-area-inset-bottom))!important}
+ .mila-dialog-backdrop>.mila-note{width:94vw!important;height:min(82dvh,720px)!important;min-height:0!important;max-height:82dvh!important}
+ .mila-dialog-backdrop>.mila-note>.mila-note__scroll{scroll-behavior:auto!important;overscroll-behavior:contain!important}
+}
