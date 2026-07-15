@@ -92,7 +92,7 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
       <div className="late-shade" aria-hidden="true" />
       <div className="trial-copy">
         <span className="late-kicker">Глава X</span>
-        <h2>{completed ? "Проход открылся." : "Дальше — без подсказок."}</h2>
+        <h2>{completed ? "Проход открылся." : "Попробуйте соединить несколько кнопок."}</h2>
       </div>
       <button className="trial-target trial-target--stone" type="button" aria-label="Осмотреть камень" onClick={() => find("stone")} />
       <button className="trial-target trial-target--lever" type="button" aria-label="Проверить механизм" onClick={() => find("lever")} />
