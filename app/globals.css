@@ -5355,3 +5355,10 @@ body:has(.mila-dialog-backdrop){overflow:hidden!important;touch-action:none!impo
  .mila-dialog-backdrop>.mila-note{width:94vw!important;height:min(82dvh,720px)!important;min-height:0!important;max-height:82dvh!important}
  .mila-dialog-backdrop>.mila-note>.mila-note__scroll{scroll-behavior:auto!important;overscroll-behavior:contain!important}
 }
+
+/* Final mobile alignment for the bridge chain: lever and post sit above legacy hit zones. */
+@media(max-width:760px){
+ .trial-section .trial-target--lever{right:2%!important;top:32%!important;width:25%!important;height:20%!important}
+ .trial-section .trial-target--route{right:15%!important;top:48%!important;width:38%!important;height:20%!important}
+ .trial-section .trial-barcelona-hit{right:4%!important;top:50%!important;width:31%!important;height:20%!important}
+}
