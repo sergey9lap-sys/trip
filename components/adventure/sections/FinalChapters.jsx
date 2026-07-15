@@ -69,26 +69,35 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
   const [marks, setMarks] = useState(() => new Set());
   const [barcelonaOpen, setBarcelonaOpen] = useState(false);
   const [crossing, setCrossing] = useState(0);
-  const find = (mark) => {
+  const [crossingPending, setCrossingPending] = useState(false);
+  const startCrossing = () => {
+    if (crossing !== 0) return;
+    setCrossing(1);
+    window.setTimeout(() => setCrossing(2), 1100);
+    window.setTimeout(() => setCrossing(3), 2350);
+    window.setTimeout(() => {
+      const mobile = window.matchMedia("(max-width: 760px)").matches;
+      document.getElementById("author")?.scrollIntoView({ behavior: mobile ? "auto" : "smooth" });
+    }, 4300);
+  };
+  const find = (mark, deferCrossing = false) => {
     const next = new Set(marks).add(mark);
     setMarks(next);
     if (next.size === 3) {
       onComplete();
-      if (crossing === 0) {
-        setCrossing(1);
-        window.setTimeout(() => setCrossing(2), 1100);
-        window.setTimeout(() => setCrossing(3), 2350);
-        window.setTimeout(() => {
-          const mobile = window.matchMedia("(max-width: 760px)").matches;
-          document.getElementById("author")?.scrollIntoView({ behavior: mobile ? "auto" : "smooth" });
-        }, 4300);
-      }
+      if (deferCrossing) setCrossingPending(true);
+      else startCrossing();
     }
+  };
+  const closeBarcelona = () => {
+    setBarcelonaOpen(false);
+    if (!crossingPending) return;
+    setCrossingPending(false);
+    startCrossing();
   };
   return (
     <section id="trial" className={`late-section trial-section ${completed ? "is-solved" : ""}`} aria-label="Тихое испытание">
-      <Scene src="/images/silent-trial-with-sax.png" />
-      {secondPassActive ? <span className="trial-barca-flag" aria-hidden="true" /> : null}
+      <Scene src={secondPassActive ? "/images/trial-barcelona-second-pass-v2.png" : "/images/silent-trial-with-sax.png"} />
       {crossing > 0 ? <div className={`bridge-cinematic step-${crossing}`} aria-hidden="true"><ResponsiveScene src="/images/bridge-awakened.png" /><ResponsiveScene src="/images/bridge-crossing.png" /><ResponsiveScene src="/images/bridge-arrival.png" /></div> : null}
       <div className="late-shade" aria-hidden="true" />
       <div className="trial-copy">
@@ -97,12 +106,12 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
       </div>
       <button className="trial-target trial-target--stone" type="button" aria-label="Осмотреть камень" onClick={() => find("stone")} />
       <button className="trial-target trial-target--lever" type="button" aria-label="Проверить механизм" onClick={() => find("lever")} />
-      <button className="trial-target trial-target--route" type="button" aria-label="Проследить линию" onClick={() => find("route")} />
+      {!secondPassActive ? <button className="trial-target trial-target--route" type="button" aria-label="Проследить линию" onClick={() => find("route")} /> : null}
       <SoundRelic className="sound-relic--sax" src="/audio/sax.mp3" label="Услышать далёкий саксофон" />
-      {secondPassActive ? <button className="trial-barcelona-hit" type="button" aria-label="Отметить столбик и открыть записку с эмблемой" onClick={() => { find("route"); setBarcelonaOpen(true); }} /> : null}
-      {barcelonaOpen && typeof document !== "undefined" ? createPortal(<div className="artifact-modal-backdrop" onClick={(event) => { if (event.target === event.currentTarget) setBarcelonaOpen(false); }}><div className="artifact-modal-shell"><aside className="barcelona-note is-visible" role="dialog" aria-modal="true" aria-label="Записка Барселона">
+      {secondPassActive ? <button className="trial-barcelona-hit" type="button" aria-label="Отметить столбик и открыть записку с эмблемой" onClick={() => { find("route", true); setBarcelonaOpen(true); }} /> : null}
+      {barcelonaOpen && typeof document !== "undefined" ? createPortal(<div className="artifact-modal-backdrop" onClick={(event) => { if (event.target === event.currentTarget) closeBarcelona(); }}><div className="artifact-modal-shell"><aside className="barcelona-note is-visible" role="dialog" aria-modal="true" aria-label="Записка Барселона">
         <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
-        <button className="artifact-close" type="button" aria-label="Закрыть записку" onClick={() => setBarcelonaOpen(false)}>×</button>
+        <button className="artifact-close" type="button" aria-label="Закрыть записку" onClick={closeBarcelona}>×</button>
         <div><span className="barcelona-crest"><img src="/optimized/barcelona-crest-transparent.png" alt="Эмблема Барселоны" /></span><strong>Barça Vision soon.....</strong></div>
       </aside></div></div>, document.body) : null}
     </section>
