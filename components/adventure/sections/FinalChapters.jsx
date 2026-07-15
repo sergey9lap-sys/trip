@@ -87,7 +87,8 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
   };
   return (
     <section id="trial" className={`late-section trial-section ${completed ? "is-solved" : ""}`} aria-label="Тихое испытание">
-      <Scene src={secondPassActive ? "/images/trial-barcelona-second-pass.png" : "/images/silent-trial-with-sax.png"} />
+      <Scene src="/images/silent-trial-with-sax.png" />
+      {secondPassActive ? <span className="trial-barca-flag" aria-hidden="true" /> : null}
       {crossing > 0 ? <div className={`bridge-cinematic step-${crossing}`} aria-hidden="true"><ResponsiveScene src="/images/bridge-awakened.png" /><ResponsiveScene src="/images/bridge-crossing.png" /><ResponsiveScene src="/images/bridge-arrival.png" /></div> : null}
       <div className="late-shade" aria-hidden="true" />
       <div className="trial-copy">
@@ -98,7 +99,7 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
       <button className="trial-target trial-target--lever" type="button" aria-label="Проверить механизм" onClick={() => find("lever")} />
       <button className="trial-target trial-target--route" type="button" aria-label="Проследить линию" onClick={() => find("route")} />
       <SoundRelic className="sound-relic--sax" src="/audio/sax.mp3" label="Услышать далёкий саксофон" />
-      {secondPassActive ? <button className="trial-barcelona-hit" type="button" aria-label="Открыть записку с эмблемой" onClick={() => setBarcelonaOpen(true)} /> : null}
+      {secondPassActive ? <button className="trial-barcelona-hit" type="button" aria-label="Отметить столбик и открыть записку с эмблемой" onClick={() => { find("route"); setBarcelonaOpen(true); }} /> : null}
       {barcelonaOpen && typeof document !== "undefined" ? createPortal(<div className="artifact-modal-backdrop" onClick={(event) => { if (event.target === event.currentTarget) setBarcelonaOpen(false); }}><div className="artifact-modal-shell"><aside className="barcelona-note is-visible" role="dialog" aria-modal="true" aria-label="Записка Барселона">
         <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
         <button className="artifact-close" type="button" aria-label="Закрыть записку" onClick={() => setBarcelonaOpen(false)}>×</button>

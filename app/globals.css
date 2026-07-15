@@ -5355,3 +5355,11 @@ body:has(.mila-dialog-backdrop){overflow:hidden!important;touch-action:none!impo
  .mila-dialog-backdrop>.mila-note{width:94vw!important;height:min(82dvh,720px)!important;min-height:0!important;max-height:82dvh!important}
  .mila-dialog-backdrop>.mila-note>.mila-note__scroll{scroll-behavior:auto!important;overscroll-behavior:contain!important}
 }
+
+/* The second route keeps the original three-object scene; only the post gains a flag. */
+.trial-barca-flag{position:absolute;z-index:4;left:67%;top:42%;width:clamp(34px,4.4vw,72px);height:clamp(42px,5.5vw,90px);pointer-events:none;filter:drop-shadow(0 7px 8px rgba(0,0,0,.58));transform:rotate(2deg);transform-origin:0 0}
+.trial-barca-flag::before{content:"";position:absolute;left:0;top:0;width:3px;height:100%;border-radius:2px;background:#9c7547;box-shadow:0 0 4px rgba(255,211,141,.25)}
+.trial-barca-flag::after{content:"FCB";position:absolute;left:3px;top:3px;width:82%;height:55%;display:grid;place-items:center;clip-path:polygon(0 0,100% 7%,82% 100%,0 82%);color:#e5b94f;background:linear-gradient(90deg,#8f1730 0 33%,#172c72 33% 66%,#8f1730 66%);border:1px solid rgba(217,172,76,.72);font:800 clamp(5px,.48vw,8px)/1 Georgia,serif;letter-spacing:.03em}
+@media(max-width:760px){
+ .trial-barca-flag{left:74%!important;top:45%!important;width:45px!important;height:58px!important}
+}
