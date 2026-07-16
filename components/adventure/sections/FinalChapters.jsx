@@ -119,11 +119,10 @@ export function TrialSection({ onComplete, completed, secondPassActive }) {
 }
 
 export function AuthorSection({ secondPassActive }) {
-  const [open, setOpen] = useState(false);
   const [projectOpen, setProjectOpen] = useState(false);
   const [teaserOpen, setTeaserOpen] = useState(false);
   return (
-    <section id="author" className={open ? "late-section author-section is-open" : "late-section author-section"} aria-label="Следы автора">
+    <section id="author" className="late-section author-section" aria-label="Следы автора">
       <Scene src={secondPassActive ? "/images/author-3d-teaser-second-pass.png" : "/images/author-archive-lpsflow-v3.png"} />
       <div className="late-shade" aria-hidden="true" />
       <div className="late-copy late-copy--right">
@@ -131,18 +130,7 @@ export function AuthorSection({ secondPassActive }) {
         <h2>Если честно…</h2>
         <p>Всё это начиналось как обычное портфолио.<br /><br />Но в какой-то момент мне стало интересно сделать сайт, который хочется исследовать.<br /><br />Поэтому среди этих материалов постепенно начинают появляться настоящие проекты.</p>
       </div>
-      <button className="archive-film" type="button" aria-label="Проявить скрытый черновик" onClick={() => setOpen(true)} />
       <SoundRelic className="sound-relic--violin" src="/audio/violin.mp3" label="Коснуться старой записи скрипки" />
-      <aside className="author-draft" data-placeholder="code-snippet-placeholder" aria-hidden={!open}>
-        <img src="/optimized/vintage-photo-back.avif" alt="" aria-hidden="true" />
-        <div>
-        <button className="artifact-close" type="button" aria-label="Закрыть заметку" onClick={() => setOpen(false)}>×</button>
-        <span>Заметка автора · версия 04</span>
-        <strong>Сначала здесь была просто красивая анимация.</strong>
-        <p>Потом стало понятно: красота без последствия ничего не меняет.</p>
-        <pre aria-label="Фрагмент кода">{`const detail = noticed\n  ? revealNextLayer()\n  : keepWatching();`}</pre>
-        </div>
-      </aside>
       <button
         className={projectOpen ? "author-project is-open" : "author-project"}
         data-placeholder="commercial-project-placeholder"
