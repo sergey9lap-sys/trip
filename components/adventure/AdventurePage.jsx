@@ -14,6 +14,7 @@ import FinalChapters from "@/components/adventure/sections/FinalChapters";
 import SecondPassArchiveSection from "@/components/adventure/sections/SecondPassArchiveSection";
 import PerformanceManager from "@/components/adventure/PerformanceManager";
 import FoundArchive from "@/components/adventure/FoundArchive";
+import MobileHotspotCalibrator from "@/components/adventure/MobileHotspotCalibrator";
 
 export default function AdventurePage() {
   const [secondPassActive, setSecondPassActive] = useState(false);
@@ -69,6 +70,7 @@ export default function AdventurePage() {
   return (
     <main>
       <PerformanceManager />
+      <MobileHotspotCalibrator versionKey={secondPassActive ? "second" : "first"} />
       <FoundArchive />
       <JourneyTracker secondPassActive={secondPassActive} />
       <HeroSection secondPassActive={secondPassActive} />

@@ -13,7 +13,7 @@ export default function Astrolabe3DSection() {
       <div className="astrolabe3d__shade" aria-hidden="true" />
 
       <div className="astrolabe3d__paper-title">
-        <h2>Кажется, вы не из тех, кто просто листает сайты.</h2>
+        <h2>Вы точно не из тех, кто просто листает сайты.</h2>
         <p>Любопытство пока побеждает. Это хорошо.</p>
       </div>
 

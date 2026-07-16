@@ -5362,3 +5362,18 @@ body:has(.mila-dialog-backdrop){overflow:hidden!important;touch-action:none!impo
  .trial-section .trial-target--route{right:15%!important;top:48%!important;width:38%!important;height:20%!important}
  .trial-section .trial-barcelona-hit{right:4%!important;top:50%!important;width:31%!important;height:20%!important}
 }
+
+/* Runtime-calibrated touch zones follow the rendered mobile artwork on every aspect ratio. */
+@media(max-width:760px){
+ [data-mobile-hotspot-calibrated="true"]{
+  left:var(--calibrated-left)!important;
+  right:auto!important;
+  top:var(--calibrated-top)!important;
+  bottom:auto!important;
+  width:var(--calibrated-width)!important;
+  height:var(--calibrated-height)!important;
+  min-width:48px!important;
+  min-height:48px!important;
+  touch-action:manipulation!important;
+ }
+}

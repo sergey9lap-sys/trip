@@ -162,7 +162,7 @@ export function ConnectedSection({ secondPassActive, onUnlockSecondPass }) {
       <div className="late-shade" aria-hidden="true" />
       <div className="late-copy late-copy--left compact-copy">
         <span className="late-kicker">Глава XII</span>
-        <h2>Кажется…</h2>
+        <h2>Вот мы и здесь…</h2>
         <p>До этого места доходят редко.<br /><br />Но самое интересное не здесь.<br /><br />Оно уже осталось позади.</p>
       </div>
       <button className="system-core" type="button" aria-label="Открыть второй слой сайта" onClick={onUnlockSecondPass} />
@@ -181,7 +181,7 @@ export function FinaleSection({ secondPassActive, onReturnToFirstPass }) {
       <div className="finale-copy">
         <span className="late-kicker">Глава XIII</span>
         <h2>Вы уверены, что изучили всё внимательно?</h2>
-        <p className="finale-return-copy">Кажется, некоторые детали всё ещё могли остаться незамеченными. Может, стоит вернуться в начало?</p>
+        <p className="finale-return-copy">Не все детали удалось заметить с первого раза. Может, стоит вернуться в начало?</p>
         <button className="finale-return" type="button" onClick={() => document.getElementById("threshold")?.scrollIntoView({ behavior: window.matchMedia("(max-width: 760px)").matches ? "auto" : "smooth" })}>Вернуться к началу</button>
         <p>Если честно…<br /><br />Я не знаю, сколько секретов вы нашли.<br /><br />Но пока вы их искали, вы успели познакомиться со мной намного лучше,<br />чем если бы просто посмотрели обычное портфолио.</p>
         <a className="finale-cta" href="https://t.me/lp_sergey" target="_blank" rel="noreferrer">Написать в Telegram</a>

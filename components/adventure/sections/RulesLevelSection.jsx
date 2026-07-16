@@ -16,7 +16,7 @@ export default function RulesLevelSection() {
       <div className="rules-level__shade" aria-hidden="true" />
 
       <div className="rules-level__title-paper">
-        <h2>Кажется, вы начинаете понимать правила.</h2>
+        <h2>Вы уже начинаете понимать правила.</h2>
       </div>
 
       <div className="rules-pencil" aria-hidden="true" />

@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { findingMaterials } from "@/components/adventure/findingContent";
 
 const removedFindingIds = new Set(["finding--connected-card"]);
-const total = 13;
+const total = 14;
 
 export default function FoundArchive() {
   const [materials, setMaterials] = useState([]);

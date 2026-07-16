@@ -33,7 +33,7 @@ export default function ExpeditionObjectsSection() {
       <div className="expedition-objects__light" aria-hidden="true" />
 
       <div className="expedition-objects__copy">
-        <h2>Кажется, мои подсказки вам уже не нужны.</h2>
+        <h2>Мои подсказки вам больше не нужны.</h2>
         <p>
           Сначала вы нажимали туда, куда я показывал.
           <br /><br />

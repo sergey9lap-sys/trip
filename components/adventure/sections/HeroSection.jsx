@@ -58,7 +58,7 @@ export default function HeroSection({ secondPassActive = false }) {
       </div>
       {secondPassActive ? (
         <>
-          {foundCount >= 13 ? <button className="hero-kazami-hit is-zero-ready" type="button" aria-label="Осмотреть знак KaZaMI" onClick={() => setZeroOpen(true)} /> : null}
+          {foundCount >= 14 ? <button className="hero-kazami-hit is-zero-ready" type="button" aria-label="Осмотреть знак KaZaMI" onClick={() => setZeroOpen(true)} /> : null}
         </>
       ) : null}
       {zeroOpen && typeof document !== "undefined" ? createPortal(<aside className="zero-coordinate" role="dialog" aria-modal="true" aria-label="Нулевая координата">

@@ -42,6 +42,23 @@ export default function SecondPassArchiveSection() {
     audio.dataset.timer = String(timer);
   };
 
+  const openMila = () => {
+    const detail = {
+      id: "finding--mila",
+      title: milaBonus.title,
+      category: milaBonus.label,
+      sectionId: "listening-archive",
+    };
+    try {
+      const stored = JSON.parse(window.localStorage.getItem("tripFoundMaterials") ?? "{}") || {};
+      window.localStorage.setItem("tripFoundMaterials", JSON.stringify({ ...stored, [detail.id]: detail }));
+    } catch {
+      // The note must still open when storage is unavailable.
+    }
+    window.dispatchEvent(new CustomEvent("trip:finding", { detail }));
+    setMilaOpen(true);
+  };
+
   return (
     <section id="listening-archive" className={playing ? "second-pass-archive is-playing" : "second-pass-archive"} aria-label="Скрытая комната второго маршрута">
       <ResponsiveScene className="second-pass-archive__scene" src="/images/listening-y6one-second-pass.png" />
@@ -56,7 +73,7 @@ export default function SecondPassArchiveSection() {
       <audio ref={audioRef} src="/audio/Clone%20Me%20Y61%20Pattern.mp3" preload="none" />
       <a className="y6one-hit" href="https://t.me/officialchannelY6ONE" target="_blank" rel="noreferrer" aria-label="Открыть Telegram-канал Y6ONE" />
 
-      <button ref={milaTriggerRef} className="mila-hit" type="button" aria-label="Познакомиться с Милой" onClick={() => setMilaOpen(true)} />
+      <button ref={milaTriggerRef} className="mila-hit" type="button" aria-label="Познакомиться с Милой" onClick={openMila} />
 
       {milaOpen && typeof document !== "undefined" ? createPortal(<div className="finding-dialog-backdrop mila-dialog-backdrop" role="presentation" onMouseDown={(event) => { if (event.target === event.currentTarget) setMilaOpen(false); }}>
         <aside className="mila-note is-visible" role="dialog" aria-modal="true" aria-label="Привет, меня зовут Мила.">
